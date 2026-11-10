@@ -1,0 +1,151 @@
+/*
+  ESTILOS BASE — PyH+
+  Se cargan en todas las páginas desde src/layouts/Layout.astro.
+  Usan las variables de tokens.css.
+*/
+
+@import "./tokens.css";
+
+/* ---------- Reinicio básico ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--blanco);
+  color: var(--gris-texto);
+  font-family: var(--fuente-texto);
+  font-size: var(--texto-tamano);
+  line-height: var(--texto-linea);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure {
+  margin: 0;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: var(--azul-petroleo);
+}
+
+a:hover {
+  color: var(--azul-medio);
+}
+
+/* ---------- Contenedor ---------- */
+.contenedor {
+  width: 100%;
+  max-width: var(--contenedor-max);
+  margin-inline: auto;
+  padding-inline: var(--contenedor-margen);
+}
+
+/* ---------- Escala de títulos ---------- */
+.display,
+.h1,
+.h2 {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-extrabold);
+  color: var(--azul-petroleo);
+}
+
+.display {
+  font-size: var(--display-tamano);
+  line-height: var(--display-linea);
+  letter-spacing: var(--display-espaciado);
+}
+
+.h1 {
+  font-size: var(--h1-tamano);
+  line-height: var(--h1-linea);
+  letter-spacing: var(--h1-espaciado);
+}
+
+.h2 {
+  font-size: var(--h2-tamano);
+  line-height: var(--h2-linea);
+  letter-spacing: var(--h2-espaciado);
+}
+
+.h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: var(--h3-tamano);
+  color: var(--azul-petroleo);
+}
+
+.eyebrow {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-semibold);
+  font-size: var(--eyebrow-tamano);
+  letter-spacing: var(--eyebrow-espaciado);
+  text-transform: uppercase;
+}
+
+.texto-pequeno {
+  font-size: var(--texto-pequeno-tamano);
+}
+
+/* ---------- Formas ---------- */
+.corte {
+  border-radius: var(--radio-lg);
+  clip-path: var(--corte);
+}
+
+/* ---------- Accesibilidad ---------- */
+/* Foco visible para quien navega con teclado */
+:focus-visible {
+  outline: 3px solid var(--azul-medio);
+  outline-offset: 3px;
+}
+
+/* Oculta un texto a la vista pero lo deja para lectores de pantalla */
+.solo-lector {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Respeta a quien pide menos movimiento en su sistema */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

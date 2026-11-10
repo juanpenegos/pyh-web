@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>PyH+ · Filtros móvil</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&amp;family=Arimo:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#00475D}a:hover{color:#3F809C}
+.pyh{font-family:Arial,Arimo,sans-serif;color:#4E5258;background:#FFFFFF}
+.pyh *{box-sizing:border-box}
+.x{font-family:'Exo 2',Arial,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:999px;font-family:'Exo 2',Arial,sans-serif;font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid transparent;transition:transform .2s,background .2s,color .2s;cursor:pointer;min-height:48px}
+.btn:hover{transform:translateY(-2px)}
+.btn-lima{background:#89E462;color:#00475D}.btn-lima:hover{background:#A3EC83;color:#00475D}
+.btn-azul{background:#00475D;color:#FFFFFF}.btn-azul:hover{background:#00313F;color:#FFFFFF}
+.btn-line{border-color:#00475D;color:#00475D;background:transparent}.btn-line:hover{background:#00475D;color:#FFFFFF}
+.btn-line-w{border-color:rgba(255,255,255,.5);color:#FFFFFF;background:transparent}.btn-line-w:hover{background:#FFFFFF;color:#00475D}
+.eyebrow{font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
+.h2{font-family:'Exo 2',Arial,sans-serif;font-weight:800;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.03em;color:#00475D;margin:0}
+.navlink{font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:15px;color:#00475D;text-decoration:none;padding:8px 0;border-bottom:3px solid transparent}
+.navlink:hover{border-bottom-color:#89E462;color:#00475D}
+.card-cat{position:relative;border-radius:20px;padding:150px 22px 22px;min-height:360px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;text-decoration:none;transition:transform .25s}
+.card-cat:hover{transform:translateY(-8px)}
+.card-cat img{position:absolute;left:50%;top:-56px;transform:translateX(-50%);height:240px;width:auto;max-width:92%;object-fit:contain;transition:transform .35s}
+.card-cat:hover img{transform:translateX(-50%) translateY(-10px) scale(1.04)}
+.marquee{display:flex;gap:16px;width:max-content;animation:mq 28s linear infinite}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(137,228,98,.6)}100%{box-shadow:0 0 0 22px rgba(137,228,98,0)}}
+@keyframes sube{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.flota{animation:flota 6s ease-in-out infinite}
+.sube{animation:sube .9s cubic-bezier(.2,.8,.2,1) both}
+.wa{animation:pulso 2s infinite}
+.seal{width:132px;height:132px;border-radius:20px;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%);background:#FFD406;color:#00475D;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
+.opt{display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:20px;text-align:left;cursor:pointer;font:inherit;min-height:44px}
+.vid{position:relative;border-radius:20px;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%);overflow:hidden;background:#062A33;min-height:440px}
+.vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tag-ph{position:absolute;left:16px;top:16px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.16);color:#FFFFFF;font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:11px;letter-spacing:.06em}
+.blog-card{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit}
+.blog-card:hover h3{color:#3F809C}
+.foot a{color:#AEC7CF;text-decoration:none}.foot a:hover{color:#89E462}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1.5px solid #E6E6E6;background:#FFFFFF;color:#00475D;font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:14px;cursor:pointer;min-height:40px;text-decoration:none;white-space:nowrap}
+.chip:hover{border-color:#00475D}
+.field{display:flex;flex-direction:column;gap:8px;font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:14px;color:#00475D}
+.field input,.field select,.field textarea{height:52px;border-radius:14px;border:1.5px solid #E6E6E6;padding:0 16px;font-family:Arial,Arimo,sans-serif;font-size:16px;color:#00475D;background:#FFFFFF;width:100%}
+.field textarea{height:120px;padding:14px 16px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#3F809C;box-shadow:0 0 0 4px rgba(63,128,156,.15)}
+.crumb{font-size:13px;color:#6B7075;display:flex;gap:8px;flex-wrap:wrap}.crumb a{color:#336E88;text-decoration:none}
+.prod{position:relative;display:flex;flex-direction:column;border-radius:20px;background:#FFFFFF;border:1px solid #E6E6E6;overflow:hidden;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
+.prod:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,71,93,.12)}
+.prod .pimg{position:relative;height:230px;display:flex;align-items:flex-end;justify-content:center;border-radius:0}
+.prod .pimg img{height:210px;width:auto;max-width:88%;object-fit:contain;transition:transform .35s}
+.prod:hover .pimg img{transform:translateY(-8px) scale(1.04)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-family:'Exo 2',Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.04em}
+.fopt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:9px 0;background:none;border:0;font:inherit;font-size:15px;color:#4E5258;cursor:pointer;text-align:left;min-height:40px}
+.fopt:hover{color:#00475D}
+.acc{border-bottom:1px solid #E6E6E6}
+.acc button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;background:none;border:0;font-family:'Exo 2',Arial,sans-serif;font-weight:700;font-size:19px;color:#00475D;cursor:pointer;text-align:left}
+.prose p{margin:0 0 22px;font-size:18px;line-height:1.75;color:#4E5258}
+.prose h2{font-family:'Exo 2',Arial,sans-serif;font-weight:800;font-size:32px;letter-spacing:-.02em;color:#00475D;margin:44px 0 16px;line-height:1.1}
+.prose ul{margin:0 0 22px;padding-left:22px;font-size:18px;line-height:1.75}
+.m .wrap{padding:0 20px}
+.m .h2{font-size:38px}
+.m .btn{padding:14px 20px;font-size:15px}
+.lift{transition:transform .2s}.lift:hover{transform:translateY(-6px)}
+.hs{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding:0 20px}
+.hs::-webkit-scrollbar{display:none}
+[style*="overflow: hidden"][style*="border-radius: 20px"]:has(> img[style*="object-fit: cover"]){clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%)}
+</style>
+</helmet>
+<div class="pyh m" style="width: 390px; min-height: 844px; overflow-x: hidden; position: relative">
+<div style="height: 844px; position: relative; overflow: hidden; background: #F5F7F6">
+<div aria-hidden="true" style="padding: 80px 16px; display: flex; flex-direction: column; gap: 12px; filter: blur(2px)">
+<div style="height: 168px; border-radius: 20px; background: #FFFFFF"></div><div style="height: 168px; border-radius: 20px; background: #FFFFFF"></div><div style="height: 168px; border-radius: 20px; background: #FFFFFF"></div>
+</div>
+<a href="M-Catalogo.dc.html" aria-label="Cerrar filtros" style="position: absolute; inset: 0; background: rgba(6,42,51,.6)"></a>
+<div role="dialog" aria-label="Filtros" style="position: absolute; left: 0; right: 0; bottom: 0; height: 760px; background: #FFFFFF; border-radius: 28px 28px 0 0; display: flex; flex-direction: column; animation: sube .5s cubic-bezier(.2,.8,.2,1) both">
+<div style="display: flex; justify-content: center; padding-top: 10px"><span style="width: 44px; height: 5px; border-radius: 3px; background: #E6E6E6"></span></div>
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px 4px"><span class="x" style="font-weight: 800; font-size: 26px; color: #00475D; letter-spacing: -.02em">Filtros</span><a href="M-Catalogo.dc.html" aria-label="Cerrar" style="width: 44px; height: 44px; border-radius: 50%; background: #F5F7F6; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00475D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></a></div>
+<div style="flex: 1; overflow-y: auto; padding: 0 20px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 12px 0 16px; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Ordenar por</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ sorts }}" as="s" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ s.pick }}" style="{{ s.style }}">{{ s.label }}</button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Tipo de equipo</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ gFam }}" as="f" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}" style="{{ f.chip }}">{{ f.label }} <span style="opacity: .6; font-weight: 400">{{ f.count }}</span></button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Altura de trabajo</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ gAlt }}" as="f" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}" style="{{ f.chip }}">{{ f.label }} <span style="opacity: .6; font-weight: 400">{{ f.count }}</span></button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Energía</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ gEne }}" as="f" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}" style="{{ f.chip }}">{{ f.label }} <span style="opacity: .6; font-weight: 400">{{ f.count }}</span></button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Terreno</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ gTer }}" as="f" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}" style="{{ f.chip }}">{{ f.label }} <span style="opacity: .6; font-weight: 400">{{ f.count }}</span></button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Marca</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ gMarca }}" as="f" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}" style="{{ f.chip }}">{{ f.label }} <span style="opacity: .6; font-weight: 400">{{ f.count }}</span></button></sc-for></div></div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 16px 0; border-bottom: 1px solid #E6E6E6"><span class="x" style="font-weight: 700; font-size: 16px; color: #00475D">Modalidad</span><div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{ gMod }}" as="f" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}" style="{{ f.chip }}">{{ f.label }} <span style="opacity: .6; font-weight: 400">{{ f.count }}</span></button></sc-for></div></div>
+</div>
+<div style="display: flex; gap: 10px; padding: 14px 20px 24px; border-top: 1px solid #E6E6E6"><button type="button" class="btn btn-line" onClick="{{ clear }}" style="flex: 0 0 auto">Limpiar</button><a href="M-Catalogo.dc.html" class="btn btn-lima" style="flex: 1; justify-content: center">{{ seeL }}</a></div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sel: {"fam": ["Brazo articulado"], "alt": [], "ene": ["Diésel"], "ter": [], "marca": [], "mod": []}, sort: 'rel', view: 'grid' }; }
+  renderVals() {
+    const P = [{"id": "te8", "n": "Tijera eléctrica 8 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 8, "t": ["Interior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "230 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 200, "badge": "Más alquilada", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "te10", "n": "Tijera eléctrica 10 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 10, "t": ["Interior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "350 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 210, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "te12", "n": "Tijera eléctrica 12 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 12, "t": ["Interior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "320 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 215, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "te14", "n": "Tijera eléctrica 14 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 14, "t": ["Interior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "450 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 220, "badge": "", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "td12", "n": "Tijera diésel 12 m todo terreno", "fam": "Tijera diésel", "e": "Diésel", "h": 12, "t": ["Exterior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "680 kg", "img": "../../media/maquina-alquiler-tijera-diesel-todo-terreno-ad3729.webp", "bg": "#F5F7F6", "ih": 150, "badge": "Nueva en flota", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "td16", "n": "Tijera diésel 16 m todo terreno", "fam": "Tijera diésel", "e": "Diésel", "h": 16, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "500 kg", "img": "../../media/maquina-alquiler-tijera-diesel-todo-terreno-ad3729.webp", "bg": "#F5F7F6", "ih": 160, "badge": "", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "u8", "n": "Unipersonal 8 m", "fam": "Unipersonal", "e": "Eléctrica", "h": 8, "t": ["Interior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "136 kg", "img": "../../media/maquina-alquiler-plataforma-unipersonal-36976a.webp", "bg": "#F2FFE5", "ih": 215, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "u10", "n": "Unipersonal 10 m", "fam": "Unipersonal", "e": "Eléctrica", "h": 10, "t": ["Interior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "159 kg", "img": "../../media/maquina-alquiler-plataforma-unipersonal-36976a.webp", "bg": "#F2FFE5", "ih": 220, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "ba12", "n": "Brazo articulado eléctrico 12 m", "fam": "Brazo articulado", "e": "Eléctrica", "h": 12, "t": ["Interior", "Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "227 kg", "img": "../../media/maquina-alquiler-brazo-articulado-electrico-7794fc.webp", "bg": "#F2FFE5", "ih": 210, "badge": "Silencioso", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "ba16", "n": "Brazo articulado diésel 16 m", "fam": "Brazo articulado", "e": "Diésel", "h": 16, "t": ["Exterior"], "m": "Haulotte", "mod": ["Alquiler", "Venta"], "cap": "230 kg", "img": "../../media/maquina-plataforma-elevadora-articulada-movimiento-0f3248.webp", "bg": "#E8F0F2", "ih": 220, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "ba20", "n": "Brazo articulado diésel 20 m", "fam": "Brazo articulado", "e": "Diésel", "h": 20, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "230 kg", "img": "../../media/maquina-plataforma-elevadora-articulada-movimiento-0f3248.webp", "bg": "#E8F0F2", "ih": 225, "badge": "Más alquilado", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "ba26", "n": "Brazo articulado sobre camión 26 m", "fam": "Brazo articulado", "e": "Diésel", "h": 26, "t": ["Exterior"], "m": "Oilsteel", "mod": ["Alquiler"], "cap": "200 kg", "img": "../../media/maquina-plataforma-elevadora-articulada-movimiento-0f3248.webp", "bg": "#E8F0F2", "ih": 225, "badge": "", "stock": "Bajo reserva", "price": "[$000.000]"}, {"id": "bt28", "n": "Brazo telescópico 28 m", "fam": "Brazo telescópico", "e": "Diésel", "h": 28, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "300 kg", "img": "../../media/maquina-alquiler-brazo-telescopico-diesel-5df650.webp", "bg": "#00475D", "ih": 160, "badge": "", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "bt43", "n": "Brazo telescópico 43 m", "fam": "Brazo telescópico", "e": "Diésel", "h": 43, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "300 kg", "img": "../../media/maquina-alquiler-brazo-telescopico-diesel-5df650.webp", "bg": "#00475D", "ih": 170, "badge": "El más alto", "stock": "Bajo reserva", "price": "[$000.000]"}];
+    const G = [["fam", "Tipo de equipo", ["Tijera eléctrica", "Tijera diésel", "Brazo articulado", "Brazo telescópico", "Unipersonal"]], ["alt", "Altura de trabajo", ["Hasta 8 m", "De 8 a 12 m", "De 12 a 20 m", "Más de 20 m"]], ["ene", "Energía", ["Eléctrica", "Diésel"]], ["ter", "Terreno", ["Interior", "Exterior"]], ["marca", "Marca", ["JLG", "Haulotte", "Oilsteel"]], ["mod", "Modalidad", ["Alquiler", "Venta"]]];
+    const sel = this.state.sel;
+    const altOk = (h, l) => (l === 'Hasta 8 m' && h <= 8) || (l === 'De 8 a 12 m' && h > 8 && h <= 12) || (l === 'De 12 a 20 m' && h > 12 && h <= 20) || (l === 'Más de 20 m' && h > 20);
+    const match = (p, k, l) => k === 'fam' ? p.fam === l : k === 'alt' ? altOk(p.h, l) : k === 'ene' ? p.e === l : k === 'ter' ? p.t.indexOf(l) >= 0 : k === 'marca' ? p.m === l : p.mod.indexOf(l) >= 0;
+    const passes = (p, skip) => G.every(g => g[0] === skip || sel[g[0]].length === 0 || sel[g[0]].some(l => match(p, g[0], l)));
+    const toggle = (k, l) => () => { const s = Object.assign({}, sel); const a = s[k].slice(); const i = a.indexOf(l); if (i >= 0) a.splice(i, 1); else a.push(l); s[k] = a; this.setState({ sel: s }); };
+    const groups = {};
+    G.forEach(g => {
+      groups[g[0]] = g[2].map(l => {
+        const on = sel[g[0]].indexOf(l) >= 0;
+        const count = P.filter(p => passes(p, g[0]) && match(p, g[0], l)).length;
+        return {
+          label: l, count: '(' + count + ')', on: on, toggle: toggle(g[0], l),
+          box: 'width: 20px; height: 20px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; ' + (on ? 'background: #00475D; border: 2px solid #00475D;' : 'background: #FFFFFF; border: 2px solid #A6A6A6;'),
+          lstyle: on ? 'color: #00475D; font-weight: 700;' : (count === 0 ? 'color: #A6A6A6;' : ''),
+          chip: on ? 'background: #00475D; color: #FFFFFF; border-color: #00475D;' : (count === 0 ? 'opacity: .45;' : '')
+        };
+      });
+    });
+    let list = P.filter(p => passes(p, null));
+    const sort = this.state.sort;
+    if (sort === 'asc') list = list.slice().sort((a, b) => a.h - b.h);
+    if (sort === 'desc') list = list.slice().sort((a, b) => b.h - a.h);
+    const results = list.map(p => ({
+      name: p.n, fam: p.fam, img: p.img, href: 'M-Detalle.dc.html',
+      bg: 'background: transparent;',
+      imgStyle: 'height: ' + p.ih + 'px;',
+      mImgStyle: 'height: ' + Math.round(p.ih * 0.56) + 'px;',
+      famStyle: p.bg === '#00475D' ? 'color: #89E462;' : 'color: #46772A;',
+      height: p.h + ' m', ene: p.e, cap: p.cap, marca: p.m, ter: p.t.join(' y '),
+      mod: p.mod.join(' · '), price: p.price,
+      hasBadge: !!p.badge, badge: p.badge,
+      stock: p.stock,
+      stockDot: 'width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: ' + (p.stock === 'Disponible hoy' ? '#609839' : (p.stock === 'Bajo reserva' ? '#A6A6A6' : '#FFD406')) + ';'
+    }));
+    const applied = [];
+    G.forEach(g => sel[g[0]].forEach(l => applied.push({ label: l, remove: toggle(g[0], l) })));
+    const sOpt = (k, l) => ({ label: l, pick: () => this.setState({ sort: k }), style: sort === k ? 'background: #00475D; color: #FFFFFF; border-color: #00475D;' : '' });
+    const n = results.length;
+    return Object.assign({
+      gFam: groups.fam, gAlt: groups.alt, gEne: groups.ene, gTer: groups.ter, gMarca: groups.marca, gMod: groups.mod,
+      results: results, count: n, countL: n === 1 ? '1 resultado' : n + ' resultados',
+      seeL: 'Ver ' + n + (n === 1 ? ' resultado' : ' resultados'),
+      hasResults: n > 0, noResults: n === 0,
+      applied: applied, hasApplied: applied.length > 0, nApplied: applied.length ? '(' + applied.length + ')' : '',
+      clear: () => this.setState({ sel: { fam: [], alt: [], ene: [], ter: [], marca: [], mod: [] } }),
+      sorts: [sOpt('rel', 'Más relevantes'), sOpt('asc', 'Menor altura'), sOpt('desc', 'Mayor altura')]
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Catálogo de plataformas elevadoras en alquiler y venta | PyH+</title>
+<meta name="description" content="Tijeras eléctricas, diésel y oruga; brazos articulados, telescópicos y sobre camión; unipersonales y spider. Alquiler y venta de equipos nuevos y usados.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&amp;family=Arimo:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#00475D}a:hover{color:#3F809C}
+.pyh{font-family:Arial,Arimo,sans-serif;color:#4E5258;background:#FFFFFF}
+.pyh *{box-sizing:border-box}
+.x{font-family:'Exo 2',Arial,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 26px;border-radius:999px;font-family:'Exo 2',Arial,sans-serif;font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid transparent;transition:transform .2s,background .2s,color .2s;cursor:pointer;min-height:48px}
+.btn:hover{transform:translateY(-2px)}
+.btn-lima{background:#89E462;color:#00475D}.btn-lima:hover{background:#A3EC83;color:#00475D}
+.btn-azul{background:#00475D;color:#FFFFFF}.btn-azul:hover{background:#00313F;color:#FFFFFF}
+.btn-line{border-color:#00475D;color:#00475D;background:transparent}.btn-line:hover{background:#00475D;color:#FFFFFF}
+.btn-line-w{border-color:rgba(255,255,255,.5);color:#FFFFFF;background:transparent}.btn-line-w:hover{background:#FFFFFF;color:#00475D}
+.eyebrow{font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px}
+.h2{font-family:'Exo 2',Arial,sans-serif;font-weight:800;font-size:clamp(36px,5vw,64px);line-height:.98;letter-spacing:-.03em;color:#00475D;margin:0}
+.navlink{font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:15px;color:#00475D;text-decoration:none;padding:8px 0;border-bottom:3px solid transparent}
+.navlink:hover{border-bottom-color:#89E462;color:#00475D}
+.card-cat{position:relative;border-radius:20px;padding:150px 22px 22px;min-height:360px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;text-decoration:none;transition:transform .25s}
+.card-cat:hover{transform:translateY(-8px)}
+.card-cat img{position:absolute;left:50%;top:-56px;transform:translateX(-50%);height:240px;width:auto;max-width:92%;object-fit:contain;transition:transform .35s}
+.card-cat:hover img{transform:translateX(-50%) translateY(-10px) scale(1.04)}
+.marquee{display:flex;gap:16px;width:max-content;animation:mq 28s linear infinite}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes flota{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes pulso{0%{box-shadow:0 0 0 0 rgba(137,228,98,.6)}100%{box-shadow:0 0 0 22px rgba(137,228,98,0)}}
+@keyframes sube{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.flota{animation:flota 6s ease-in-out infinite}
+.sube{animation:sube .9s cubic-bezier(.2,.8,.2,1) both}
+.wa{animation:pulso 2s infinite}
+.seal{width:132px;height:132px;border-radius:20px;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%);background:#FFD406;color:#00475D;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
+.opt{display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:20px;text-align:left;cursor:pointer;font:inherit;min-height:44px}
+.vid{position:relative;border-radius:20px;clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%);overflow:hidden;background:#062A33;min-height:440px}
+.vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.tag-ph{position:absolute;left:16px;top:16px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.16);color:#FFFFFF;font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:11px;letter-spacing:.06em}
+.blog-card{display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit}
+.blog-card:hover h3{color:#3F809C}
+.foot a{color:#AEC7CF;text-decoration:none}.foot a:hover{color:#89E462}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1.5px solid #E6E6E6;background:#FFFFFF;color:#00475D;font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:14px;cursor:pointer;min-height:40px;text-decoration:none;white-space:nowrap}
+.chip:hover{border-color:#00475D}
+.field{display:flex;flex-direction:column;gap:8px;font-family:'Exo 2',Arial,sans-serif;font-weight:600;font-size:14px;color:#00475D}
+.field input,.field select,.field textarea{height:52px;border-radius:14px;border:1.5px solid #E6E6E6;padding:0 16px;font-family:Arial,Arimo,sans-serif;font-size:16px;color:#00475D;background:#FFFFFF;width:100%}
+.field textarea{height:120px;padding:14px 16px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#3F809C;box-shadow:0 0 0 4px rgba(63,128,156,.15)}
+.crumb{font-size:13px;color:#6B7075;display:flex;gap:8px;flex-wrap:wrap}.crumb a{color:#336E88;text-decoration:none}
+.prod{position:relative;display:flex;flex-direction:column;border-radius:20px;background:#FFFFFF;border:1px solid #E6E6E6;overflow:hidden;transition:transform .25s,box-shadow .25s;text-decoration:none;color:inherit}
+.prod:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,71,93,.12)}
+.prod .pimg{position:relative;height:230px;display:flex;align-items:flex-end;justify-content:center;border-radius:0}
+.prod .pimg img{height:210px;width:auto;max-width:88%;object-fit:contain;transition:transform .35s}
+.prod:hover .pimg img{transform:translateY(-8px) scale(1.04)}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-family:'Exo 2',Arial,sans-serif;font-weight:700;font-size:11px;letter-spacing:.04em}
+.fopt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;padding:9px 0;background:none;border:0;font:inherit;font-size:15px;color:#4E5258;cursor:pointer;text-align:left;min-height:40px}
+.fopt:hover{color:#00475D}
+.acc{border-bottom:1px solid #E6E6E6}
+.acc button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;background:none;border:0;font-family:'Exo 2',Arial,sans-serif;font-weight:700;font-size:19px;color:#00475D;cursor:pointer;text-align:left}
+.prose p{margin:0 0 22px;font-size:18px;line-height:1.75;color:#4E5258}
+.prose h2{font-family:'Exo 2',Arial,sans-serif;font-weight:800;font-size:32px;letter-spacing:-.02em;color:#00475D;margin:44px 0 16px;line-height:1.1}
+.prose ul{margin:0 0 22px;padding-left:22px;font-size:18px;line-height:1.75}
+.m .wrap{padding:0 20px}
+.m .h2{font-size:38px}
+.m .btn{padding:14px 20px;font-size:15px}
+.hs{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding:0 20px}
+.hs::-webkit-scrollbar{display:none}
+[style*="overflow: hidden"][style*="border-radius: 20px"]:has(> img[style*="object-fit: cover"]){clip-path:polygon(0 0,calc(100% - 32px) 0,100% 32px,100% 100%,0 100%)}
+</style>
+</helmet>
+<div class="pyh" style="width: 100%; overflow-x: hidden">
+<div style="background: #00313F; color: #AEC7CF; font-size: 13px">
+<div class="wrap" style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 10px; padding-bottom: 10px">
+<span>Miembro IPAF · Equipos certificados ONAC · Bogotá y todo el país</span>
+<span style="display: flex; gap: 20px"><a href="tel:+573043649060" style="color: #FFFFFF; text-decoration: none">304 364 9060</a><a href="D-PSE.dc.html" style="color: #89E462; text-decoration: none">Pagos PSE</a></span>
+</div>
+</div>
+
+<header style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); border-bottom: 1px solid #E6E6E6">
+<div class="wrap" style="display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 84px; flex-wrap: wrap">
+<a href="Main.dc.html" aria-label="PyH+ inicio" style="display: flex"><svg width="124" height="36" viewBox="-621 236 475 137" aria-hidden="true"><g transform="rotate(90)"><path fill="#00475D" d="M366.8 461.3C370 464.5 371.5 468.8 371.5 474.6C371.5 477.4 371.2 480 370.4 482.3C370.2 483.1 369.5 483.7 368.6 483.7L362.5 483.7C361.4 483.7 360.6 482.9 360.6 481.8L360.6 477.4C360.6 473.4 358.7 471 354.8 470.3L320 484.1C316.6 485.4 312.7 482.8 312.7 479L312.7 474.5C312.7 471.8 314.4 469.4 317 468.7L340.3 462C340.6 461.9 340.7 461.8 340.7 461.6C340.7 461.5 340.6 461.3 340.3 461.3L317.2 455.2C314.5 454.4 312.7 452 312.7 449.3L312.7 446C312.7 442.3 316.4 439.7 319.9 441L353.4 453.4C359.4 455.5 363.8 458.2 366.8 461.3Z"></path><path fill="#00475D" d="M261.5 488.3L293.4 488.3C306.7 488.3 317.5 499 317.5 512.3L317.5 592.3L362.6 592.3C366.6 592.3 369.8 595.6 369.8 599.4L369.8 612.5C369.8 616.3 366.6 619.6 362.6 619.6L244.6 619.6C240.6 619.6 237.5 616.3 237.5 612.5L237.5 512.3C237.5 499 248.2 488.3 261.5 488.3ZM262.8 514.6L262.8 593.3L292.2 593.3L292.2 514.6Z"></path><path fill="#00475D" d="M237.7 305.4L237.7 318.4C237.7 322.3 240.8 325.6 244.8 325.6L290.3 325.6L290.3 401.2L244.8 401.2C240.8 401.2 237.7 404.4 237.7 408.4L237.7 421.3C237.7 425.3 240.8 428.5 244.8 428.5L363 428.5C367 428.5 370.1 425.3 370.1 421.3L370.1 408.4C370.1 404.4 367 401.2 363 401.2L317.5 401.2L317.5 325.6L363 325.6C366.8 325.6 370.1 322.3 370.1 318.4L370.1 305.4C370.1 301.4 367 298.2 363 298.2L244.8 298.2C240.8 298.2 237.7 301.4 237.7 305.4Z"></path><path fill="#89E462" d="M296.5 147.2h13.6a6.5 6.5 0 0 1 6.5 6.5v45.6h45.4a6.5 6.5 0 0 1 6.6 6.5v13.6a6.5 6.5 0 0 1-6.6 6.5h-45.4v45.5a6.5 6.5 0 0 1-6.5 6.5h-13.6a6.5 6.5 0 0 1-6.5-6.5v-45.5h-45.5a6.5 6.5 0 0 1-6.5-6.5v-13.6a6.5 6.5 0 0 1 6.5-6.5h45.5v-45.6a6.5 6.5 0 0 1 6.5-6.5Z"></path></g></svg></a>
+<nav aria-label="Principal" style="display: flex; gap: 32px; flex-wrap: wrap">
+<a class="navlink" href="Main.dc.html">Inicio</a>
+<a class="navlink" href="D-Catalogo.dc.html" style="border-bottom-color: #89E462; font-weight: 700" aria-current="page">Catálogo</a>
+<a class="navlink" href="D-Nosotros.dc.html">Nosotros PyH+</a>
+<a class="navlink" href="D-Blog.dc.html">Blog</a>
+<a class="navlink" href="D-Contacto.dc.html">Contacto</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="D-Cotizador.dc.html" class="btn btn-lima" style="padding: 13px 22px"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00475D" d="M9.5 2h5v7.5H22v5h-7.5V22h-5v-7.5H2v-5h7.5z"></path></svg>Cotizar</a>
+</div>
+</div>
+
+</header>
+
+<section style="background: #062A33; color: #FFFFFF; overflow: hidden; position: relative">
+<div class="wrap" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px; padding-top: 48px; padding-bottom: 48px; position: relative">
+<div style="flex: 1 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<nav class="crumb" aria-label="Ruta"><a href="Main.dc.html" style="color: #AEC7CF">Inicio</a><span>/</span><span style="color: #FFFFFF">Catálogo</span></nav>
+<h1 class="x" style="margin: 0; font-weight: 800; font-size: 72px; line-height: .92; letter-spacing: -.045em"><span class="eyebrow" style="display: flex; color: #89E462; font-size: 13px; line-height: 1.3; letter-spacing: .12em; font-weight: 600; margin-bottom: 14px">Alquiler y venta de plataformas elevadoras</span>Encuentra tu <span style="color: #89E462">altura</span>.</h1>
+<p style="margin: 0; color: #AEC7CF; font-size: 17px; max-width: 520px; line-height: 1.55">Un solo catálogo para alquiler y venta. Filtra como en cualquier tienda en línea y cotiza el equipo en un clic.</p>
+<form role="search" style="display: flex; gap: 8px; background: #FFFFFF; border-radius: 999px; padding: 6px 6px 6px 22px; align-items: center; max-width: 620px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F809C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input type="search" aria-label="Buscar equipo" placeholder="Busca por equipo, altura o marca. Ej: tijera 12 m" style="flex: 1; border: 0; font-size: 16px; color: #00475D; height: 48px; min-width: 0; background: transparent; outline: none"><button type="button" class="btn btn-azul" style="padding: 12px 22px">Buscar</button></form>
+</div>
+</div>
+</section>
+
+<section style="background: #F5F7F6; padding: 40px 0 110px">
+<div class="wrap" style="display: flex; gap: 32px; align-items: flex-start">
+
+<aside aria-label="Filtros" style="flex: 0 0 280px; position: sticky; top: 100px; background: #FFFFFF; border-radius: 20px; padding: 24px 24px 8px">
+<div class="x" style="font-weight: 800; font-size: 24px; color: #00475D; letter-spacing: -.02em">Plataformas elevadoras</div>
+<div style="font-size: 14px; margin: 4px 0 16px">{{ countL }}</div>
+<sc-if value="{{ hasApplied }}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px">
+<sc-for list="{{ applied }}" as="a" hint-placeholder-count="2"><button type="button" onClick="{{ a.remove }}" class="chip" style="padding: 6px 10px; min-height: 32px; font-size: 13px; background: #E8F0F2; border-color: #E8F0F2">{{ a.label }} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00475D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></sc-for>
+</div>
+<button type="button" onClick="{{ clear }}" style="background: none; border: 0; padding: 0 0 16px; color: #336E88; font-size: 14px; cursor: pointer; text-decoration: underline">Limpiar filtros</button>
+</sc-if>
+<div style="display: flex; flex-direction: column; padding: 20px 0; border-top: 1px solid #E6E6E6">
+<div class="x" style="font-weight: 700; font-size: 16px; color: #00475D; margin-bottom: 6px">Tipo de equipo</div>
+<sc-for list="{{ gFam }}" as="f" hint-placeholder-count="4">
+<button type="button" class="fopt" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}"><span style="display: flex; align-items: center; gap: 12px"><span style="{{ f.box }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span><span style="{{ f.lstyle }}">{{ f.label }}</span></span><span style="font-size: 13px; color: #6B7075">{{ f.count }}</span></button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; padding: 20px 0; border-top: 1px solid #E6E6E6">
+<div class="x" style="font-weight: 700; font-size: 16px; color: #00475D; margin-bottom: 6px">Altura de trabajo</div>
+<sc-for list="{{ gAlt }}" as="f" hint-placeholder-count="4">
+<button type="button" class="fopt" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}"><span style="display: flex; align-items: center; gap: 12px"><span style="{{ f.box }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span><span style="{{ f.lstyle }}">{{ f.label }}</span></span><span style="font-size: 13px; color: #6B7075">{{ f.count }}</span></button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; padding: 20px 0; border-top: 1px solid #E6E6E6">
+<div class="x" style="font-weight: 700; font-size: 16px; color: #00475D; margin-bottom: 6px">Energía</div>
+<sc-for list="{{ gEne }}" as="f" hint-placeholder-count="4">
+<button type="button" class="fopt" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}"><span style="display: flex; align-items: center; gap: 12px"><span style="{{ f.box }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span><span style="{{ f.lstyle }}">{{ f.label }}</span></span><span style="font-size: 13px; color: #6B7075">{{ f.count }}</span></button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; padding: 20px 0; border-top: 1px solid #E6E6E6">
+<div class="x" style="font-weight: 700; font-size: 16px; color: #00475D; margin-bottom: 6px">Terreno</div>
+<sc-for list="{{ gTer }}" as="f" hint-placeholder-count="4">
+<button type="button" class="fopt" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}"><span style="display: flex; align-items: center; gap: 12px"><span style="{{ f.box }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span><span style="{{ f.lstyle }}">{{ f.label }}</span></span><span style="font-size: 13px; color: #6B7075">{{ f.count }}</span></button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; padding: 20px 0; border-top: 1px solid #E6E6E6">
+<div class="x" style="font-weight: 700; font-size: 16px; color: #00475D; margin-bottom: 6px">Marca</div>
+<sc-for list="{{ gMarca }}" as="f" hint-placeholder-count="4">
+<button type="button" class="fopt" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}"><span style="display: flex; align-items: center; gap: 12px"><span style="{{ f.box }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span><span style="{{ f.lstyle }}">{{ f.label }}</span></span><span style="font-size: 13px; color: #6B7075">{{ f.count }}</span></button>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; padding: 20px 0; border-top: 1px solid #E6E6E6">
+<div class="x" style="font-weight: 700; font-size: 16px; color: #00475D; margin-bottom: 6px">Modalidad</div>
+<sc-for list="{{ gMod }}" as="f" hint-placeholder-count="4">
+<button type="button" class="fopt" onClick="{{ f.toggle }}" aria-pressed="{{ f.on }}"><span style="display: flex; align-items: center; gap: 12px"><span style="{{ f.box }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg></span><span style="{{ f.lstyle }}">{{ f.label }}</span></span><span style="font-size: 13px; color: #6B7075">{{ f.count }}</span></button>
+</sc-for>
+</div>
+</aside>
+
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap">
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span style="font-size: 14px; margin-right: 4px">Ordenar por</span>
+<sc-for list="{{ sorts }}" as="s" hint-placeholder-count="3"><button type="button" class="chip" onClick="{{ s.pick }}" style="{{ s.style }}">{{ s.label }}</button></sc-for>
+</div>
+<span style="font-size: 13px; color: #6B7075">Datos de ejemplo. Las fichas las carga el CRM.</span>
+</div>
+
+<sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px">
+<sc-for list="{{ results }}" as="p" hint-placeholder-count="9">
+<article class="prod">
+<a href="{{ p.href }}" class="pimg" style="{{ p.bg }}">
+<img src="{{ p.img }}" alt="{{ p.name }}" style="{{ p.imgStyle }}">
+<sc-if value="{{ p.hasBadge }}" hint-placeholder-val="{{ true }}"><span class="badge" style="position: absolute; left: 16px; top: 16px; background: #FFD406; color: #00475D">{{ p.badge }}</span></sc-if>
+<span class="x" style="position: absolute; right: 18px; top: 14px; font-weight: 900; font-size: 34px; letter-spacing: -.04em; color: #00475D; opacity: .9">{{ p.height }}</span>
+</a>
+<div style="padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1">
+<span class="x" style="font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #46772A">{{ p.fam }} · {{ p.marca }}</span>
+<a href="{{ p.href }}" class="x" style="font-weight: 800; font-size: 21px; line-height: 1.15; letter-spacing: -.01em; color: #00475D; text-decoration: none">{{ p.name }}</a>
+<div style="display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px">
+<span style="display: flex; align-items: center; gap: 5px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3F809C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"></path></svg>{{ p.height }}</span>
+<span style="display: flex; align-items: center; gap: 5px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3F809C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"></path></svg>{{ p.ene }}</span>
+<span style="display: flex; align-items: center; gap: 5px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3F809C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8h12l2 13H4L6 8Z"></path><circle cx="12" cy="5" r="2"></circle></svg>{{ p.cap }}</span>
+</div>
+<div style="font-size: 13px; color: #6B7075">{{ p.ter }} · {{ p.mod }}</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #00475D"><span style="{{ p.stockDot }}"></span>{{ p.stock }}</div>
+<div style="margin-top: auto; padding-top: 12px; border-top: 1px dashed #E6E6E6; display: flex; justify-content: space-between; align-items: center; gap: 10px">
+<div><div style="font-size: 12px; color: #6B7075">Disponible para alquilar</div><div class="x" style="font-weight: 800; font-size: 15px; color: #00475D">por día, semana y mes</div></div>
+<a href="D-Cotizador.dc.html" class="btn btn-lima" style="padding: 10px 16px; min-height: 44px; font-size: 14px">Cotizar</a>
+</div>
+</div>
+</article>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+<div style="background: #FFFFFF; border-radius: 20px; padding: 56px; display: flex; gap: 40px; align-items: center; flex-wrap: wrap">
+<img src="../../media/foto-operario-equipo-seguridad-senalando-hacia-arriba-433570.webp" alt="Operario PyH+ de plataformas elevadoras" style="height: 260px; width: auto">
+<div style="flex: 1 1 320px; display: flex; flex-direction: column; gap: 16px">
+<h2 class="h2" style="font-size: 44px">Ningún equipo con esa combinación<span style="color: #609839">.</span></h2>
+<p style="margin: 0; font-size: 17px; line-height: 1.55">Quita algún filtro o cuéntanos qué necesitas. Si no lo tenemos, lo conseguimos.</p>
+<div style="display: flex; gap: 10px; flex-wrap: wrap"><button type="button" class="btn btn-azul" onClick="{{ clear }}">Quitar filtros</button><a class="btn btn-line" href="https://wa.me/573043649060">Preguntar por WhatsApp</a></div>
+</div>
+</div>
+</sc-if>
+
+<div style="background: #00475D; border-radius: 20px; padding: 32px 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; color: #FFFFFF">
+<div style="display: flex; align-items: center; gap: 20px"><svg width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><path fill="#89E462" d="M9.5 2h5v7.5H22v5h-7.5V22h-5v-7.5H2v-5h7.5z"></path></svg><div><div class="x" style="font-weight: 800; font-size: 28px; letter-spacing: -.02em">¿No sabes cuál elegir?</div><div style="color: #AEC7CF; font-size: 15px">Responde 3 preguntas y te recomendamos el equipo.</div></div></div>
+<a href="Main.dc.html" class="btn btn-lima">Abrir asistente</a>
+</div>
+</div>
+
+</div>
+</section>
+
+<footer class="foot" style="background: #062A33; color: #AEC7CF; padding: 110px 0 36px">
+<div class="wrap" style="display: flex; flex-direction: column; gap: 64px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px">
+<div class="x" style="font-weight: 900; font-size: clamp(72px, 13vw, 180px); line-height: .85; letter-spacing: -.06em; color: #FFFFFF">¿Subimos<span style="color: #89E462">?</span></div>
+<div style="max-width: 380px; display: flex; flex-direction: column; gap: 22px"><p style="margin: 0; font-size: 18px; line-height: 1.55">Te ayudamos a elegir la plataforma correcta, la llevamos y te dejamos operando seguro.</p><a href="D-Cotizador.dc.html" class="btn btn-lima" style="align-self: flex-start">Cotiza tu equipo</a></div>
+</div>
+<div style="height: 1px; background: #00313F"></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 18px"><svg width="150" height="44" viewBox="-621 236 475 137" aria-label="PyH+" role="img"><g transform="rotate(90)"><path fill="#FFFFFF" d="M366.8 461.3C370 464.5 371.5 468.8 371.5 474.6C371.5 477.4 371.2 480 370.4 482.3C370.2 483.1 369.5 483.7 368.6 483.7L362.5 483.7C361.4 483.7 360.6 482.9 360.6 481.8L360.6 477.4C360.6 473.4 358.7 471 354.8 470.3L320 484.1C316.6 485.4 312.7 482.8 312.7 479L312.7 474.5C312.7 471.8 314.4 469.4 317 468.7L340.3 462C340.6 461.9 340.7 461.8 340.7 461.6C340.7 461.5 340.6 461.3 340.3 461.3L317.2 455.2C314.5 454.4 312.7 452 312.7 449.3L312.7 446C312.7 442.3 316.4 439.7 319.9 441L353.4 453.4C359.4 455.5 363.8 458.2 366.8 461.3Z"></path><path fill="#FFFFFF" d="M261.5 488.3L293.4 488.3C306.7 488.3 317.5 499 317.5 512.3L317.5 592.3L362.6 592.3C366.6 592.3 369.8 595.6 369.8 599.4L369.8 612.5C369.8 616.3 366.6 619.6 362.6 619.6L244.6 619.6C240.6 619.6 237.5 616.3 237.5 612.5L237.5 512.3C237.5 499 248.2 488.3 261.5 488.3ZM262.8 514.6L262.8 593.3L292.2 593.3L292.2 514.6Z"></path><path fill="#FFFFFF" d="M237.7 305.4L237.7 318.4C237.7 322.3 240.8 325.6 244.8 325.6L290.3 325.6L290.3 401.2L244.8 401.2C240.8 401.2 237.7 404.4 237.7 408.4L237.7 421.3C237.7 425.3 240.8 428.5 244.8 428.5L363 428.5C367 428.5 370.1 425.3 370.1 421.3L370.1 408.4C370.1 404.4 367 401.2 363 401.2L317.5 401.2L317.5 325.6L363 325.6C366.8 325.6 370.1 322.3 370.1 318.4L370.1 305.4C370.1 301.4 367 298.2 363 298.2L244.8 298.2C240.8 298.2 237.7 301.4 237.7 305.4Z"></path><path fill="#89E462" d="M296.5 147.2h13.6a6.5 6.5 0 0 1 6.5 6.5v45.6h45.4a6.5 6.5 0 0 1 6.6 6.5v13.6a6.5 6.5 0 0 1-6.6 6.5h-45.4v45.5a6.5 6.5 0 0 1-6.5 6.5h-13.6a6.5 6.5 0 0 1-6.5-6.5v-45.5h-45.5a6.5 6.5 0 0 1-6.5-6.5v-13.6a6.5 6.5 0 0 1 6.5-6.5h45.5v-45.6a6.5 6.5 0 0 1 6.5-6.5Z"></path></g></svg><span style="font-size: 15px; line-height: 1.5">Alquiler y venta de plataformas elevadoras en Colombia.</span></div>
+<nav aria-label="Menú" style="display: flex; flex-direction: column; gap: 12px; font-size: 15px"><span class="eyebrow" style="color: #89E462">Menú</span><a href="Main.dc.html">Inicio</a><a href="D-Catalogo.dc.html">Catálogo</a><a href="D-Nosotros.dc.html">Nosotros PyH+</a><a href="D-Blog.dc.html">Blog</a><a href="D-Contacto.dc.html">Contacto</a><a href="D-PSE.dc.html">Pagos PSE</a></nav>
+<nav aria-label="Catálogo" style="display: flex; flex-direction: column; gap: 12px; font-size: 15px"><span class="eyebrow" style="color: #89E462">Catálogo</span><a href="D-Catalogo.dc.html">Alquiler de tijera eléctrica</a><a href="D-Catalogo.dc.html">Alquiler de tijera diésel y oruga</a><a href="D-Catalogo.dc.html">Brazos articulados</a><a href="D-Catalogo.dc.html">Brazos telescópicos</a><a href="D-Catalogo.dc.html">Brazo sobre camión</a><a href="D-Catalogo.dc.html">Unipersonales y spider</a><a href="D-Catalogo.dc.html">Venta de plataformas</a></nav>
+<div style="display: flex; flex-direction: column; gap: 12px; font-size: 15px"><span class="eyebrow" style="color: #89E462">Hablemos</span><a href="tel:+573043649060">304 364 9060</a><a href="mailto:info@alquilerdeplataformasyherramientas.com" style="word-break: break-all">info@alquilerdeplataformasyherramientas.com</a><span>Lun a vie 7:00 a.m. a 4:30 p.m. · Sáb, dom y festivos cerrado</span><span>Calle 24 B # 101 – 02, barrio San José Fontibón, Bogotá</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; line-height: 1.7"><p style="margin: 0"><strong style="color: #FFFFFF">Alquiler de plataformas elevadoras en:</strong> Bogotá, Soacha, Girardot, Chía, Zipaquirá, Fusagasugá, Tocancipá, Facatativá, Guaduas y Guarne.</p><p style="margin: 0"><strong style="color: #FFFFFF">Marcas:</strong> JLG, Genie, Haulotte, ALO LIFT, Oil &amp; Steel y PyH LIFT.</p></div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<span style="border: 1px solid #FFD406; color: #FFD406; border-radius: 999px; padding: 8px 14px; font-size: 12px">Miembro IPAF</span><span style="border: 1px solid #FFD406; color: #FFD406; border-radius: 999px; padding: 8px 14px; font-size: 12px">Equipos certificados ONAC</span><span style="border: 1px solid #FFD406; color: #FFD406; border-radius: 999px; padding: 8px 14px; font-size: 12px">Res. 4272 de 2021</span><span style="border: 1px solid #FFD406; color: #FFD406; border-radius: 999px; padding: 8px 14px; font-size: 12px">Res. 1409 de 2012</span>
+</div>
+<div style="height: 1px; background: #00313F"></div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 13px">
+<span>© 2026 Plataformas y Herramientas S.A.S. · NIT [000.000.000-0]</span>
+<span><a href="D-Nosotros.dc.html">Política de datos</a> · <a href="D-Nosotros.dc.html">Términos y condiciones</a> · <a href="D-Nosotros.dc.html">Políticas corporativas</a></span>
+<span>Aquí se acaba el scroll. Lo demás lo <strong style="color: #89E462">subimos nosotros ↑</strong></span>
+</div>
+</div>
+</footer>
+
+<a class="wa" href="https://wa.me/573043649060" aria-label="Escríbenos por WhatsApp" style="position: fixed; right: 28px; bottom: 28px; z-index: 30; width: 64px; height: 64px; border-radius: 50%; background: transparent; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 30px rgba(0,0,0,.25)"><svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path fill="#00475D" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3.1 0-1.5.8-2.2 1-2.5.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.3 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.3Z"></path></svg></a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2900}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { sel: {"fam": [], "alt": [], "ene": [], "ter": [], "marca": [], "mod": []}, sort: 'rel', view: 'grid' }; }
+  renderVals() {
+    const P = [{"id": "te8", "n": "Tijera eléctrica 8 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 8, "t": ["Interior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "230 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 200, "badge": "Más alquilada", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "te10", "n": "Tijera eléctrica 10 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 10, "t": ["Interior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "350 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 210, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "te12", "n": "Tijera eléctrica 12 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 12, "t": ["Interior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "320 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 215, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "te14", "n": "Tijera eléctrica 14 m", "fam": "Tijera eléctrica", "e": "Eléctrica", "h": 14, "t": ["Interior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "450 kg", "img": "../../media/maquina-tijera-electrica-recomendada-para-alquiler-370c7e.webp", "bg": "#E8F0F2", "ih": 220, "badge": "", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "td12", "n": "Tijera diésel 12 m todo terreno", "fam": "Tijera diésel", "e": "Diésel", "h": 12, "t": ["Exterior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "680 kg", "img": "../../media/maquina-alquiler-tijera-diesel-todo-terreno-ad3729.webp", "bg": "#F5F7F6", "ih": 150, "badge": "Nueva en flota", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "td16", "n": "Tijera diésel 16 m todo terreno", "fam": "Tijera diésel", "e": "Diésel", "h": 16, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "500 kg", "img": "../../media/maquina-alquiler-tijera-diesel-todo-terreno-ad3729.webp", "bg": "#F5F7F6", "ih": 160, "badge": "", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "u8", "n": "Unipersonal 8 m", "fam": "Unipersonal", "e": "Eléctrica", "h": 8, "t": ["Interior"], "m": "JLG", "mod": ["Alquiler", "Venta"], "cap": "136 kg", "img": "../../media/maquina-alquiler-plataforma-unipersonal-36976a.webp", "bg": "#F2FFE5", "ih": 215, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "u10", "n": "Unipersonal 10 m", "fam": "Unipersonal", "e": "Eléctrica", "h": 10, "t": ["Interior"], "m": "Haulotte", "mod": ["Alquiler"], "cap": "159 kg", "img": "../../media/maquina-alquiler-plataforma-unipersonal-36976a.webp", "bg": "#F2FFE5", "ih": 220, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "ba12", "n": "Brazo articulado eléctrico 12 m", "fam": "Brazo articulado", "e": "Eléctrica", "h": 12, "t": ["Interior", "Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "227 kg", "img": "../../media/maquina-alquiler-brazo-articulado-electrico-7794fc.webp", "bg": "#F2FFE5", "ih": 210, "badge": "Silencioso", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "ba16", "n": "Brazo articulado diésel 16 m", "fam": "Brazo articulado", "e": "Diésel", "h": 16, "t": ["Exterior"], "m": "Haulotte", "mod": ["Alquiler", "Venta"], "cap": "230 kg", "img": "../../media/maquina-plataforma-elevadora-articulada-movimiento-0f3248.webp", "bg": "#E8F0F2", "ih": 220, "badge": "", "stock": "Disponible hoy", "price": "[$000.000]"}, {"id": "ba20", "n": "Brazo articulado diésel 20 m", "fam": "Brazo articulado", "e": "Diésel", "h": 20, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "230 kg", "img": "../../media/maquina-plataforma-elevadora-articulada-movimiento-0f3248.webp", "bg": "#E8F0F2", "ih": 225, "badge": "Más alquilado", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "ba26", "n": "Brazo articulado sobre camión 26 m", "fam": "Brazo articulado", "e": "Diésel", "h": 26, "t": ["Exterior"], "m": "Oilsteel", "mod": ["Alquiler"], "cap": "200 kg", "img": "../../media/maquina-plataforma-elevadora-articulada-movimiento-0f3248.webp", "bg": "#E8F0F2", "ih": 225, "badge": "", "stock": "Bajo reserva", "price": "[$000.000]"}, {"id": "bt28", "n": "Brazo telescópico 28 m", "fam": "Brazo telescópico", "e": "Diésel", "h": 28, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "300 kg", "img": "../../media/maquina-alquiler-brazo-telescopico-diesel-5df650.webp", "bg": "#00475D", "ih": 160, "badge": "", "stock": "Entrega en 48 h", "price": "[$000.000]"}, {"id": "bt43", "n": "Brazo telescópico 43 m", "fam": "Brazo telescópico", "e": "Diésel", "h": 43, "t": ["Exterior"], "m": "JLG", "mod": ["Alquiler"], "cap": "300 kg", "img": "../../media/maquina-alquiler-brazo-telescopico-diesel-5df650.webp", "bg": "#00475D", "ih": 170, "badge": "El más alto", "stock": "Bajo reserva", "price": "[$000.000]"}];
+    const G = [["fam", "Tipo de equipo", ["Tijera eléctrica", "Tijera diésel", "Brazo articulado", "Brazo telescópico", "Unipersonal"]], ["alt", "Altura de trabajo", ["Hasta 8 m", "De 8 a 12 m", "De 12 a 20 m", "Más de 20 m"]], ["ene", "Energía", ["Eléctrica", "Diésel"]], ["ter", "Terreno", ["Interior", "Exterior"]], ["marca", "Marca", ["JLG", "Haulotte", "Oilsteel"]], ["mod", "Modalidad", ["Alquiler", "Venta"]]];
+    const sel = this.state.sel;
+    const altOk = (h, l) => (l === 'Hasta 8 m' && h <= 8) || (l === 'De 8 a 12 m' && h > 8 && h <= 12) || (l === 'De 12 a 20 m' && h > 12 && h <= 20) || (l === 'Más de 20 m' && h > 20);
+    const match = (p, k, l) => k === 'fam' ? p.fam === l : k === 'alt' ? altOk(p.h, l) : k === 'ene' ? p.e === l : k === 'ter' ? p.t.indexOf(l) >= 0 : k === 'marca' ? p.m === l : p.mod.indexOf(l) >= 0;
+    const passes = (p, skip) => G.every(g => g[0] === skip || sel[g[0]].length === 0 || sel[g[0]].some(l => match(p, g[0], l)));
+    const toggle = (k, l) => () => { const s = Object.assign({}, sel); const a = s[k].slice(); const i = a.indexOf(l); if (i >= 0) a.splice(i, 1); else a.push(l); s[k] = a; this.setState({ sel: s }); };
+    const groups = {};
+    G.forEach(g => {
+      groups[g[0]] = g[2].map(l => {
+        const on = sel[g[0]].indexOf(l) >= 0;
+        const count = P.filter(p => passes(p, g[0]) && match(p, g[0], l)).length;
+        return {
+          label: l, count: '(' + count + ')', on: on, toggle: toggle(g[0], l),
+          box: 'width: 20px; height: 20px; border-radius: 6px; flex: none; display: flex; align-items: center; justify-content: center; ' + (on ? 'background: #00475D; border: 2px solid #00475D;' : 'background: #FFFFFF; border: 2px solid #A6A6A6;'),
+          lstyle: on ? 'color: #00475D; font-weight: 700;' : (count === 0 ? 'color: #A6A6A6;' : ''),
+          chip: on ? 'background: #00475D; color: #FFFFFF; border-color: #00475D;' : (count === 0 ? 'opacity: .45;' : '')
+        };
+      });
+    });
+    let list = P.filter(p => passes(p, null));
+    const sort = this.state.sort;
+    if (sort === 'asc') list = list.slice().sort((a, b) => a.h - b.h);
+    if (sort === 'desc') list = list.slice().sort((a, b) => b.h - a.h);
+    const results = list.map(p => ({
+      name: p.n, fam: p.fam, img: p.img, href: 'D-Detalle.dc.html',
+      bg: 'background: transparent;',
+      imgStyle: 'height: ' + p.ih + 'px;',
+      mImgStyle: 'height: ' + Math.round(p.ih * 0.56) + 'px;',
+      famStyle: p.bg === '#00475D' ? 'color: #89E462;' : 'color: #46772A;',
+      height: p.h + ' m', ene: p.e, cap: p.cap, marca: p.m, ter: p.t.join(' y '),
+      mod: p.mod.join(' · '), price: p.price,
+      hasBadge: !!p.badge, badge: p.badge,
+      stock: p.stock,
+      stockDot: 'width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: ' + (p.stock === 'Disponible hoy' ? '#609839' : (p.stock === 'Bajo reserva' ? '#A6A6A6' : '#FFD406')) + ';'
+    }));
+    const applied = [];
+    G.forEach(g => sel[g[0]].forEach(l => applied.push({ label: l, remove: toggle(g[0], l) })));
+    const sOpt = (k, l) => ({ label: l, pick: () => this.setState({ sort: k }), style: sort === k ? 'background: #00475D; color: #FFFFFF; border-color: #00475D;' : '' });
+    const n = results.length;
+    return Object.assign({
+      gFam: groups.fam, gAlt: groups.alt, gEne: groups.ene, gTer: groups.ter, gMarca: groups.marca, gMod: groups.mod,
+      results: results, count: n, countL: n === 1 ? '1 resultado' : n + ' resultados',
+      seeL: 'Ver ' + n + (n === 1 ? ' resultado' : ' resultados'),
+      hasResults: n > 0, noResults: n === 0,
+      applied: applied, hasApplied: applied.length > 0, nApplied: applied.length ? '(' + applied.length + ')' : '',
+      clear: () => this.setState({ sel: { fam: [], alt: [], ene: [], ter: [], marca: [], mod: [] } }),
+      sorts: [sOpt('rel', 'Más relevantes'), sOpt('asc', 'Menor altura'), sOpt('desc', 'Mayor altura')]
+    });
+  }
+}
+</script>
+</body>
+</html>

@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# copia de referencia de los medios (la del sitio está en public/media/)
+/media/

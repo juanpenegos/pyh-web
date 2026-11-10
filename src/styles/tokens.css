@@ -1,0 +1,119 @@
+/*
+  TOKENS DE DISEÑO — PyH+
+  Fuente: diseno/pantallas/Sistema.dc.html y CLAUDE.md.
+  Todos los componentes deben usar estas variables en lugar de valores sueltos.
+  Escritorio = diseño de 1440 px · Móvil = diseño de 390 px (cambio a 767 px).
+*/
+
+:root {
+  /* ---------- Colores ---------- */
+  /* Azules */
+  --azul-petroleo: #00475d;   /* Principal: títulos, header, fondos */
+  --azul-noche: #062a33;      /* Hero, secciones oscuras, footer */
+  --azul-profundo: #00313f;   /* Líneas, hover y tarjetas sobre oscuro */
+  --azul-medio: #3f809c;      /* Íconos, acentos, texto de 20 px o más */
+  --azul-enlace: #336e88;     /* Enlaces menores a 20 px sobre claro */
+  --azul-claro-texto: #aec7cf;/* Texto secundario sobre fondos oscuros */
+
+  /* Verdes */
+  --verde-lima: #89e462;      /* Solo acciones (botones, el "+"). Nunca texto sobre blanco */
+  --verde-lima-hover: #a3ec83;/* Solo hover del botón lima */
+  --verde-texto: #609839;     /* Texto verde de 20 px o más sobre claro */
+  --verde-texto-pequeno: #46772a; /* Texto verde menor a 20 px sobre claro */
+
+  /* Amarillo */
+  --amarillo: #ffd406;        /* Dosificado: sellos, badges, estrellas */
+
+  /* Neutros */
+  --blanco: #ffffff;
+  --gris-texto: #4e5258;      /* Párrafos */
+  --gris-texto-pequeno: #6b7075; /* Ayudas y migas de pan */
+  --gris-medio: #a6a6a6;      /* Solo íconos y bordes */
+  --gris-linea: #e6e6e6;      /* Bordes y divisores */
+  --fondo-suave: #f5f7f6;     /* Secciones alternas */
+  --azul-hielo: #e8f0f2;      /* Fondos de tarjeta */
+  --lima-hielo: #f2ffe5;      /* Fondos de tarjeta */
+
+  /* ---------- Tipografías ---------- */
+  --fuente-titulos: "Exo 2", Arial, sans-serif;  /* Pesos 600–900 */
+  --fuente-texto: Arial, Arimo, sans-serif;
+
+  --peso-semibold: 600;
+  --peso-bold: 700;
+  --peso-extrabold: 800;
+  --peso-black: 900;
+
+  /* ---------- Escala de títulos (escritorio) ---------- */
+  --display-tamano: 96px;   /* Nosotros */
+  --display-linea: 0.9;
+  --display-espaciado: -0.045em;
+
+  --h1-tamano: 72px;        /* Inicio, Catálogo */
+  --h1-linea: 0.98;
+  --h1-espaciado: -0.035em;
+
+  --h2-tamano: 64px;
+  --h2-linea: 0.98;
+  --h2-espaciado: -0.03em;
+
+  --h3-tamano: 24px;
+
+  /* Textos */
+  --eyebrow-tamano: 12px;   /* Única medida bajo 13 px permitida */
+  --eyebrow-espaciado: 0.14em;
+  --texto-tamano: 18px;
+  --texto-linea: 1.6;
+  --texto-pequeno-tamano: 13px; /* Mínimo en texto corrido */
+
+  /* ---------- Espacios ---------- */
+  --esp-1: 4px;
+  --esp-2: 8px;
+  --esp-3: 12px;
+  --esp-4: 16px;
+  --esp-5: 20px;
+  --esp-6: 24px;
+  --esp-7: 32px;
+  --esp-8: 40px;
+  --esp-9: 56px;
+  --esp-10: 64px;
+
+  --seccion-y: 110px;           /* Relleno vertical de cada sección */
+  --contenedor-max: 1280px;     /* Ancho máximo del contenido */
+  --contenedor-margen: 32px;    /* Margen lateral del contenido */
+
+  /* ---------- Formas ---------- */
+  --radio-sm: 12px;
+  --radio-md: 16px;
+  --radio-lg: 20px;             /* El más usado: tarjetas, fotos, videos */
+  --radio-pildora: 999px;       /* Botones, chips, badges */
+
+  /* Esquina cortada (arriba a la derecha) */
+  --corte: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
+  --corte-sm: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%);
+
+  /* ---------- Sombras ---------- */
+  --sombra-tarjeta: 0 24px 50px rgba(0, 71, 93, 0.12);
+  --foco-campo: 0 0 0 4px rgba(63, 128, 156, 0.15);
+
+  /* ---------- Movimiento ---------- */
+  --curva-sube: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-rapida: 0.2s;     /* Botones */
+  --dur-media: 0.25s;     /* Tarjetas */
+  --dur-imagen: 0.35s;    /* Máquina que crece al pasar el cursor */
+  --dur-sube: 0.9s;       /* Bloques que entran al hacer scroll */
+  --dur-flota: 6s;        /* Máquinas que flotan */
+  --dur-marquesina: 28s;  /* Logos de clientes */
+  --dur-pulso: 2s;        /* Botón de WhatsApp */
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 767px) {
+  :root {
+    --display-tamano: 66px;
+    --h1-tamano: 66px;
+    --h2-tamano: 38px;
+
+    --seccion-y: 64px;
+    --contenedor-margen: 20px;
+  }
+}
