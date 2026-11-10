@@ -1,0 +1,158 @@
+/* MENÚ MÓVIL — medidas de la pantalla M-Menu */
+
+/* Botón de hamburguesa (en el header) */
+.menu-movil__abrir {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Ventana a pantalla completa */
+.menu-movil {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--azul-noche);
+  color: var(--azul-claro-texto);
+  overflow-y: auto;
+}
+
+.menu-movil::backdrop {
+  background: var(--azul-noche);
+}
+
+.menu-movil__contenido {
+  position: relative;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.menu-movil__decoracion {
+  position: absolute;
+  right: -170px;
+  top: 220px;
+  opacity: 0.08;
+  max-width: none;
+  pointer-events: none;
+}
+
+.menu-movil__barra {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 16px;
+}
+
+.menu-movil__logo {
+  display: flex;
+}
+
+.menu-movil__logo svg {
+  width: 96px;
+  height: 28px;
+}
+
+.menu-movil__cerrar {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--azul-profundo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Enlaces grandes numerados */
+.menu-movil__nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px 0;
+}
+
+.menu-movil__enlace {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--azul-profundo);
+  text-decoration: none;
+  animation: sube var(--dur-sube) var(--curva-sube) both;
+}
+
+.menu-movil__numero {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: 13px;
+  color: var(--verde-lima);
+}
+
+.menu-movil__texto {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-extrabold);
+  font-size: 40px;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--blanco);
+}
+
+/* Botones */
+.menu-movil__botones {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 20px;
+}
+
+.menu-movil__botones .btn {
+  justify-content: center;
+}
+
+/* Contacto al pie */
+.menu-movil__contacto {
+  position: relative;
+  margin-top: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.menu-movil__contacto > a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+.menu-movil__sellos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.menu-movil__sellos .sello {
+  padding: 6px 12px;
+}

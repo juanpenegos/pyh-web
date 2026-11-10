@@ -1,23 +1,23 @@
 // CONTENIDO DE NOSOTROS — pantallas D-Nosotros y M-Nosotros.
 // Para cambiar un texto, edita su valor aquí. Los valores vacíos se llenan en la tanda 5.
 
-import type { Enlace, Imagen, Video, Titular, Certificacion, Pregunta } from './tipos';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
 
-export const nosotros = {
+export const nosotros: ContenidoNosotros = {
   seo: {
     titulo: 'Nosotros: alquiler de plataformas elevadoras en Colombia | PyH+',
     descripcion: '',
   },
 
-  migas: [] as Enlace[],   // Inicio / Nosotros PyH+
+  migas: [],   // Inicio / Nosotros PyH+
 
   // Encabezado ("Somos el + de tu obra.")
   encabezado: {
     eyebrow: '',
-    titular: { partes: [] } as Titular,
+    titular: { partes: [] },
     texto: '',
-    boton: { texto: '', url: '' } as Enlace,
-    foto: { src: '', alt: '' } as Imagen,
+    boton: { texto: '', url: '' },
+    foto: { src: '', alt: '' },
   },
 
   // Misión y visión
@@ -27,34 +27,34 @@ export const nosotros = {
   // Historia ("De dos plataformas a 43 metros")
   historia: {
     eyebrow: '',
-    titular: { partes: [] } as Titular,
-    hitos: [] as { anio: string; titulo: string; texto: string }[],
+    titular: { partes: [] },
+    hitos: [],
   },
 
   // Video del equipo en ferias
   video: {
     ayuda: '',      // "Pasa el mouse para ver y escuchar"
-    etiquetas: [] as string[],
-    video: { src: '', poster: '', alt: '' } as Video,
+    etiquetas: [],
+    video: { src: '', poster: '', alt: '' },
   },
 
   // Valores ("Lo que no negociamos")
   valores: {
-    titular: { partes: [] } as Titular,
-    lista: [] as { numero: string; titulo: string; texto: string }[],
+    titular: { partes: [] },
+    lista: [],
   },
 
   // Certificados ("Certificados, no promesas")
   certificados: {
-    titular: { partes: [] } as Titular,
+    titular: { partes: [] },
     texto: '',
-    lista: [] as Certificacion[],
+    lista: [],
   },
 
   // Equipo ("Las personas del +")
   equipo: {
-    titular: { partes: [] } as Titular,
-    personas: [] as { nombre: string; cargo: string; foto?: Imagen }[],
+    titular: { partes: [] },
+    personas: [],
   },
 
   // Políticas (acordeón con descarga)
@@ -62,6 +62,6 @@ export const nosotros = {
     titulo: '',
     texto: '',
     descargar: '',
-    lista: [] as (Pregunta & { pdf: string })[],
+    lista: [],
   },
 };

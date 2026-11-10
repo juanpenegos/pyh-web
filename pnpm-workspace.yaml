@@ -2,3 +2,5 @@ minimumReleaseAgeExclude:
   - '@astrojs/runtime@0.1.0'
   - '@astrojs/vite-plugin-astro@0.1.0'
   - astro@7.4.9
+  - '@astrojs/react-renderer@0.1.0'
+  - '@astrojs/react@7.1.6'

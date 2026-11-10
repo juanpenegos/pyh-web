@@ -1,7 +1,6 @@
-// FORMAS DE LOS DATOS
-// Aquí solo se describe "qué campos tiene" cada cosa (un enlace, una imagen, una máquina...).
-// Los textos reales viven en inicio.ts, catalogo.ts, nosotros.ts y comun.ts.
-// Más adelante el CRM entregará datos con estas mismas formas.
+// DOMINIO — piezas básicas que se repiten en todo el sitio.
+// El dominio solo describe "qué campos tiene" cada cosa. No sabe nada de Astro, React,
+// ni de dónde vienen los datos (archivos locales hoy, CRM mañana).
 
 /** Un enlace o botón: lo que se lee y a dónde lleva. */
 export interface Enlace {
@@ -50,25 +49,8 @@ export interface Pregunta {
   respuesta: string;
 }
 
-/** Una máquina del catálogo. */
-export interface Maquina {
-  id: string;
-  nombre: string;
-  familia: string;      // Tijera eléctrica, Brazo articulado...
-  energia: string;      // Eléctrica, Diésel
-  alturaM: number;      // Altura de trabajo en metros (sirve para filtrar y ordenar)
-  terreno: string[];    // Interior, Exterior...
-  marca: string;
-  modalidad: string[];  // Alquiler, Venta
-  capacidad: string;    // p. ej. "230 kg"
-  imagen: Imagen;
-  insignia?: string;    // p. ej. "Más alquilado"
-  disponibilidad: string; // Disponible hoy, Bajo reserva...
-  url: string;
-}
-
-/** Un cliente (logo en la marquesina). */
-export interface Cliente {
-  nombre: string;
-  logo: Imagen;
+/** Título y descripción de una página para el navegador y Google. */
+export interface Seo {
+  titulo: string;
+  descripcion: string;
 }

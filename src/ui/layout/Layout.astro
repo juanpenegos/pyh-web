@@ -1,0 +1,63 @@
+---
+// Plantilla base de todas las páginas: enlace "saltar al contenido", header, footer y WhatsApp.
+// Cada página pone su contenido dentro de <main id="contenido"> (lo hace esta plantilla).
+// Recibe por props el contenido común (header, footer...) y el título de la página;
+// la página los pide al repositorio y se los pasa.
+
+// Tipografías locales (solo caracteres latinos: incluye tildes, ñ, ¿ y ¡)
+import '@fontsource/exo-2/latin-600.css';
+import '@fontsource/exo-2/latin-700.css';
+import '@fontsource/exo-2/latin-800.css';
+import '@fontsource/exo-2/latin-900.css';
+import '@fontsource/arimo/latin-400.css';
+import '@fontsource/arimo/latin-700.css';
+
+import '@ui/estilos/global.css';
+
+import SaltarContenido from './SaltarContenido.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import BotonWhatsapp from './BotonWhatsapp.astro';
+import type { ContenidoComun } from '@dominio/paginas/comun';
+import type { Seo } from '@dominio/comunes';
+
+interface Props {
+	comun: ContenidoComun;
+	seo: Seo;
+	noIndexar?: boolean; // Para páginas temporales que Google no debe mostrar
+}
+
+const { comun, seo, noIndexar = false } = Astro.props;
+
+// Página actual sin la barra final ("/catalogo/" → "/catalogo"), para marcar el menú
+const paginaActual = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<title>{seo.titulo}</title>
+		{seo.descripcion && <meta name="description" content={seo.descripcion} />}
+		{noIndexar && <meta name="robots" content="noindex" />}
+	</head>
+	<body>
+		<SaltarContenido texto={comun.saltarAlContenido} />
+		<Header comun={comun} paginaActual={paginaActual} />
+		<main id="contenido" tabindex="-1">
+			<slot />
+		</main>
+		<Footer comun={comun} />
+		<BotonWhatsapp whatsapp={comun.whatsapp} />
+	</body>
+</html>
+
+<style>
+	/* Al saltar al contenido el foco llega a <main>; no hace falta dibujarle un borde */
+	main:focus {
+		outline: none;
+	}
+</style>

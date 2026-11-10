@@ -1,0 +1,89 @@
+---
+// BUSCADOR del header. Envía lo escrito al catálogo como /catalogo?q=texto
+// (el catálogo usará ese texto para filtrar en la tanda 4).
+import Icono from '@ui/compartido/Icono';
+import type { ContenidoComun } from '@dominio/paginas/comun';
+
+interface Props {
+  buscador: ContenidoComun['buscador'];
+}
+
+const { buscador } = Astro.props;
+---
+
+<form class="buscador" role="search" action={buscador.url} method="get">
+  <Icono nombre="buscar" tamano={20} grosor={2.4} color="#00475D" className="buscador__icono" />
+  <input
+    class="buscador__campo"
+    type="search"
+    name="q"
+    aria-label={buscador.etiqueta}
+    placeholder={buscador.placeholder}
+  />
+  <button class="btn btn--lima buscador__boton" type="submit">{buscador.boton}</button>
+</form>
+
+<style>
+  .buscador {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 46px;
+    padding: 0 5px 0 16px;
+    border-radius: var(--radio-pildora);
+    background: var(--fondo-suave);
+    border: 1.5px solid var(--verde-lima);
+  }
+
+  /* El foco se marca en todo el buscador, no solo en el campo */
+  .buscador:focus-within {
+    outline: 3px solid var(--azul-medio);
+    outline-offset: 2px;
+  }
+
+  .buscador__campo {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    color: var(--azul-petroleo);
+  }
+
+  .buscador__campo::placeholder {
+    color: var(--gris-texto-pequeno);
+  }
+
+  .buscador .buscador__boton {
+    padding: 0 18px;
+    min-height: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 1099px) {
+    .buscador {
+      gap: 8px;
+      height: 44px;
+      padding: 0 4px 0 14px;
+    }
+
+    .buscador :global(.buscador__icono) {
+      width: 18px;
+      height: 18px;
+    }
+
+    .buscador__campo {
+      height: 36px;
+      font-size: 15px;
+    }
+
+    .buscador .buscador__boton {
+      padding: 0 16px;
+      font-size: 13px;
+    }
+  }
+</style>

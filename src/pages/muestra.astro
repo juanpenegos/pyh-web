@@ -1,0 +1,100 @@
+---
+// PÁGINA TEMPORAL "/muestra" para revisar los componentes de la tanda 2.
+// Borrar antes de publicar (junto con su contenido en infraestructura y dominio).
+import Layout from '@ui/layout/Layout.astro';
+import Boton from '@ui/compartido/Boton.astro';
+import TarjetaMaquina from '@ui/catalogo/TarjetaMaquina';
+import TarjetaCliente from '@ui/inicio/TarjetaCliente.astro';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const muestra = await repositorio.obtenerMuestra();
+const catalogo = await repositorio.obtenerCatalogo();
+const inicio = await repositorio.obtenerInicio();
+
+const { botones, secciones } = muestra;
+// Los logos se repiten 4 veces, como en la marquesina del diseño
+const logos = [1, 2, 3, 4].flatMap((vuelta) => inicio.clientes.lista.map((cliente) => ({ cliente, repetido: vuelta > 1 })));
+---
+
+<Layout comun={comun} seo={muestra.seo} noIndexar>
+	<div class="contenedor muestra">
+		<h1 class="h2">{muestra.titulo}</h1>
+		<p class="texto-pequeno">{muestra.aviso}</p>
+
+		<section>
+			<h2 class="eyebrow muestra__titulo">{secciones.botones}</h2>
+			<div class="muestra__botones">
+				<Boton enlace={botones.lima} variante="lima" icono="mas" />
+				<Boton enlace={botones.azul} variante="azul" />
+				<Boton enlace={botones.linea} variante="linea" />
+				<span class="muestra__oscuro"><Boton enlace={botones.lineaBlanca} variante="linea-blanca" /></span>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="eyebrow muestra__titulo">{secciones.tarjetas}</h2>
+			<div class="muestra__rejilla">
+				{catalogo.maquinas.map((maquina) => <TarjetaMaquina maquina={maquina} textos={catalogo.tarjeta} />)}
+			</div>
+		</section>
+	</div>
+
+	<section class="muestra__clientes">
+		<h2 class="contenedor eyebrow muestra__titulo">{secciones.clientes}</h2>
+		<div class="muestra__marquesina">
+			{logos.map(({ cliente, repetido }) => <TarjetaCliente cliente={cliente} repetido={repetido} />)}
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.muestra {
+		display: flex;
+		flex-direction: column;
+		gap: var(--esp-8);
+		padding-block: var(--esp-10);
+	}
+
+	.muestra__titulo {
+		color: var(--verde-texto-pequeno);
+		margin-bottom: var(--esp-5);
+	}
+
+	.muestra__botones {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: center;
+	}
+
+	.muestra__oscuro {
+		background: var(--azul-noche);
+		padding: 8px;
+		border-radius: var(--radio-pildora);
+	}
+
+	.muestra__rejilla {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 20px;
+	}
+
+	@media (max-width: 767px) {
+		.muestra__rejilla {
+			grid-template-columns: 1fr;
+			gap: 12px;
+		}
+	}
+
+	.muestra__clientes {
+		padding: 28px 0 var(--esp-10);
+		overflow: hidden;
+	}
+
+	.muestra__marquesina {
+		display: flex;
+		width: max-content;
+		animation: marquesina var(--dur-marquesina) linear infinite;
+	}
+</style>

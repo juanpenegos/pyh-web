@@ -1,0 +1,27 @@
+---
+// TITULAR con partes resaltadas en color (p. ej. "Elige tu " + "altura" en verde + ".").
+// Uso: <Titular titular={inicio.catalogoDestacado.titular} etiqueta="h2" class="h2" />
+// colorResaltado: "verde" (#609839, sobre fondo claro) o "lima" (#89E462, sobre fondo oscuro).
+import type { Titular } from '@dominio/comunes';
+
+interface Props {
+  titular: Titular;
+  etiqueta?: 'h1' | 'h2' | 'h3' | 'p' | 'span' | 'div';
+  colorResaltado?: 'verde' | 'lima' | 'azul';
+  class?: string;
+}
+
+const { titular, etiqueta: Etiqueta = 'h2', colorResaltado = 'verde', class: clase } = Astro.props;
+
+const colores = {
+  verde: 'var(--verde-texto)',
+  lima: 'var(--verde-lima)',
+  azul: 'var(--azul-medio)',
+};
+---
+
+<Etiqueta class={clase}>
+  {titular.partes.map((parte) =>
+    parte.resaltado ? <span style={`color: ${colores[colorResaltado]}`}>{parte.texto}</span> : parte.texto,
+  )}
+</Etiqueta>

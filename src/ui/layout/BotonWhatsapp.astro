@@ -1,0 +1,47 @@
+---
+// BOTÓN FLOTANTE DE WHATSAPP (abajo a la derecha, con pulso cada 2 s).
+import Icono from '@ui/compartido/Icono';
+import type { ContenidoComun } from '@dominio/paginas/comun';
+
+interface Props {
+  whatsapp: ContenidoComun['whatsapp'];
+}
+
+const { whatsapp } = Astro.props;
+---
+
+<a class="whatsapp" href={whatsapp.url} target="_blank" rel="noopener" aria-label={whatsapp.etiqueta}>
+  <Icono nombre="whatsapp" tamano={30} color="#00475D" className="whatsapp__icono" />
+</a>
+
+<style>
+  .whatsapp {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    z-index: 30;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--verde-lima);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    animation: pulso var(--dur-pulso) infinite;
+  }
+
+  @media (max-width: 767px) {
+    .whatsapp {
+      right: 16px;
+      bottom: 20px;
+      width: 56px;
+      height: 56px;
+    }
+
+    .whatsapp :global(.whatsapp__icono) {
+      width: 26px;
+      height: 26px;
+    }
+  }
+</style>

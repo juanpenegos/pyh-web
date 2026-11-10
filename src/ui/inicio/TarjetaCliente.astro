@@ -1,0 +1,39 @@
+---
+// LOGO DE CLIENTE (pieza de la marquesina "Empresas que ya subieron con nosotros").
+// Medidas del diseño: 46 px de alto en escritorio, 34 px en móvil, 28 px de aire a cada lado.
+// `repetido`: en la marquesina los logos se repiten para que el bucle no tenga cortes;
+// las copias se marcan como decorativas para que el lector de pantalla no los lea varias veces.
+import type { Cliente } from '@dominio/cliente';
+
+interface Props {
+  cliente: Cliente;
+  repetido?: boolean;
+}
+
+const { cliente, repetido = false } = Astro.props;
+---
+
+<img
+  class="logo-cliente"
+  src={cliente.logo.src}
+  alt={repetido ? '' : cliente.logo.alt}
+  aria-hidden={repetido ? 'true' : undefined}
+  loading="lazy"
+  decoding="async"
+/>
+
+<style>
+  .logo-cliente {
+    flex: none;
+    height: 46px;
+    width: auto;
+    max-width: none;
+    margin: 0 28px;
+  }
+
+  @media (max-width: 767px) {
+    .logo-cliente {
+      height: 34px;
+    }
+  }
+</style>

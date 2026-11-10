@@ -1,0 +1,47 @@
+---
+// PÁGINA PROVISIONAL "/proximamente" para Blog y Pagos PSE mientras no existan.
+import Layout from '@ui/layout/Layout.astro';
+import Titular from '@ui/compartido/Titular.astro';
+import Boton from '@ui/compartido/Boton.astro';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const proximamente = await repositorio.obtenerProximamente();
+---
+
+<Layout comun={comun} seo={proximamente.seo} noIndexar>
+	<section class="proximamente">
+		<div class="contenedor proximamente__contenido">
+			<Titular titular={proximamente.titular} etiqueta="h1" class="h1" />
+			<p>{proximamente.texto}</p>
+			<div class="proximamente__botones">
+				<Boton enlace={proximamente.boton} variante="lima" />
+				<Boton enlace={proximamente.volver} variante="linea" />
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.proximamente {
+		background: var(--fondo-suave);
+		padding: var(--seccion-y) 0;
+	}
+
+	.proximamente__contenido {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--esp-6);
+	}
+
+	.proximamente__contenido p {
+		max-width: 560px;
+	}
+
+	.proximamente__botones {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--esp-3);
+	}
+</style>

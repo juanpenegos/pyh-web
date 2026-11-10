@@ -1,0 +1,375 @@
+---
+// FOOTER — bloque "¿Subimos?" + columnas (menú, catálogo, contacto) + textos legales.
+// Escritorio: columnas en rejilla (Main / D-Catalogo). Móvil: todo en una columna y
+// el catálogo se pliega en un desplegable (M-Inicio).
+import Logo from '@ui/compartido/Logo';
+import Icono from '@ui/compartido/Icono';
+import Boton from '@ui/compartido/Boton.astro';
+import Titular from '@ui/compartido/Titular.astro';
+import type { ContenidoComun } from '@dominio/paginas/comun';
+
+interface Props {
+  comun: ContenidoComun;
+}
+
+const { cierre, footer } = Astro.props.comun;
+const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
+---
+
+<footer class="footer">
+  <div class="contenedor footer__contenido">
+    <!-- ¿Subimos? -->
+    <div class="footer__cierre">
+      <Titular titular={cierre.titular} etiqueta="h2" colorResaltado="lima" class="footer__titular" />
+      <div class="footer__cierre-texto">
+        <p>{cierre.texto}</p>
+        <Boton enlace={cierre.boton} variante="lima" class="footer__cierre-boton" />
+      </div>
+    </div>
+
+    <div class="footer__linea footer__linea--escritorio"></div>
+
+    <!-- Columnas -->
+    <div class="footer__columnas">
+      <div class="footer__marca">
+        <Logo variante="oscuro" className="footer__logo" />
+        <span>{footer.descripcion}</span>
+      </div>
+
+      <nav aria-label={footer.menu.titulo} class="footer__menu">
+        <span class="eyebrow footer__titulo">{footer.menu.titulo}</span>
+        {footer.menu.enlaces.map((e) => <a href={e.url} {...externo(e.url)}>{e.texto}</a>)}
+      </nav>
+
+      <!-- Catálogo: lista fija en escritorio -->
+      <nav aria-label={footer.catalogo.titulo} class="footer__lista footer__solo-escritorio">
+        <span class="eyebrow footer__titulo">{footer.catalogo.titulo}</span>
+        {footer.catalogo.enlaces.map((e) => <a href={e.url}>{e.texto}</a>)}
+      </nav>
+
+      <!-- Catálogo: desplegable en móvil -->
+      <details class="footer__desplegable footer__solo-movil">
+        <summary>
+          <span class="eyebrow footer__titulo">{footer.catalogo.titulo}</span>
+          <Icono nombre="abajo" tamano={20} grosor={2.4} color="#89E462" className="footer__flecha" />
+        </summary>
+        <nav aria-label={footer.catalogo.titulo} class="footer__desplegable-lista">
+          {footer.catalogo.enlaces.map((e) => <a href={e.url}>{e.texto}</a>)}
+        </nav>
+      </details>
+
+      <div class="footer__lista footer__contacto">
+        <span class="eyebrow footer__titulo">{footer.contacto.titulo}</span>
+        <a href={footer.contacto.telefono.url}>{footer.contacto.telefono.texto}</a>
+        <a href={footer.contacto.correo.url} class="footer__correo">{footer.contacto.correo.texto}</a>
+        <span>{footer.contacto.horario}</span>
+        <span>{footer.contacto.direccion}</span>
+      </div>
+    </div>
+
+    <!-- Cobertura y marcas -->
+    <div class="footer__seo">
+      <p><strong>{footer.cobertura.titulo}</strong> {footer.cobertura.texto}</p>
+      <p><strong>{footer.marcas.titulo}</strong> {footer.marcas.texto}</p>
+    </div>
+
+    <div class="footer__sellos">
+      {footer.sellos.map((s) => <span class="sello">{s}</span>)}
+    </div>
+
+    <div class="footer__linea"></div>
+
+    <!-- Legales -->
+    <div class="footer__legal">
+      <span>{footer.derechos}</span>
+      <span>
+        {
+          footer.legales.map((e, i) => (
+            <>
+              {i > 0 && ' · '}
+              <a href={e.url}>{e.texto}</a>
+            </>
+          ))
+        }
+      </span>
+      <Titular titular={footer.fraseFinal} etiqueta="span" colorResaltado="lima" class="footer__frase" />
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--azul-noche);
+    color: var(--azul-claro-texto);
+    padding: 110px 0 36px;
+  }
+
+  .footer a {
+    color: var(--azul-claro-texto);
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: var(--verde-lima);
+  }
+
+  /* Los botones mantienen sus propios colores */
+  .footer a.btn--lima,
+  .footer a.btn--lima:hover {
+    color: var(--azul-petroleo);
+  }
+
+  .footer__contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  /* ---------- ¿Subimos? ---------- */
+  .footer__cierre {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+  }
+
+  .footer :global(.footer__titular) {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: clamp(72px, 13vw, 180px);
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    color: var(--blanco);
+  }
+
+  .footer__cierre-texto {
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .footer__cierre-texto p {
+    font-size: 18px;
+    line-height: 1.55;
+  }
+
+  .footer :global(.footer__cierre-boton) {
+    align-self: flex-start;
+  }
+
+  .footer__linea {
+    height: 1px;
+    background: var(--azul-profundo);
+  }
+
+  /* ---------- Columnas ---------- */
+  .footer__columnas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+  }
+
+  .footer__marca {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .footer :global(.footer__logo) {
+    width: 150px;
+    height: 44px;
+  }
+
+  .footer__menu,
+  .footer__lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .footer__titulo {
+    color: var(--verde-lima);
+  }
+
+  .footer__correo {
+    word-break: break-all;
+  }
+
+  .footer__solo-movil {
+    display: none;
+  }
+
+  /* ---------- Cobertura, sellos y legales ---------- */
+  .footer__seo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .footer__seo strong {
+    color: var(--blanco);
+  }
+
+  .footer__sellos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .footer :global(.footer__frase span) {
+    font-weight: var(--peso-bold);
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .footer {
+      padding: 64px 0 100px;
+    }
+
+    .footer__contenido {
+      gap: 32px;
+    }
+
+    .footer__cierre {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+    }
+
+    .footer :global(.footer__titular) {
+      font-size: 66px;
+      line-height: 0.9;
+      white-space: nowrap;
+    }
+
+    .footer__cierre-texto {
+      max-width: none;
+      gap: 32px;
+    }
+
+    .footer__cierre-texto p {
+      font-size: 16px;
+    }
+
+    .footer__linea--escritorio {
+      display: none;
+    }
+
+    .footer__columnas {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .footer__marca {
+      gap: 12px;
+    }
+
+    .footer :global(.footer__logo) {
+      width: 120px;
+      height: 35px;
+    }
+
+    /* Menú en dos columnas */
+    .footer__menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 16px;
+    }
+
+    .footer__menu .footer__titulo {
+      grid-column: 1 / -1;
+      margin-bottom: 6px;
+    }
+
+    .footer__menu a {
+      padding: 6px 0;
+    }
+
+    .footer__solo-escritorio {
+      display: none;
+    }
+
+    .footer__solo-movil {
+      display: block;
+    }
+
+    /* Desplegable del catálogo */
+    .footer__desplegable {
+      border-top: 1px solid var(--azul-profundo);
+      border-bottom: 1px solid var(--azul-profundo);
+    }
+
+    .footer__desplegable summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 52px;
+      cursor: pointer;
+    }
+
+    .footer__desplegable summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .footer__desplegable :global(.footer__flecha) {
+      transition: transform var(--dur-media);
+    }
+
+    .footer__desplegable[open] :global(.footer__flecha) {
+      transform: rotate(180deg);
+    }
+
+    .footer__desplegable-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 4px 0 8px;
+      font-size: 15px;
+    }
+
+    .footer__desplegable-lista a {
+      padding: 7px 0;
+    }
+
+    .footer__contacto {
+      gap: 8px;
+    }
+
+    .footer__contacto .footer__titulo {
+      margin-bottom: 4px;
+    }
+
+    .footer__sellos {
+      gap: 8px;
+    }
+
+    .footer__sellos .sello {
+      padding: 7px 12px;
+    }
+
+    /* Legales: una línea debajo de otra (texto subido de 12 a 13 px, mínimo del sitio) */
+    .footer__legal {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+</style>

@@ -1,9 +1,12 @@
 ---
-// Página de Inicio. Por ahora vacía: las secciones se construyen en la tanda 3.
-import Layout from '../layouts/Layout.astro';
-import { inicio } from '../content/inicio';
+// PÁGINA DE INICIO (dirección "/"). Por ahora vacía: las secciones se construyen en la tanda 3.
+// Las páginas solo piden el contenido al repositorio y arman la página con componentes de src/ui.
+import Layout from '@ui/layout/Layout.astro';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const inicio = await repositorio.obtenerInicio();
 ---
 
-<Layout titulo={inicio.seo.titulo} descripcion={inicio.seo.descripcion}>
-	<main id="contenido"></main>
+<Layout comun={comun} seo={inicio.seo}>
 </Layout>
