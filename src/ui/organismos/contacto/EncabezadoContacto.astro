@@ -1,0 +1,122 @@
+---
+// ENCABEZADO DE CONTACTO — migas, "Hablemos." y las cuatro tarjetas de canal (D-Contacto / M-Contacto).
+// El eyebrow va dentro del <h1>, como en el diseño: el título completo queda
+// "Alquiler de manlift en Bogotá — Hablemos." (bueno para Google).
+import Titular from '@ui/atomos/Titular';
+import Migas from '@ui/moleculas/Migas';
+import TarjetaCanal from '@ui/moleculas/TarjetaCanal.astro';
+import type { ContenidoContacto } from '@dominio/paginas/contacto';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  contenido: Pick<ContenidoContacto, 'encabezado' | 'canales' | 'migas' | 'etiquetaMigas'>;
+}
+
+const { encabezado, canales, migas, etiquetaMigas } = Astro.props.contenido;
+---
+
+<section class="enc-contacto">
+  <div class="contenedor enc-contacto__columna">
+    <Migas migas={migas} etiqueta={etiquetaMigas} />
+
+    <div class="enc-contacto__fila">
+      <h1 class="enc-contacto__titular">
+        <Eyebrow texto={encabezado.eyebrow} className="enc-contacto__eyebrow" />
+        <Titular titular={encabezado.titular} etiqueta="span" />
+      </h1>
+      <p class="enc-contacto__texto">{encabezado.texto}</p>
+    </div>
+
+    <ul class="enc-contacto__canales" data-canales>
+      {canales.map((canal) => (
+        <li>
+          <TarjetaCanal canal={canal} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<script>
+  // Analítica: qué canal tocó la persona (sin datos personales)
+  import { emitirEvento } from '@ui/utilidades/analitica';
+
+  document.querySelector('[data-canales]')?.addEventListener('click', (evento) => {
+    const tarjeta = (evento.target as HTMLElement).closest<HTMLElement>('[data-canal]');
+    const canal = tarjeta?.dataset.canal;
+    if (canal === 'whatsapp' || canal === 'telefono' || canal === 'correo' || canal === 'mapa') {
+      emitirEvento({ event: 'contact_channel_click', channel: canal });
+    }
+  });
+</script>
+
+<style>
+  /* Primero móvil (M-Contacto); desde 768 px, escritorio (D-Contacto) */
+  .enc-contacto {
+    padding: 32px 0 56px;
+  }
+
+  .enc-contacto__columna {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .enc-contacto__fila {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  .enc-contacto__titular {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 52px;
+    line-height: var(--display-linea);
+    letter-spacing: var(--display-espaciado);
+    color: var(--azul-petroleo);
+  }
+
+  .enc-contacto__eyebrow {
+    display: flex;
+    margin-bottom: 14px;
+    color: var(--verde-texto-pequeno);
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+  }
+
+  .enc-contacto__texto {
+    max-width: 400px;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .enc-contacto__canales {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .enc-contacto__canales > li {
+    display: flex;
+    flex: 1 1 240px;
+    min-width: 0;
+  }
+
+  @media (min-width: 768px) {
+    .enc-contacto {
+      padding: 48px 0 90px;
+    }
+
+    .enc-contacto__titular {
+      font-size: 96px;
+    }
+  }
+</style>

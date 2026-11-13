@@ -1,0 +1,75 @@
+---
+// PÁGINA CONTACTO (dirección "/contacto").
+// Pide el contenido al repositorio y arma la página con los componentes de src/ui (organismos/contacto y moléculas).
+// Orden igual en escritorio y móvil (D-Contacto / M-Contacto):
+// migas y "Hablemos." → 4 canales → formulario + mapa y sede → "¿Subimos?" y footer (en el Layout).
+import Layout from '@ui/plantillas/Layout.astro';
+import EncabezadoContacto from '@ui/organismos/contacto/EncabezadoContacto.astro';
+import MapaSede from '@ui/moleculas/MapaSede.astro';
+import TarjetaSede from '@ui/moleculas/TarjetaSede.astro';
+import FormularioContactoIsla from '@islas/FormularioContactoIsla';
+import { repositorio } from '@infraestructura/repositorio';
+import { negocioLocal } from '@aplicacion/contacto/datosEstructurados';
+
+const comun = await repositorio.obtenerComun();
+const contacto = await repositorio.obtenerContacto();
+const jsonLd = JSON.stringify(negocioLocal(comun.empresa, Astro.site?.href ?? Astro.url.origin));
+---
+
+<Layout comun={comun} seo={contacto.seo}>
+  <script is:inline slot="head" type="application/ld+json" set:html={jsonLd} />
+
+  <EncabezadoContacto contenido={contacto} />
+
+  <section class="contacto-mensaje">
+    <div class="contenedor contacto-mensaje__fila">
+      <div class="contacto-mensaje__formulario">
+        <noscript>
+          <p class="contacto-mensaje__sin-js" role="note">{contacto.formulario.sinJavascript}</p>
+        </noscript>
+        <FormularioContactoIsla client:visible textos={contacto.formulario} />
+      </div>
+      <div id={contacto.mapa.id} class="contacto-mensaje__sede">
+        <MapaSede mapa={contacto.mapa} urlGoogleMaps={contacto.sede.comoLlegar.url} />
+        <TarjetaSede sede={contacto.sede} />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contacto-mensaje {
+    background: var(--fondo-suave);
+    padding: var(--seccion-y) 0;
+  }
+
+  .contacto-mensaje__fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .contacto-mensaje__formulario {
+    flex: 1 1 560px;
+    min-width: 0;
+  }
+
+  /* Solo sin JavaScript: el formulario no puede enviar, así que se avisa (mejora progresiva) */
+  .contacto-mensaje__sin-js {
+    margin-bottom: 16px;
+    padding: 14px 18px;
+    border-radius: var(--radio-md);
+    background: var(--rojo-fondo);
+    color: var(--rojo-error);
+    font-weight: 700;
+  }
+
+  .contacto-mensaje__sede {
+    flex: 1 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+</style>
