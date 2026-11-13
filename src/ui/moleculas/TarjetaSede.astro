@@ -1,0 +1,63 @@
+---
+// TARJETA "SEDE BOGOTÁ" (organismo) — dirección, horario y botón "Cómo llegar".
+import Icono from '@ui/atomos/Icono';
+import Boton from '@ui/atomos/Boton.astro';
+import type { ContenidoContacto } from '@dominio/paginas/contacto';
+
+interface Props {
+  sede: ContenidoContacto['sede'];
+}
+
+const { sede } = Astro.props;
+---
+
+<div class="sede">
+  <h2 class="sede__titulo">{sede.titulo}</h2>
+  <p class="sede__fila">
+    <Icono nombre="ubicacion" tamano={18} color="#609839" />
+    {sede.direccion}
+  </p>
+  <p class="sede__fila">
+    <Icono nombre="reloj" tamano={18} color="#609839" />
+    {sede.horario}
+  </p>
+  <Boton enlace={sede.comoLlegar} variante="linea" class="sede__boton" />
+</div>
+
+<style>
+  .sede {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border-radius: var(--radio-lg);
+    background: var(--blanco);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .sede__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--azul-petroleo);
+  }
+
+  .sede__fila {
+    display: flex;
+    gap: 10px;
+  }
+  .sede__fila :global(svg) {
+    flex: none;
+    margin-top: 2px;
+  }
+
+  .sede :global(.sede__boton) {
+    align-self: flex-start;
+    margin-top: 6px;
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+</style>

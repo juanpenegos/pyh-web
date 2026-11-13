@@ -156,3 +156,8 @@
 .menu-movil__sellos .sello {
   padding: 6px 12px;
 }
+
+/* Botón Clientes: azul con borde claro para que resalte sobre el fondo oscuro del menú */
+.menu-movil__clientes {
+  border-color: var(--azul-medio);
+}

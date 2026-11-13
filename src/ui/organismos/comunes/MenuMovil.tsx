@@ -4,11 +4,14 @@
 // del menú y el resto de la página inactiva mientras está abierto.
 // Todos los textos llegan por props (contenido común, ver src/dominio/paginas/comun.ts).
 
-import { useEffect, useRef } from 'react';
-import Icono from '@ui/compartido/Icono';
-import Logo from '@ui/compartido/Logo';
+import Icono from '@ui/atomos/Icono';
+import { useDialogoModal } from '@ui/utilidades/useDialogoModal';
+import Logo from '@ui/atomos/Logo';
 import type { ContenidoComun } from '@dominio/paginas/comun';
 import './MenuMovil.css';
+import { atributosEnlace } from '@ui/utilidades/enlaces';
+import Boton from '@ui/atomos/Boton';
+import Sello from '@ui/atomos/Sello';
 
 interface Props {
   textos: ContenidoComun['menuMovil'];   // La forma está en src/dominio/paginas/comun.ts
@@ -16,37 +19,9 @@ interface Props {
   paginaActual: string;
 }
 
-// Los enlaces a otros sitios (WhatsApp) se abren en una pestaña nueva
-const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
-
 export default function MenuMovil({ textos, logo, paginaActual }: Props) {
-  const dialogo = useRef<HTMLDialogElement>(null);
-
-  const abrir = () => {
-    dialogo.current?.showModal();
-    document.body.style.overflow = 'hidden'; // Evita que la página de atrás se desplace
-  };
-  const cerrar = () => dialogo.current?.close();
-
-  useEffect(() => {
-    const d = dialogo.current;
-    if (!d) return;
-    // Cuando el menú se cierra (con el botón, con Escape o al elegir un enlace)
-    const alCerrar = () => {
-      document.body.style.overflow = '';
-    };
-    d.addEventListener('close', alCerrar);
-
-    // Si la pantalla crece a tamaño escritorio con el menú abierto, se cierra
-    const escritorio = window.matchMedia('(min-width: 1100px)');
-    const alCambiar = () => escritorio.matches && d.open && d.close();
-    escritorio.addEventListener('change', alCambiar);
-
-    return () => {
-      d.removeEventListener('close', alCerrar);
-      escritorio.removeEventListener('change', alCambiar);
-    };
-  }, []);
+  // Abrir, cerrar y bloquear la página de atrás: comportamiento compartido (useDialogoModal)
+  const { ref: dialogo, abrir, cerrar } = useDialogoModal('(min-width: 1100px)');
 
   return (
     <>
@@ -77,7 +52,7 @@ export default function MenuMovil({ textos, logo, paginaActual }: Props) {
                 style={{ animationDelay: `${i * 70}ms` }}
                 aria-current={enlace.url === paginaActual ? 'page' : undefined}
                 onClick={cerrar}
-                {...externo(enlace.url)}
+                {...atributosEnlace(enlace.url)}
               >
                 <span className="menu-movil__numero">{String(i + 1).padStart(2, '0')}</span>
                 <span className="menu-movil__texto">{enlace.texto}</span>
@@ -86,14 +61,18 @@ export default function MenuMovil({ textos, logo, paginaActual }: Props) {
           </nav>
 
           <div className="menu-movil__botones">
-            <a href={textos.botonCotizar.url} className="btn btn--lima" {...externo(textos.botonCotizar.url)}>
+            <Boton href={textos.botonClientes.url} variante="azul" className="menu-movil__clientes">
+              <Icono nombre="persona" tamano={18} color="#FFFFFF" />
+              {textos.botonClientes.texto}
+            </Boton>
+            <Boton href={textos.botonCotizar.url} variante="lima">
               <Icono nombre="mas" tamano={14} color="#00475D" />
               {textos.botonCotizar.texto}
-            </a>
-            <a href={textos.botonPagos.url} className="btn btn--linea-blanca" {...externo(textos.botonPagos.url)}>
+            </Boton>
+            <Boton href={textos.botonPagos.url} variante="linea-blanca">
               <Icono nombre="candado" tamano={18} color="#89E462" />
               {textos.botonPagos.texto}
-            </a>
+            </Boton>
           </div>
 
           <div className="menu-movil__contacto">
@@ -101,13 +80,13 @@ export default function MenuMovil({ textos, logo, paginaActual }: Props) {
               <Icono nombre="telefono" tamano={18} color="#89E462" />
               {textos.telefono.texto}
             </a>
-            <a href={textos.whatsapp.url} {...externo(textos.whatsapp.url)}>
+            <a href={textos.whatsapp.url} {...atributosEnlace(textos.whatsapp.url)}>
               <Icono nombre="whatsapp" tamano={18} color="#89E462" />
               {textos.whatsapp.texto}
             </a>
             <div className="menu-movil__sellos">
               {textos.sellos.map((sello) => (
-                <span key={sello} className="sello">{sello}</span>
+                <Sello key={sello} texto={sello} />
               ))}
             </div>
           </div>

@@ -1,0 +1,24 @@
+---
+// ÁTOMO — BOTÓN para archivos .astro (enlace con forma de botón).
+// Uso: <Boton enlace={comun.cierre.boton} variante="lima" icono="mas" />
+// Es solo un adaptador: el botón de verdad es Boton.tsx (una sola fuente de clases y reglas).
+// Sin "client:", Astro lo convierte en HTML puro: no manda JavaScript.
+import BotonBase, { type VarianteBoton } from './Boton.tsx';
+import Icono from './Icono';
+import type { Enlace } from '@dominio/comunes';
+
+interface Props {
+  enlace: Enlace;
+  variante?: VarianteBoton;
+  icono?: 'mas';
+  class?: string;
+  [atributo: `data-${string}`]: unknown; // p. ej. la marca de estilos de quien lo usa
+}
+
+const { enlace, variante = 'lima', icono, class: claseExtra, ...resto } = Astro.props;
+---
+
+<BotonBase href={enlace.url} variante={variante} className={claseExtra} {...resto}>
+  {icono === 'mas' && <Icono nombre="mas" tamano={14} color="#00475D" />}
+  {enlace.texto}
+</BotonBase>

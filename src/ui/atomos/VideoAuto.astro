@@ -1,0 +1,52 @@
+---
+// VIDEO CORTO SIN SONIDO que se reproduce solo, en bucle.
+// - Solo se reproduce mientras se ve en pantalla (ahorra datos y batería) y se pausa al salir.
+// - Se reproduce aunque el sistema pida "reducir movimiento" (decisión del proyecto).
+// - `inmediato`: empieza a cargar enseguida (para el video de arriba de la página).
+// Uso: <VideoAuto video={clip.video} class="mi-clase" />
+import type { Video } from '@dominio/comunes';
+
+interface Props {
+  video: Video;
+  inmediato?: boolean;
+  class?: string;
+}
+
+const { video, inmediato = false, class: clase } = Astro.props;
+---
+
+<video
+  class={clase}
+  src={video.src}
+  poster={video.poster}
+  aria-label={video.alt}
+  style={video.posicion ? `object-position: ${video.posicion}` : undefined}
+  muted
+  loop
+  playsinline
+  preload={inmediato ? 'auto' : 'none'}
+  data-video-auto
+></video>
+
+<script>
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-video-auto]');
+
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      for (const { target, isIntersecting } of entradas) {
+        const video = target as HTMLVideoElement;
+        if (isIntersecting) {
+          video.play().catch(() => {}); // Si el navegador no deja, se queda el póster
+        } else {
+          video.pause();
+        }
+      }
+    },
+    { rootMargin: '120px' },
+  );
+
+  videos.forEach((video) => {
+    video.muted = true; // Algunos navegadores solo reproducen solos los videos silenciados
+    observador.observe(video);
+  });
+</script>

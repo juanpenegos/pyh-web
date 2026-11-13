@@ -14,10 +14,10 @@ import '@fontsource/arimo/latin-700.css';
 
 import '@ui/estilos/global.css';
 
-import SaltarContenido from './SaltarContenido.astro';
-import Header from './Header.astro';
-import Footer from './Footer.astro';
-import BotonWhatsapp from './BotonWhatsapp.astro';
+import SaltarContenido from '@ui/atomos/SaltarContenido.astro';
+import Header from '@ui/organismos/comunes/Header.astro';
+import Footer from '@ui/organismos/comunes/Footer.astro';
+import BotonWhatsapp from '@ui/moleculas/BotonWhatsapp.astro';
 import type { ContenidoComun } from '@dominio/paginas/comun';
 import type { Seo } from '@dominio/comunes';
 
@@ -31,6 +31,9 @@ const { comun, seo, noIndexar = false } = Astro.props;
 
 // Página actual sin la barra final ("/catalogo/" → "/catalogo"), para marcar el menú
 const paginaActual = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+// Dirección oficial de la página para Google (usa `site` de astro.config.mjs)
+const canonica = Astro.site && !noIndexar ? new URL(paginaActual, Astro.site).href : undefined;
 ---
 
 <!doctype html>
@@ -43,6 +46,9 @@ const paginaActual = Astro.url.pathname.replace(/\/$/, '') || '/';
 		<title>{seo.titulo}</title>
 		{seo.descripcion && <meta name="description" content={seo.descripcion} />}
 		{noIndexar && <meta name="robots" content="noindex" />}
+		{canonica && <link rel="canonical" href={canonica} />}
+		<!-- Lo que una página quiera agregar al <head> (p. ej. JSON-LD de Contacto) -->
+		<slot name="head" />
 	</head>
 	<body>
 		<SaltarContenido texto={comun.saltarAlContenido} />

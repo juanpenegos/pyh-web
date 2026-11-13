@@ -1,8 +1,9 @@
 ---
 // BUSCADOR del header. Envía lo escrito al catálogo como /catalogo?q=texto
 // (el catálogo usará ese texto para filtrar en la tanda 4).
-import Icono from '@ui/compartido/Icono';
+import Icono from '@ui/atomos/Icono';
 import type { ContenidoComun } from '@dominio/paginas/comun';
+import BotonBase from '@ui/atomos/Boton.tsx';
 
 interface Props {
   buscador: ContenidoComun['buscador'];
@@ -20,7 +21,7 @@ const { buscador } = Astro.props;
     aria-label={buscador.etiqueta}
     placeholder={buscador.placeholder}
   />
-  <button class="btn btn--lima buscador__boton" type="submit">{buscador.boton}</button>
+  <BotonBase variante="lima" className="buscador__boton" type="submit">{buscador.boton}</BotonBase>
 </form>
 
 <style>

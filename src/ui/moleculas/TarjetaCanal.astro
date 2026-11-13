@@ -1,0 +1,95 @@
+---
+// TARJETA DE CANAL (molécula) — WhatsApp, Llámanos, Escríbenos o Visítanos.
+// Toda la tarjeta es un enlace. Cada canal tiene su color de fondo (`tono`) y su ícono.
+import Icono from '@ui/atomos/Icono';
+import { atributosEnlace } from '@ui/utilidades/enlaces';
+import type { CanalContacto } from '@dominio/paginas/contacto';
+
+interface Props {
+  canal: CanalContacto;
+}
+
+const { canal } = Astro.props;
+
+// Ícono y color del ícono de cada canal (como en el diseño)
+const iconos = {
+  whatsapp: { nombre: 'whatsapp', color: '#00475D' },
+  telefono: { nombre: 'telefono', color: '#89E462' },
+  correo: { nombre: 'correo', color: '#00475D' },
+  mapa: { nombre: 'ubicacion', color: '#00475D' },
+} as const;
+const icono = iconos[canal.canal];
+---
+
+<a class:list={['canal', `canal--${canal.tono}`]} href={canal.url} data-canal={canal.canal} {...atributosEnlace(canal.url)}>
+  <Icono nombre={icono.nombre} tamano={30} color={icono.color} />
+  <span class="canal__titulo">{canal.titulo}</span>
+  <span class:list={['canal__valor', { 'canal__valor--largo': canal.canal === 'correo' }]}>{canal.valor}</span>
+  <span class="canal__ayuda">{canal.ayuda}</span>
+</a>
+
+<style>
+  .canal {
+    flex: 1;
+    min-width: 0;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px;
+    border-radius: var(--radio-lg);
+    color: var(--azul-petroleo);
+    text-decoration: none;
+    transition: transform var(--dur-rapida);
+  }
+  .canal:hover {
+    transform: translateY(-6px);
+    color: var(--azul-petroleo);
+  }
+
+  .canal--lima {
+    background: var(--verde-lima);
+  }
+  .canal--azul,
+  .canal--azul:hover {
+    background: var(--azul-petroleo);
+    color: var(--blanco);
+  }
+  .canal--hielo {
+    background: var(--azul-hielo);
+  }
+  .canal--suave {
+    background: var(--fondo-suave);
+  }
+
+  .canal__titulo {
+    margin-top: auto;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 26px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .canal__valor {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  /* El correo es largo: puede partirse en varias líneas sin salirse de la tarjeta */
+  .canal__valor--largo {
+    word-break: break-all;
+  }
+
+  .canal__ayuda {
+    font-size: 13px;
+    line-height: 1.4;
+    /* El diseño usa 0.75, pero sobre lima da 3,8:1 (no pasa AA). Con 0.85 da 4,7:1 */
+    opacity: 0.85;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .canal:hover {
+      transform: none;
+    }
+  }
+</style>

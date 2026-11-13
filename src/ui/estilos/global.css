@@ -1,6 +1,6 @@
 /*
   ESTILOS BASE — PyH+
-  Se cargan en todas las páginas desde src/ui/layout/Layout.astro.
+  Se cargan en todas las páginas desde src/ui/plantillas/Layout.astro.
   Usan las variables de tokens.css.
 */
 
@@ -242,14 +242,74 @@ a:hover {
   border: 0;
 }
 
-/* Respeta a quien pide menos movimiento en su sistema */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+
+/* ---------- Chips (píldoras de filtro y orden) ---------- */
+/* Se usan en el catálogo (filtros, orden y filtros aplicados). */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  min-height: 40px;
+  border-radius: var(--radio-pildora);
+  border: 1.5px solid var(--gris-linea);
+  background: var(--blanco);
+  color: var(--azul-petroleo);
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-semibold);
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--azul-petroleo);
+  color: var(--azul-petroleo);
+}
+.chip--activo {
+  background: var(--azul-petroleo);
+  border-color: var(--azul-petroleo);
+  color: var(--blanco);
+}
+.chip--activo:hover {
+  color: var(--blanco);
+}
+/* Opción que hoy no daría resultados */
+.chip--vacio {
+  opacity: 0.45;
+}
+/* Filtro aplicado (se quita al tocarlo) */
+.chip--aplicado {
+  padding: 6px 10px;
+  min-height: 32px;
+  font-size: 13px;
+  background: var(--azul-hielo);
+  border-color: var(--azul-hielo);
+}
+
+/* Al saltar a un ancla (#asistente), deja espacio para el header fijo */
+[id] {
+  scroll-margin-top: calc(var(--alto-header) + 12px);
+}
+
+/* ---------- Rótulo sobre fotos y videos ("Así trabajamos…", "Foto") ---------- */
+/* En el diseño mide 11 px; se usa 12 px, el mínimo permitido para rótulos en mayúsculas. */
+.etiqueta-foto {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--radio-pildora);
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--blanco);
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-semibold);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  pointer-events: none;
 }

@@ -4,10 +4,11 @@
 // Escritorio: tarjeta vertical (foto arriba). Móvil: tarjeta horizontal (foto a la izquierda).
 
 import type { CSSProperties } from 'react';
-import Icono from '@ui/compartido/Icono';
+import Icono from '@ui/atomos/Icono';
 import type { Maquina } from '@dominio/maquina';
 import type { TextosTarjetaMaquina } from '@dominio/paginas/catalogo';
 import './TarjetaMaquina.css';
+import Boton from '@ui/atomos/Boton';
 
 interface Props {
   maquina: Maquina;
@@ -16,7 +17,6 @@ interface Props {
 
 export default function TarjetaMaquina({ maquina, textos }: Props) {
   const altura = `${maquina.alturaM} m`;
-  const externo = textos.botonCotizar.url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {};
 
   return (
     <article
@@ -76,10 +76,10 @@ export default function TarjetaMaquina({ maquina, textos }: Props) {
             <div className="tarjeta-maquina__pie-titulo">{textos.disponibleTitulo}</div>
             <div className="tarjeta-maquina__pie-detalle">{textos.disponibleDetalle}</div>
           </div>
-          <a href={textos.botonCotizar.url} className="btn btn--lima tarjeta-maquina__cotizar" {...externo}>
+          <Boton href={textos.botonCotizar.url} variante="lima" className="tarjeta-maquina__cotizar">
             {textos.botonCotizar.texto}
             <span className="solo-lector"> {maquina.nombre}</span>
-          </a>
+          </Boton>
         </div>
       </div>
     </article>

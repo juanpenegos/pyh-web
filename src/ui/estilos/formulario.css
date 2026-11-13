@@ -1,0 +1,240 @@
+/*
+  FORMULARIOS — campos, chips de opción, casilla, avisos, barra de progreso y botón "cargando".
+  Medidas del diseño (D-Contacto y D-PSE: clases .field y .chip). Primero móvil; se amplía con min-width.
+*/
+
+/* ---------- Campo: etiqueta + control ---------- */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.campo__etiqueta {
+  padding: 0;
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-semibold);
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--azul-petroleo);
+}
+
+.campo__control {
+  width: 100%;
+  height: 52px;
+  padding: 0 16px;
+  border: 1.5px solid var(--gris-linea);
+  border-radius: 14px;
+  background: var(--blanco);
+  color: var(--azul-petroleo);
+  font-family: var(--fuente-texto);
+  font-size: 16px;   /* 16 px evita que el iPhone acerque la pantalla al escribir */
+  transition: border-color var(--dur-rapida), box-shadow var(--dur-rapida);
+}
+.campo__control::placeholder {
+  color: var(--gris-texto-pequeno);
+}
+textarea.campo__control {
+  height: 120px;
+  padding: 14px 16px;
+  resize: vertical;
+  line-height: 1.5;
+}
+select.campo__control {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2300475D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  cursor: pointer;
+}
+.campo__control:focus {
+  outline: none;
+  border-color: var(--azul-medio);
+  box-shadow: var(--foco-campo);
+}
+
+.campo__ayuda {
+  font-size: 13px;
+  color: var(--gris-texto-pequeno);
+}
+
+/* Error: borde rojo oscuro y texto con ícono (no solo color) */
+.campo--error .campo__control {
+  border-color: var(--rojo-error);
+}
+.campo__error {
+  display: flex;
+  gap: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--rojo-error);
+}
+.campo__error::before {
+  content: "!";
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--rojo-error);
+  color: var(--blanco);
+  font-weight: var(--peso-bold);
+  font-size: 11px;
+}
+
+/* ---------- Chips de opción (radio con forma de píldora) ---------- */
+.grupo-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.grupo-chips__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.grupo-chips__chip {
+  position: relative;
+  min-height: 44px;
+}
+.grupo-chips__radio {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.grupo-chips__chip:has(.grupo-chips__radio:focus-visible) {
+  outline: 3px solid var(--azul-medio);
+  outline-offset: 2px;
+}
+
+/* ---------- Casilla (aceptar la política) ---------- */
+.casilla {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--gris-texto-pequeno);
+  cursor: pointer;
+}
+.casilla input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--azul-petroleo);
+  cursor: pointer;
+}
+.casilla a {
+  color: var(--azul-enlace);
+}
+.casilla--error {
+  color: var(--rojo-error);
+}
+
+/* ---------- Avisos ---------- */
+.alerta__zona:empty {
+  display: none;
+}
+.alerta {
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.alerta--error {
+  background: var(--rojo-fondo);
+  color: var(--rojo-error);
+}
+.alerta--exito {
+  background: var(--lima-hielo);
+  color: var(--azul-petroleo);
+}
+.alerta--info {
+  background: var(--azul-hielo);
+  color: var(--azul-petroleo);
+}
+.alerta .btn {
+  margin-top: 10px;
+}
+
+/* ---------- Barra de progreso (asistente de pago) ---------- */
+.barra-progreso {
+  display: flex;
+  gap: 8px;
+}
+.barra-progreso__tramo {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--gris-linea);
+  transition: background var(--dur-media);
+}
+.barra-progreso__tramo--hecho {
+  background: var(--verde-lima);
+}
+
+/* ---------- Botón ocupado (enviando, buscando…) ---------- */
+/* Se usa aria-disabled (no disabled) para que el foco del teclado no se pierda mientras espera */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  cursor: progress;
+  opacity: 0.75;
+  transform: none;
+}
+.girando {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border: 2.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .girando {
+    animation-duration: 2.4s;
+  }
+}
+
+/* Campo trampa contra robots: fuera de la pantalla (no display:none, que algunos robots detectan) */
+.campo-trampa {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Dos columnas desde tableta */
+.formulario__fila {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 768px) {
+  .formulario__fila {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Títulos de los pasos y del formulario: reciben el foco al cambiar (sin borde de foco) */
+.titulo-paso:focus {
+  outline: none;
+}

@@ -34,6 +34,10 @@
   --azul-hielo: #e8f0f2;      /* Fondos de tarjeta */
   --lima-hielo: #f2ffe5;      /* Fondos de tarjeta */
 
+  /* Errores de formulario (no están en el diseño; contraste 6,5:1 sobre blanco) */
+  --rojo-error: #b42318;
+  --rojo-fondo: #fef3f2;
+
   /* ---------- Tipografías ---------- */
   --fuente-titulos: "Exo 2", Arial, sans-serif;  /* Pesos 600–900 */
   --fuente-texto: Arial, Arimo, sans-serif;
@@ -80,6 +84,7 @@
   --seccion-y: 110px;           /* Relleno vertical de cada sección */
   --contenedor-max: 1280px;     /* Ancho máximo del contenido */
   --contenedor-margen: 32px;    /* Margen lateral del contenido */
+  --alto-header: 85px;          /* Header fijo; lo usan las piezas fijas que van debajo */
 
   /* ---------- Formas ---------- */
   --radio-sm: 12px;
@@ -104,6 +109,13 @@
   --dur-flota: 6s;        /* Máquinas que flotan */
   --dur-marquesina: 28s;  /* Logos de clientes */
   --dur-pulso: 2s;        /* Botón de WhatsApp */
+}
+
+/* ---------- Header móvil/tableta (con su buscador debajo) ---------- */
+@media (max-width: 1099px) {
+  :root {
+    --alto-header: 129px;
+  }
 }
 
 /* ---------- Móvil ---------- */

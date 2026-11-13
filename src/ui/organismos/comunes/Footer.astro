@@ -2,25 +2,27 @@
 // FOOTER — bloque "¿Subimos?" + columnas (menú, catálogo, contacto) + textos legales.
 // Escritorio: columnas en rejilla (Main / D-Catalogo). Móvil: todo en una columna y
 // el catálogo se pliega en un desplegable (M-Inicio).
-import Logo from '@ui/compartido/Logo';
-import Icono from '@ui/compartido/Icono';
-import Boton from '@ui/compartido/Boton.astro';
-import Titular from '@ui/compartido/Titular.astro';
+import Logo from '@ui/atomos/Logo';
+import Icono from '@ui/atomos/Icono';
+import Boton from '@ui/atomos/Boton.astro';
+import Titular from '@ui/atomos/Titular';
 import type { ContenidoComun } from '@dominio/paginas/comun';
+import { atributosEnlace } from '@ui/utilidades/enlaces';
+import Eyebrow from '@ui/atomos/Eyebrow';
+import Sello from '@ui/atomos/Sello';
 
 interface Props {
   comun: ContenidoComun;
 }
 
 const { cierre, footer } = Astro.props.comun;
-const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {});
 ---
 
 <footer class="footer">
   <div class="contenedor footer__contenido">
     <!-- ¿Subimos? -->
     <div class="footer__cierre">
-      <Titular titular={cierre.titular} etiqueta="h2" colorResaltado="lima" class="footer__titular" />
+      <Titular titular={cierre.titular} etiqueta="h2" colorResaltado="lima" className="footer__titular" />
       <div class="footer__cierre-texto">
         <p>{cierre.texto}</p>
         <Boton enlace={cierre.boton} variante="lima" class="footer__cierre-boton" />
@@ -37,20 +39,20 @@ const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', r
       </div>
 
       <nav aria-label={footer.menu.titulo} class="footer__menu">
-        <span class="eyebrow footer__titulo">{footer.menu.titulo}</span>
-        {footer.menu.enlaces.map((e) => <a href={e.url} {...externo(e.url)}>{e.texto}</a>)}
+        <Eyebrow texto={footer.menu.titulo} className="footer__titulo" />
+        {footer.menu.enlaces.map((e) => <a href={e.url} {...atributosEnlace(e.url)}>{e.texto}</a>)}
       </nav>
 
       <!-- Catálogo: lista fija en escritorio -->
       <nav aria-label={footer.catalogo.titulo} class="footer__lista footer__solo-escritorio">
-        <span class="eyebrow footer__titulo">{footer.catalogo.titulo}</span>
+        <Eyebrow texto={footer.catalogo.titulo} className="footer__titulo" />
         {footer.catalogo.enlaces.map((e) => <a href={e.url}>{e.texto}</a>)}
       </nav>
 
       <!-- Catálogo: desplegable en móvil -->
       <details class="footer__desplegable footer__solo-movil">
         <summary>
-          <span class="eyebrow footer__titulo">{footer.catalogo.titulo}</span>
+          <Eyebrow texto={footer.catalogo.titulo} className="footer__titulo" />
           <Icono nombre="abajo" tamano={20} grosor={2.4} color="#89E462" className="footer__flecha" />
         </summary>
         <nav aria-label={footer.catalogo.titulo} class="footer__desplegable-lista">
@@ -59,7 +61,7 @@ const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', r
       </details>
 
       <div class="footer__lista footer__contacto">
-        <span class="eyebrow footer__titulo">{footer.contacto.titulo}</span>
+        <Eyebrow texto={footer.contacto.titulo} className="footer__titulo" />
         <a href={footer.contacto.telefono.url}>{footer.contacto.telefono.texto}</a>
         <a href={footer.contacto.correo.url} class="footer__correo">{footer.contacto.correo.texto}</a>
         <span>{footer.contacto.horario}</span>
@@ -74,7 +76,7 @@ const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', r
     </div>
 
     <div class="footer__sellos">
-      {footer.sellos.map((s) => <span class="sello">{s}</span>)}
+      {footer.sellos.map((s) => <Sello texto={s} />)}
     </div>
 
     <div class="footer__linea"></div>
@@ -92,7 +94,7 @@ const externo = (url: string) => (url.startsWith('http') ? { target: '_blank', r
           ))
         }
       </span>
-      <Titular titular={footer.fraseFinal} etiqueta="span" colorResaltado="lima" class="footer__frase" />
+      <Titular titular={footer.fraseFinal} etiqueta="span" colorResaltado="lima" className="footer__frase" />
     </div>
   </div>
 </footer>

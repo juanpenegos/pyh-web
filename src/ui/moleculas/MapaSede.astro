@@ -1,0 +1,96 @@
+---
+// MAPA DE LA SEDE (organismo) — patrón "fachada" para que la página cargue rápido:
+// al abrir la página solo se ve una imagen liviana del mapa con "Ver en Google Maps ↗".
+// Al tocarla (o con Enter), se cambia por el mapa real de Google (iframe).
+// Sin JavaScript, el enlace abre Google Maps en otra pestaña.
+import type { ContenidoContacto } from '@dominio/paginas/contacto';
+
+interface Props {
+  mapa: ContenidoContacto['mapa'];
+  urlGoogleMaps: string;   // Google Maps en otra pestaña (si no hay JavaScript)
+}
+
+const { mapa, urlGoogleMaps } = Astro.props;
+---
+
+<div class="mapa" data-mapa data-url={mapa.url} data-titulo={mapa.tituloMapa}>
+  <a class="mapa__fachada" href={urlGoogleMaps} target="_blank" rel="noopener" aria-label={mapa.etiquetaBoton}>
+    <picture>
+      {mapa.imagenAvif && <source srcset={mapa.imagenAvif} type="image/avif" />}
+      <img src={mapa.imagen.src} alt={mapa.imagen.alt} width="757" height="518" loading="lazy" decoding="async" />
+    </picture>
+    <span class="mapa__boton">{mapa.boton}</span>
+  </a>
+</div>
+
+<script>
+  // Cambia la imagen por el mapa de Google al tocarla
+  document.querySelectorAll<HTMLElement>('[data-mapa]').forEach((mapa) => {
+    const fachada = mapa.querySelector<HTMLAnchorElement>('.mapa__fachada');
+    fachada?.addEventListener('click', (evento) => {
+      evento.preventDefault();
+      const iframe = document.createElement('iframe');
+      iframe.src = mapa.dataset.url ?? '';
+      iframe.title = mapa.dataset.titulo ?? '';
+      iframe.className = 'mapa__iframe';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.allowFullscreen = true;
+      fachada.replaceWith(iframe);
+      iframe.focus();
+    });
+  });
+</script>
+
+<style>
+  .mapa {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+    border-radius: var(--radio-lg);
+    background: var(--azul-hielo);
+  }
+
+  .mapa__fachada {
+    display: block;
+    height: 100%;
+  }
+
+  .mapa__fachada img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mapa__boton {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    padding: 8px 12px;
+    border-radius: var(--radio-pildora);
+    background: var(--blanco);
+    color: var(--azul-petroleo);
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 13px;
+    line-height: 1.3;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    transition: transform var(--dur-rapida);
+  }
+  .mapa__fachada:hover .mapa__boton {
+    transform: translateY(-2px);
+  }
+
+  .mapa :global(.mapa__iframe) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (min-width: 768px) {
+    .mapa {
+      height: 420px;
+    }
+  }
+</style>
