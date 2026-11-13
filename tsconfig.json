@@ -15,7 +15,9 @@
       "@dominio/*": ["src/dominio/*"],
       "@aplicacion/*": ["src/aplicacion/*"],
       "@infraestructura/*": ["src/infraestructura/*"],
-      "@ui/*": ["src/ui/*"]
-    }
+      "@ui/*": ["src/ui/*"],
+      "@islas/*": ["src/islas/*"]
+    },
+    "ignoreDeprecations": "6.0"
   }
 }
