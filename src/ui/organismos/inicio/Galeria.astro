@@ -1,0 +1,213 @@
+---
+// "EN LA OBRA, NO EN EL CATÁLOGO." — video, fotos reales, cifra y frase en verde.
+// Escritorio: mosaico de 4 columnas. Móvil: carrusel deslizable.
+import Titular from '@ui/atomos/Titular';
+import VideoAuto from '@ui/atomos/VideoAuto.astro';
+import Deslizador from './Deslizador.astro';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+import type { Imagen } from '@dominio/comunes';
+
+interface Props {
+  galeria: ContenidoInicio['galeria'];
+  desliza: string;
+}
+
+const { galeria, desliza } = Astro.props;
+const [foto1, foto2] = galeria.fotos;
+const posicion = (imagen?: Imagen) => (imagen?.posicion ? `object-position: ${imagen.posicion}` : undefined);
+const lineas = galeria.frase.split('\n');
+---
+
+<section class="galeria" aria-label={galeria.etiqueta}>
+  <div class="contenedor">
+    <Titular titular={galeria.titular} colorResaltado="azul" className="h2 galeria__titulo" />
+  </div>
+  <div class="contenedor galeria__contenedor">
+    <Deslizador texto={desliza} class="galeria__mosaico">
+      <div class="pieza pieza--video">
+        <VideoAuto video={galeria.video} class="pieza__medio" />
+      </div>
+      {foto1 && (
+        <div class="pieza pieza--foto1">
+          <img class="pieza__medio" src={foto1.src} alt={foto1.alt} style={posicion(foto1)} loading="lazy" decoding="async" />
+        </div>
+      )}
+      {foto2 && (
+        <div class="pieza pieza--foto2">
+          <img class="pieza__medio" src={foto2.src} alt={foto2.alt} style={posicion(foto2)} loading="lazy" decoding="async" />
+        </div>
+      )}
+      <div class="pieza pieza--cifra">
+        <img class="pieza__medio" src={galeria.fotoCifra.src} alt={galeria.fotoCifra.alt} style={posicion(galeria.fotoCifra)} loading="lazy" decoding="async" />
+        <div class="pieza__sombra"></div>
+        <span class="pieza__valor">{galeria.cifra.valor}</span>
+        <span class="pieza__etiqueta">{galeria.cifra.etiqueta}</span>
+      </div>
+      <div class="pieza pieza--frase">
+        <img class="pieza__maquina" src={galeria.imagenFrase.src} alt={galeria.imagenFrase.alt} loading="lazy" decoding="async" />
+        <span class="pieza__frase">{lineas.map((linea, i) => (i > 0 ? [<br />, linea] : linea))}</span>
+      </div>
+    </Deslizador>
+  </div>
+</section>
+
+<style>
+  .galeria {
+    padding: 110px 0;
+  }
+
+  .galeria :global(.galeria__titulo) {
+    margin-bottom: 48px;
+  }
+
+  /* ---------- Escritorio: mosaico ---------- */
+  .galeria .galeria__contenedor :global(.galeria__mosaico) {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 200px;
+    gap: 20px;
+  }
+
+  .pieza {
+    position: relative;
+    border-radius: var(--radio-lg);
+    overflow: hidden;
+  }
+
+  .pieza--video {
+    grid-row: span 2;
+  }
+
+  .pieza--foto2,
+  .pieza--frase {
+    grid-column: span 2;
+  }
+
+  .pieza :global(.pieza__medio) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pieza--cifra {
+    background: var(--azul-petroleo);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .pieza__sombra {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(6, 42, 51, 0) 35%, rgba(6, 42, 51, 0.9));
+  }
+
+  .pieza__valor {
+    position: relative;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: 48px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--verde-lima);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+
+  .pieza__etiqueta {
+    position: relative;
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--blanco);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  .pieza--frase {
+    background: var(--verde-lima);
+    overflow: visible;
+  }
+
+  .pieza__maquina {
+    position: absolute;
+    right: 30px;
+    bottom: 0;
+    height: 250px;
+    width: auto;
+    max-width: none;
+  }
+
+  .pieza__frase {
+    position: absolute;
+    left: 28px;
+    top: 28px;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 28px;
+    line-height: 1;
+    color: var(--azul-petroleo);
+  }
+
+  /* ---------- Móvil: carrusel ---------- */
+  @media (max-width: 767px) {
+    .galeria {
+      padding: 56px 0 0;
+    }
+
+    .galeria :global(.galeria__titulo) {
+      margin-bottom: 24px;
+    }
+
+    .galeria__contenedor {
+      padding-inline: 0;
+    }
+
+    .galeria .galeria__contenedor :global(.galeria__mosaico) {
+      display: flex;
+      gap: 12px;
+    }
+
+    .pieza {
+      flex: 0 0 300px;
+      height: 380px;
+    }
+
+    .pieza--cifra {
+      display: block;
+      padding: 0;
+    }
+
+    .pieza__valor {
+      position: absolute;
+      left: 20px;
+      bottom: 44px;
+      text-shadow: none;
+    }
+
+    .pieza__etiqueta {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 18px;
+      margin: 0;
+      text-shadow: none;
+    }
+
+    .pieza--frase {
+      overflow: hidden;
+    }
+
+    .pieza__maquina {
+      right: 12px;
+      height: 230px;
+    }
+
+    .pieza__frase {
+      left: 20px;
+      top: 20px;
+      font-size: 26px;
+    }
+  }
+</style>

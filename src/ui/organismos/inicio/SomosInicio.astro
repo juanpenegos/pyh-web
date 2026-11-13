@@ -1,0 +1,169 @@
+---
+// "SOMOS PyH+." — presentación corta con la foto del operario sobre un "+" verde gigante.
+import Titular from '@ui/atomos/Titular';
+import Boton from '@ui/atomos/Boton.astro';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  nosotros: ContenidoInicio['nosotros'];
+}
+
+const { nosotros } = Astro.props;
+---
+
+<section class="somos">
+  <div class="contenedor somos__fila">
+    <div class="somos__texto">
+      <Eyebrow texto={nosotros.eyebrow} className="somos__eyebrow" />
+      <Titular titular={nosotros.titular} className="h2 somos__titulo" />
+      <p>{nosotros.texto}</p>
+      <Boton enlace={nosotros.enlace} variante="azul" class="somos__boton" />
+    </div>
+    <div class="somos__foto">
+      <Icono nombre="mas" tamano={460} color="#89E462" className="somos__mas" />
+      <img src={nosotros.imagen.src} alt={nosotros.imagen.alt} loading="lazy" decoding="async" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .somos {
+    background: var(--lima-hielo);
+    overflow: hidden;
+    height: 600px;
+  }
+
+  .somos__fila {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 40px;
+  }
+
+  .somos__texto {
+    flex: 1 1 480px;
+    min-width: 0;
+    padding: 110px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .somos__eyebrow {
+    color: var(--verde-texto-pequeno);
+  }
+
+  .somos :global(.somos__titulo) {
+    font-size: clamp(48px, 7vw, 96px);
+  }
+
+  .somos__texto p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .somos__texto :global(.somos__boton) {
+    align-self: flex-start;
+  }
+
+  .somos__foto {
+    flex: 1 1 420px;
+    position: relative;
+    height: 560px;
+  }
+
+  .somos__foto :global(.somos__mas) {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+  }
+
+  .somos__foto img {
+    position: absolute;
+    right: 80px;
+    bottom: 0;
+    height: 540px;
+    width: auto;
+    max-width: none;
+  }
+
+  /* ---------- Tableta: texto y foto siguen lado a lado ---------- */
+  @media (max-width: 1099px) {
+    .somos__fila {
+      flex-wrap: nowrap;
+      gap: 24px;
+    }
+
+    .somos__texto {
+      flex: 1 1 auto;
+    }
+
+    .somos__foto {
+      flex: 0 0 340px;
+    }
+
+    .somos__foto :global(.somos__mas) {
+      width: 380px;
+      height: 380px;
+      right: -40px;
+    }
+
+    .somos__foto img {
+      right: 0;
+      height: 480px;
+    }
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .somos {
+      height: auto;
+    }
+
+    .somos__texto {
+      flex: none;
+    }
+
+    .somos__foto {
+      flex: none;
+    }
+
+    .somos__fila {
+      display: block;
+    }
+
+    .somos__texto {
+      padding: 56px 0 0;
+      gap: 16px;
+    }
+
+    .somos :global(.somos__titulo) {
+      font-size: 52px;
+    }
+
+    .somos__texto p {
+      font-size: 16px;
+    }
+
+    .somos__foto {
+      height: 360px;
+      margin-top: 16px;
+    }
+
+    .somos__foto :global(.somos__mas) {
+      width: 300px;
+      height: 300px;
+      right: -20px;
+      bottom: 20px;
+    }
+
+    .somos__foto img {
+      right: 40px;
+      height: 350px;
+    }
+  }
+</style>

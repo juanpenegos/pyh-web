@@ -1,0 +1,54 @@
+---
+// MARQUESINA DE CLIENTES: los logos pasan en bucle de derecha a izquierda.
+import TarjetaCliente from '@ui/moleculas/TarjetaCliente.astro';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  clientes: ContenidoInicio['clientes'];
+}
+
+const { clientes } = Astro.props;
+// Los logos se repiten 4 veces para que el bucle no tenga cortes (como en el diseño)
+const logos = [1, 2, 3, 4].flatMap((vuelta) => clientes.lista.map((cliente) => ({ cliente, repetido: vuelta > 1 })));
+---
+
+<section class="clientes" aria-label={clientes.etiqueta}>
+  <div class="contenedor clientes__titulo">{clientes.titulo}</div>
+  <div class="clientes__marquesina">
+    {logos.map(({ cliente, repetido }) => <TarjetaCliente cliente={cliente} repetido={repetido} />)}
+  </div>
+</section>
+
+<style>
+  .clientes {
+    background: var(--fondo-suave);
+    padding: 28px 0;
+    border-bottom: 1px solid var(--gris-linea);
+    overflow: hidden;
+  }
+
+  .clientes__titulo {
+    font-size: 13px;
+    color: var(--gris-texto-pequeno);
+    margin-bottom: 16px;
+  }
+
+  .clientes__marquesina {
+    display: flex;
+    gap: 16px;
+    width: max-content;
+    animation: marquesina var(--dur-marquesina) linear infinite;
+  }
+
+  @media (max-width: 767px) {
+    .clientes {
+      background: var(--blanco);
+      border-top: 1px solid var(--gris-linea);
+    }
+
+    .clientes__titulo {
+      margin-bottom: 12px;
+    }
+  }
+
+</style>

@@ -1,0 +1,122 @@
+---
+// CARRUSEL HORIZONTAL de móvil con su indicador "Desliza" y la barra de avance.
+// Pone los elementos (slot) en fila; en móvil se desliza con el dedo y "se imanta" a cada tarjeta.
+// La barra verde avanza con el deslizamiento (solo en navegadores que lo soportan; si no, queda quieta).
+// Uso: <Deslizador texto={inicio.desliza} class="mi-fila"> ...tarjetas... </Deslizador>
+import Icono from '@ui/atomos/Icono';
+
+interface Props {
+  texto: string;  // "Desliza"
+  class?: string; // Clases extra para la fila (p. ej. separación entre tarjetas)
+}
+
+const { texto, class: clase } = Astro.props;
+---
+
+<div class="deslizador">
+  <div class:list={['deslizador__fila', clase]}>
+    <slot />
+  </div>
+  <div class="deslizador__indicador" aria-hidden="true">
+    <span class="deslizador__barra"><i></i></span>
+    <span class="deslizador__texto">{texto}<Icono nombre="flecha" tamano={16} grosor={2.6} /></span>
+  </div>
+</div>
+
+<style>
+  .deslizador {
+    timeline-scope: --fila;
+  }
+
+  .deslizador__fila {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 20px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scroll-timeline: --fila x;
+  }
+
+  .deslizador__fila::-webkit-scrollbar {
+    display: none;
+  }
+
+  .deslizador__fila > :global(*) {
+    scroll-snap-align: start;
+  }
+
+  .deslizador__indicador {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px 0;
+  }
+
+  .deslizador__barra {
+    position: relative;
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(0, 71, 93, 0.12);
+    overflow: hidden;
+  }
+
+  .deslizador__barra i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 30%;
+    border-radius: 2px;
+    background: var(--verde-texto);
+  }
+
+  .deslizador__texto {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: var(--eyebrow-tamano);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--verde-texto-pequeno);
+  }
+
+  .deslizador__texto :global(svg) {
+    animation: empuje 1.6s ease-in-out infinite;
+  }
+
+  @keyframes empuje {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(6px); }
+  }
+
+  @keyframes avance {
+    from { transform: translateX(0); }
+    to { transform: translateX(233.34%); }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .deslizador__barra i {
+      animation: avance linear both;
+      animation-timeline: --fila;
+    }
+  }
+
+  /* En escritorio no hay carrusel: cada sección acomoda la fila a su manera (rejilla, etc.) */
+  @media (min-width: 768px) {
+    .deslizador__fila {
+      overflow: visible;
+      padding: 0;
+      scroll-snap-type: none;
+    }
+
+    .deslizador__indicador {
+      display: none;
+    }
+  }
+
+</style>

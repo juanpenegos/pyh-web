@@ -1,0 +1,159 @@
+---
+// FRANJA AMARILLA de sellos (ONAC, IPAF, 4272, 43 m) debajo del hero.
+// Escritorio: los cuatro en fila. Móvil: dos a la vez, con flechas para ver los otros dos.
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  sellos: ContenidoInicio['sellos'];
+}
+
+const { sellos } = Astro.props;
+---
+
+<section class="sellos" aria-label={sellos.etiqueta} data-sellos>
+  <div class="sellos__ventana">
+    <div class="sellos__pista contenedor">
+      {sellos.lista.map((sello) => (
+        <div class="sellos__item">
+          <span class="sellos__valor">{sello.valor}</span>
+          <span class="sellos__etiqueta">{sello.etiqueta}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+  <button type="button" class="sellos__flecha sellos__flecha--siguiente" aria-label={sellos.botonSiguientes} data-siguiente>
+    <Icono nombre="derecha" tamano={26} grosor={3} color="#00475D" />
+  </button>
+  <button type="button" class="sellos__flecha sellos__flecha--anterior" aria-label={sellos.botonAnteriores} data-anterior hidden>
+    <Icono nombre="izquierda" tamano={26} grosor={3} color="#00475D" />
+  </button>
+</section>
+
+<script>
+  // Carrusel de móvil: muestra la primera o la segunda mitad de los sellos
+  document.querySelectorAll<HTMLElement>('[data-sellos]').forEach((franja) => {
+    const siguiente = franja.querySelector<HTMLButtonElement>('[data-siguiente]')!;
+    const anterior = franja.querySelector<HTMLButtonElement>('[data-anterior]')!;
+    const mover = (segunda: boolean) => {
+      franja.classList.toggle('sellos--segunda', segunda);
+      siguiente.hidden = segunda;
+      anterior.hidden = !segunda;
+      (segunda ? anterior : siguiente).focus();
+    };
+    siguiente.addEventListener('click', () => mover(true));
+    anterior.addEventListener('click', () => mover(false));
+  });
+</script>
+
+<style>
+  .sellos {
+    position: relative;
+    background: var(--amarillo);
+    color: var(--azul-petroleo);
+  }
+
+  .sellos__pista {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .sellos__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 26px 24px;
+    border-right: 1px solid rgba(0, 71, 93, 0.25);
+  }
+
+  .sellos__item:last-child {
+    border-right: 0;
+  }
+
+  .sellos__valor {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: 30px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .sellos__etiqueta {
+    font-size: 14px;
+    font-weight: var(--peso-bold);
+    line-height: 1.3;
+  }
+
+  .sellos__flecha {
+    display: none;
+  }
+
+  /* Tableta: menos aire para que quepan los cuatro */
+  @media (max-width: 1099px) {
+    .sellos__item {
+      gap: 10px;
+      padding: 22px 12px;
+    }
+  }
+
+  /* ---------- Móvil: carrusel de dos en dos ---------- */
+  @media (max-width: 767px) {
+    .sellos__ventana {
+      margin: 0 44px;
+      overflow: hidden;
+    }
+
+    .sellos__pista {
+      display: flex;
+      width: 200%;
+      max-width: none;
+      padding: 0;
+      transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .sellos--segunda .sellos__pista {
+      transform: translateX(-50%);
+    }
+
+    .sellos__item {
+      flex: 0 0 25%;
+      min-width: 0;
+      flex-direction: column;
+      text-align: center;
+      gap: 4px;
+      padding: 20px 8px;
+      border-right: 0;
+    }
+
+    .sellos__etiqueta {
+      font-size: 12px;
+    }
+
+    .sellos__flecha {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      background: none;
+      cursor: pointer;
+    }
+
+    .sellos__flecha[hidden] {
+      display: none;
+    }
+
+    .sellos__flecha--siguiente {
+      right: 0;
+    }
+
+    .sellos__flecha--anterior {
+      left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+// "CASOS QUE SUBIERON DE NIVEL." — caso destacado con foto, cifra y testimonio.
+import Titular from '@ui/atomos/Titular';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  casos: ContenidoInicio['casos'];
+}
+
+const { casos } = Astro.props;
+const { destacado, cifra, testimonio } = casos;
+---
+
+<section class="casos">
+  <div class="contenedor">
+    <Titular titular={casos.titular} className="h2 casos__titulo" />
+    <div class="casos__fila">
+      <a href={destacado.enlace.url} class="casos__destacado">
+        <img src={destacado.imagen.src} alt={destacado.imagen.alt} loading="lazy" decoding="async" />
+        <span class="casos__capa">
+          <span class="casos__etiquetas">
+            {destacado.etiquetas.map((etiqueta) => <span class="casos__etiqueta">{etiqueta}</span>)}
+          </span>
+          <span class="casos__nombre">{destacado.titulo}</span>
+          <span class="casos__ver">{destacado.enlace.texto}</span>
+        </span>
+      </a>
+
+      <div class="casos__lado">
+        <div class="casos__cifra">
+          <span class="casos__cifra-valor">{cifra.valor}</span>
+          <span class="casos__cifra-etiqueta">{cifra.etiqueta}</span>
+        </div>
+        <figure class="casos__testimonio">
+          <div class="casos__estrellas" role="img" aria-label={testimonio.etiquetaEstrellas}>
+            {'★'.repeat(testimonio.estrellas)}
+          </div>
+          <blockquote>{testimonio.cita}</blockquote>
+          <figcaption>
+            <span class="casos__iniciales" aria-hidden="true">{testimonio.iniciales}</span>
+            <span>
+              <span class="casos__persona">{testimonio.nombre}</span>
+              <span class="casos__cargo">{testimonio.cargo}</span>
+            </span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .casos {
+    padding: 110px 0;
+  }
+
+  .casos :global(.casos__titulo) {
+    margin-bottom: 48px;
+  }
+
+  .casos__fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .casos__destacado {
+    flex: 2 1 520px;
+    min-width: 0;
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: var(--radio-lg);
+    overflow: hidden;
+    background: var(--azul-noche);
+    text-decoration: none;
+  }
+
+  .casos__destacado img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--curva-sube);
+  }
+
+  .casos__destacado:hover img {
+    transform: scale(1.03);
+  }
+
+  .casos__capa {
+    position: relative;
+    width: 100%;
+    padding: 36px;
+    background: linear-gradient(180deg, rgba(6, 42, 51, 0), rgba(6, 42, 51, 0.95));
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .casos__etiquetas {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .casos__etiqueta {
+    padding: 6px 12px;
+    border-radius: var(--radio-pildora);
+    background: rgba(255, 255, 255, 0.16);
+    color: var(--blanco);
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .casos__nombre {
+    max-width: 620px;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 36px;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--blanco);
+  }
+
+  .casos__ver {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 16px;
+    color: var(--verde-lima);
+  }
+
+  .casos__lado {
+    flex: 1 1 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .casos__cifra {
+    background: var(--azul-petroleo);
+    border-radius: var(--radio-lg);
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .casos__cifra-valor {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: 72px;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--verde-lima);
+  }
+
+  .casos__cifra-etiqueta {
+    color: var(--blanco);
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .casos__testimonio {
+    flex: 1;
+    border: 1px solid var(--gris-linea);
+    border-radius: var(--radio-lg);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .casos__estrellas {
+    color: var(--amarillo);
+    font-size: 18px;
+    letter-spacing: 2px;
+    line-height: 1.2;
+  }
+
+  .casos__testimonio blockquote {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .casos__testimonio figcaption {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    line-height: 1.4;
+  }
+
+  .casos__iniciales {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--azul-hielo);
+    color: var(--azul-petroleo);
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .casos__persona {
+    display: block;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 16px;
+    color: var(--azul-petroleo);
+  }
+
+  .casos__cargo {
+    font-size: 13px;
+    color: var(--gris-texto-pequeno);
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .casos {
+      padding: 64px 0;
+    }
+
+    .casos :global(.casos__titulo) {
+      margin-bottom: 24px;
+    }
+
+    .casos__fila {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .casos__destacado {
+      flex: none;
+      min-height: 380px;
+    }
+
+    .casos__capa {
+      padding: 22px;
+      gap: 8px;
+    }
+
+    .casos__etiquetas {
+      margin-bottom: 4px;
+    }
+
+    .casos__nombre {
+      font-size: 26px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .casos__lado {
+      flex: none;
+      gap: 16px;
+    }
+
+    .casos__cifra {
+      padding: 20px;
+      gap: 14px;
+    }
+
+    .casos__cifra-valor {
+      font-size: 48px;
+    }
+
+    .casos__cifra-etiqueta {
+      font-size: 14px;
+    }
+
+    .casos__testimonio {
+      padding: 20px;
+      gap: 12px;
+    }
+
+    .casos__estrellas {
+      font-size: 16px;
+    }
+
+    .casos__testimonio blockquote {
+      font-size: 16px;
+    }
+  }
+</style>

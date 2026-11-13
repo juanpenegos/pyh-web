@@ -1,7 +1,22 @@
 ---
-// PÁGINA DE INICIO (dirección "/"). Por ahora vacía: las secciones se construyen en la tanda 3.
+// PÁGINA DE INICIO (dirección "/").
 // Las páginas solo piden el contenido al repositorio y arman la página con componentes de src/ui.
-import Layout from '@ui/layout/Layout.astro';
+// Las secciones van en el mismo orden que en el diseño (Main / M-Inicio).
+import Layout from '@ui/plantillas/Layout.astro';
+import HeroInicio from '@ui/organismos/inicio/HeroInicio.astro';
+import FranjaSellos from '@ui/organismos/inicio/FranjaSellos.astro';
+import SomosInicio from '@ui/organismos/inicio/SomosInicio.astro';
+import CatalogoDestacado from '@ui/organismos/inicio/CatalogoDestacado.astro';
+import SeccionAsistente from '@ui/organismos/inicio/SeccionAsistente.astro';
+import Confianza from '@ui/organismos/inicio/Confianza.astro';
+import Clientes from '@ui/organismos/inicio/Clientes.astro';
+import Casos from '@ui/organismos/inicio/Casos.astro';
+import Movimiento from '@ui/organismos/inicio/Movimiento.astro';
+import Preguntas from '@ui/organismos/inicio/Preguntas.astro';
+import Certificaciones from '@ui/organismos/inicio/Certificaciones.astro';
+import Galeria from '@ui/organismos/inicio/Galeria.astro';
+import Beneficios from '@ui/organismos/inicio/Beneficios.astro';
+import Blog from '@ui/organismos/inicio/Blog.astro';
 import { repositorio } from '@infraestructura/repositorio';
 
 const comun = await repositorio.obtenerComun();
@@ -9,4 +24,18 @@ const inicio = await repositorio.obtenerInicio();
 ---
 
 <Layout comun={comun} seo={inicio.seo}>
+  <HeroInicio hero={inicio.hero} />
+  <FranjaSellos sellos={inicio.sellos} />
+  <SomosInicio nosotros={inicio.nosotros} />
+  <CatalogoDestacado catalogo={inicio.catalogoDestacado} desliza={inicio.desliza} />
+  <SeccionAsistente asistente={inicio.asistente} />
+  <Confianza confianza={inicio.confianza} />
+  <Clientes clientes={inicio.clientes} />
+  <Casos casos={inicio.casos} />
+  <Movimiento movimiento={inicio.movimiento} desliza={inicio.desliza} />
+  <Preguntas preguntas={inicio.preguntas} />
+  <Certificaciones certificaciones={inicio.certificaciones} />
+  <Galeria galeria={inicio.galeria} desliza={inicio.desliza} />
+  <Beneficios beneficios={inicio.beneficios} />
+  <Blog blog={inicio.blog} desliza={inicio.desliza} />
 </Layout>

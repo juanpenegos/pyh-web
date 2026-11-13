@@ -1,0 +1,268 @@
+---
+// "SEGURO NO ES UN ESLOGAN. ES UN PAPEL FIRMADO." — tarjetas amarillas de certificaciones.
+// Al pasar el cursor (o tocar / enfocar con teclado) la tarjeta se corre y deja ver "¿Qué es?".
+// Escritorio: 4 en fila. Móvil: 2 por fila.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  certificaciones: ContenidoInicio['certificaciones'];
+}
+
+const { certificaciones } = Astro.props;
+---
+
+<section class="certificaciones">
+  <div class="contenedor certificaciones__contenido">
+    <Titular titular={certificaciones.titular} className="h2 certificaciones__titulo" />
+    <p class="certificaciones__texto">{certificaciones.texto}</p>
+    <ul class="certificaciones__rejilla">
+      {certificaciones.lista.map((cert) => (
+        <li class="cert" tabindex="0">
+          <div class="cert__frente">
+            <Icono nombre="escudo" tamano={22} color="#00475D" />
+            <span class="cert__sigla">{cert.sigla}</span>
+            <span class="cert__titulo">{cert.titulo}</span>
+          </div>
+          <div class="cert__detalle">
+            <span class="cert__pregunta">{certificaciones.etiquetaDescripcion}</span>
+            {cert.descripcion}
+          </div>
+        </li>
+      ))}
+    </ul>
+    <a href={certificaciones.enlace.url} class="certificaciones__enlace">
+      {certificaciones.enlace.texto}
+      <Icono nombre="flecha" tamano={18} grosor={2.2} />
+    </a>
+  </div>
+</section>
+
+<style>
+  .certificaciones {
+    background: var(--fondo-suave);
+    padding: 110px 0;
+  }
+
+  .certificaciones__contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .certificaciones__texto {
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 620px;
+  }
+
+  .certificaciones__rejilla {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  /* ---------- Tarjeta ---------- */
+  .cert {
+    position: relative;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .cert:hover,
+  .cert:focus {
+    z-index: 5;
+  }
+
+  .cert__frente {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    min-height: 136px;
+    padding: 20px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    border-radius: var(--radio-lg);
+    clip-path: var(--corte);
+    background: var(--amarillo);
+    color: var(--azul-petroleo);
+    transition: transform 0.6s cubic-bezier(0.22, 0.9, 0.25, 1);
+  }
+
+  /* Foco de teclado visible sobre la tarjeta */
+  .cert:focus-visible .cert__frente {
+    box-shadow: inset 0 0 0 3px var(--azul-medio);
+  }
+
+  .cert__sigla {
+    margin-top: auto;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .cert__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-semibold);
+    font-size: 12px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+
+  .cert__detalle {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    border-radius: var(--radio-lg);
+    clip-path: var(--corte);
+    background: var(--azul-petroleo);
+    color: var(--blanco);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .cert__pregunta {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: var(--eyebrow-tamano);
+    letter-spacing: var(--eyebrow-espaciado);
+    text-transform: uppercase;
+    color: var(--verde-lima);
+  }
+
+  /* Al enfocar o tocar, la tarjeta se corre a la derecha… */
+  .cert:focus .cert__frente {
+    transform: translateX(calc(100% + 12px));
+  }
+
+  @media (min-width: 768px) {
+    /* …y la última, a la izquierda */
+    .cert:last-child:focus .cert__frente {
+      transform: translateX(calc(-100% - 12px));
+    }
+
+    /* Con ratón: el texto de atrás aparece suave después de correrse */
+    @media (hover: hover) and (pointer: fine) {
+      .cert__detalle,
+      .cert__pregunta {
+        color: transparent;
+        transition: color 0.3s;
+      }
+
+      .cert:hover .cert__frente {
+        transform: translateX(calc(100% + 12px));
+      }
+
+      .cert:last-child:hover .cert__frente {
+        transform: translateX(calc(-100% - 12px));
+      }
+
+      .cert:hover .cert__detalle,
+      .cert:focus .cert__detalle {
+        color: var(--blanco);
+        transition: color 0.4s 0.25s;
+      }
+
+      .cert:hover .cert__pregunta,
+      .cert:focus .cert__pregunta {
+        color: var(--verde-lima);
+        transition: color 0.4s 0.25s;
+      }
+    }
+  }
+
+  .certificaciones__enlace {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 2px;
+    border-bottom: 2px solid var(--verde-lima);
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 16px;
+    color: var(--azul-petroleo);
+    text-decoration: none;
+  }
+
+  .certificaciones__enlace:hover {
+    color: var(--azul-medio);
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .certificaciones {
+      padding: 64px 0;
+    }
+
+    .certificaciones__contenido {
+      gap: 20px;
+    }
+
+    .certificaciones :global(.certificaciones__titulo) {
+      font-size: 36px;
+    }
+
+    .certificaciones__texto {
+      font-size: 16px;
+    }
+
+    .certificaciones__rejilla {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .cert__frente {
+      min-height: 124px;
+      padding: 16px 12px 14px;
+    }
+
+    .cert__sigla {
+      font-size: 28px;
+    }
+
+    .cert__detalle {
+      padding: 14px;
+      gap: 6px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    /* Las tarjetas de la derecha se corren a la izquierda */
+    .cert:nth-child(even):focus .cert__frente {
+      transform: translateX(calc(-100% - 12px));
+    }
+  }
+
+  /* El escudo da un saltito al pasar el cursor */
+  @media (hover: hover) and (pointer: fine) {
+    .cert:hover .cert__frente > :global(svg:first-child) {
+      animation: cert-salto 0.45s ease-out 1;
+    }
+  }
+
+  @keyframes cert-salto {
+    0% { transform: translateY(0); }
+    35% { transform: translateY(-9px); }
+    65% { transform: translateY(0); }
+    82% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+  }
+
+</style>

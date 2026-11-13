@@ -1,0 +1,269 @@
+---
+// "ELIGE TU ALTURA." — las cinco familias de equipos.
+// Escritorio: rejilla; al pasar el cursor la tarjeta crece y muestra su descripción.
+// Móvil: carrusel deslizable; la descripción se ve siempre.
+import Titular from '@ui/atomos/Titular';
+import Boton from '@ui/atomos/Boton.astro';
+import Icono from '@ui/atomos/Icono';
+import Deslizador from './Deslizador.astro';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+import BotonBase from '@ui/atomos/Boton.tsx';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  catalogo: ContenidoInicio['catalogoDestacado'];
+  desliza: string;
+}
+
+const { catalogo, desliza } = Astro.props;
+---
+
+<section class="destacado">
+  <div class="contenedor destacado__cabecera">
+    <div class="destacado__intro">
+      <Eyebrow texto={catalogo.eyebrow} className="destacado__eyebrow" />
+      <Titular titular={catalogo.titular} className="h2" />
+      <p class="solo-escritorio">{catalogo.texto}</p>
+      <p class="solo-movil">{catalogo.textoMovil}</p>
+    </div>
+    <BotonBase href={catalogo.enlace.url} variante="linea" className="solo-escritorio">
+      {catalogo.enlace.texto}
+      <Icono nombre="flecha" tamano={18} />
+    </BotonBase>
+  </div>
+
+  <div class="contenedor destacado__contenedor">
+    <Deslizador texto={desliza} class="destacado__fila">
+      {catalogo.familias.map((familia) => (
+        <a class="familia" href={familia.url} style={`--alto: ${familia.alturaImagen}px`}>
+          <img src={familia.imagen.src} alt={familia.imagen.alt} loading="lazy" decoding="async" />
+          <span class="familia__numero">{familia.numero}</span>
+          <span class="familia__nombre">{familia.nombre}</span>
+          <span class="familia__resumen">{familia.resumen}</span>
+          <span class="familia__descripcion">{familia.descripcion}</span>
+        </a>
+      ))}
+    </Deslizador>
+  </div>
+
+  <div class="destacado__pie solo-movil">
+    <Boton enlace={catalogo.enlace} variante="linea" class="destacado__boton-movil" />
+  </div>
+</section>
+
+<style>
+  .destacado {
+    padding: 100px 0 48px;
+  }
+
+  .destacado__cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 110px;
+  }
+
+  .destacado__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .destacado__eyebrow {
+    color: var(--verde-texto-pequeno);
+  }
+
+  .destacado__intro p {
+    font-size: 18px;
+    max-width: 480px;
+    line-height: 1.55;
+  }
+
+  .solo-movil {
+    display: none;
+  }
+
+  /* Rejilla de escritorio */
+  .destacado .destacado__contenedor :global(.destacado__fila) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 80px 20px;
+  }
+
+  /* ---------- Tarjeta de familia ---------- */
+  .familia {
+    position: relative;
+    border-radius: var(--radio-lg);
+    padding: 150px 22px 22px;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    text-decoration: none;
+    background: transparent;
+    transition: transform var(--dur-media), box-shadow var(--dur-media), background var(--dur-media);
+  }
+
+  .familia img {
+    position: absolute;
+    left: 50%;
+    /* Las fotos más bajas suben menos, como en el diseño */
+    top: calc(69px - var(--alto) * 0.52);
+    height: var(--alto);
+    width: auto;
+    max-width: 92%;
+    object-fit: contain;
+    transform: translateX(-50%);
+    transition: transform var(--dur-imagen);
+  }
+
+  .familia__numero {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 13px;
+    color: var(--verde-texto-pequeno);
+  }
+
+  .familia__nombre {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 26px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--azul-petroleo);
+  }
+
+  .familia__resumen {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--gris-texto);
+  }
+
+  .familia__descripcion {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--gris-texto);
+  }
+
+  @media (min-width: 768px) {
+    .familia__descripcion {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.4s, opacity 0.3s, margin 0.3s;
+    }
+
+    .familia:hover,
+    .familia:focus-visible {
+      transform: translateY(-12px) scale(1.1);
+      z-index: 5;
+      background: var(--blanco);
+      box-shadow: 0 30px 60px rgba(0, 71, 93, 0.18);
+    }
+
+    .familia:hover img,
+    .familia:focus-visible img {
+      transform: translateX(-50%) translateY(-10px) scale(1.12);
+    }
+
+    .familia:hover .familia__descripcion,
+    .familia:focus-visible .familia__descripcion {
+      max-height: 130px;
+      opacity: 1;
+      margin-top: 8px;
+    }
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .destacado {
+      padding: 64px 0 56px;
+    }
+
+    .destacado__cabecera {
+      gap: 12px;
+      margin-bottom: 64px;
+    }
+
+    .destacado__intro {
+      gap: 12px;
+    }
+
+    .destacado__intro p {
+      font-size: 16px;
+    }
+
+    .solo-escritorio {
+      display: none;
+    }
+
+    .solo-movil {
+      display: block;
+    }
+
+    /* El carrusel va de borde a borde */
+    .destacado__contenedor {
+      padding-inline: 0;
+    }
+
+    .destacado .destacado__contenedor :global(.destacado__fila) {
+      display: flex;
+      gap: 14px;
+      padding-top: 50px;
+    }
+
+    .familia {
+      flex: 0 0 230px;
+      min-height: 290px;
+      padding: 120px 18px 18px;
+    }
+
+    .familia img {
+      top: -40px;
+      height: calc(var(--alto) * 0.75);
+    }
+
+    .familia__numero {
+      font-size: 12px;
+    }
+
+    .familia__nombre {
+      font-size: 23px;
+    }
+
+    .familia__resumen {
+      font-size: 13px;
+    }
+
+    .familia__descripcion {
+      margin-top: 6px;
+    }
+
+    .destacado__pie {
+      padding: 24px 20px 0;
+    }
+
+    .destacado__pie :global(.destacado__boton-movil) {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* Las máquinas "suben" a medida que entran al deslizar */
+    @supports (animation-timeline: view()) {
+      .familia img {
+        animation: familia-sube ease-in-out both;
+        animation-timeline: view(inline);
+        animation-range: entry 0% cover 50%;
+      }
+    }
+  }
+
+  @keyframes familia-sube {
+    from { transform: translateX(-50%) translateY(64px) scale(0.84); opacity: 0.3; }
+    to { transform: translateX(-50%) translateY(0) scale(1); opacity: 1; }
+  }
+
+</style>

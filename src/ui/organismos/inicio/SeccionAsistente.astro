@@ -1,0 +1,93 @@
+---
+// SECCIÓN OSCURA DEL ASISTENTE: texto a la izquierda y la tarjeta de preguntas (isla de React) a la derecha.
+// La isla se activa cuando la sección aparece en pantalla (client:visible); antes ya se ve la primera pregunta.
+import Titular from '@ui/atomos/Titular';
+import AsistenteInicio from './AsistenteInicio';
+import type { ContenidoAsistente } from '@dominio/paginas/inicio';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  asistente: ContenidoAsistente;
+}
+
+const { asistente } = Astro.props;
+---
+
+<section class="seccion-asistente" id="asistente">
+  <div class="contenedor seccion-asistente__fila">
+    <div class="seccion-asistente__texto">
+      <Eyebrow texto={asistente.eyebrow} className="seccion-asistente__eyebrow" />
+      <Titular titular={asistente.titular} colorResaltado="lima" className="h2 seccion-asistente__titulo" />
+      <p>{asistente.texto}</p>
+    </div>
+    <AsistenteInicio client:visible asistente={asistente} />
+  </div>
+</section>
+
+<style>
+  .seccion-asistente {
+    background: var(--azul-noche);
+    color: var(--blanco);
+    padding: 110px 0;
+  }
+
+  .seccion-asistente__fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .seccion-asistente__texto {
+    flex: 1 1 420px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .seccion-asistente__eyebrow {
+    align-self: flex-start;
+    background: var(--verde-lima);
+    color: var(--azul-petroleo);
+    padding: 6px 12px;
+    border-radius: var(--radio-pildora);
+  }
+
+  .seccion-asistente :global(.seccion-asistente__titulo) {
+    color: var(--blanco);
+  }
+
+  .seccion-asistente__texto p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--azul-claro-texto);
+    max-width: 460px;
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .seccion-asistente {
+      padding: 56px 0;
+    }
+
+    .seccion-asistente__fila {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+    }
+
+    .seccion-asistente__texto {
+      flex: none;
+      gap: 18px;
+    }
+
+    .seccion-asistente :global(.seccion-asistente__titulo) {
+      font-size: 36px;
+    }
+
+    .seccion-asistente__texto p {
+      font-size: 16px;
+    }
+  }
+</style>

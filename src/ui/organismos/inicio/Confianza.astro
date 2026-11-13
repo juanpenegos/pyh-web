@@ -1,0 +1,380 @@
+---
+// "SUBIMOS PERSONAS. BAJAMOS RIESGOS. ESE ES EL +." — máquina flotando sobre un arco que gira,
+// garantías alrededor, cifras y botón a Nosotros.
+// Escritorio: garantías como globos alrededor de la máquina. Móvil: garantías en lista debajo.
+import Titular from '@ui/atomos/Titular';
+import Boton from '@ui/atomos/Boton.astro';
+import Icono from '@ui/atomos/Icono';
+import { dibujoIcono } from './iconos';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  confianza: ContenidoInicio['confianza'];
+}
+
+const { confianza } = Astro.props;
+
+---
+
+<section class="confianza" aria-label={confianza.etiqueta}>
+  <div class="contenedor confianza__fila">
+    <div class="confianza__escenario-caja">
+      <div class="confianza__escenario">
+        <svg class="confianza__aro2" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="49" fill="none" stroke="#609839" stroke-opacity=".25" stroke-width=".25" stroke-dasharray="1 2.2" />
+        </svg>
+        <svg class="confianza__aro" viewBox="0 0 100 100" aria-hidden="true">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="#89E462" stroke-width="3.4" stroke-dasharray="190 100" stroke-linecap="round" />
+        </svg>
+        <Icono nombre="mas" tamano={24} color="#89E462" className="confianza__mas" />
+        <span class="confianza__sombra" aria-hidden="true"></span>
+        <img class="confianza__maquina" src={confianza.imagen.src} alt={confianza.imagen.alt} loading="lazy" decoding="async" />
+        <!-- Globos de garantías (solo escritorio) -->
+        {confianza.garantias.map((garantia, i) => (
+          <div class={`confianza__globo confianza__globo--${i + 1}`} aria-hidden="true">
+            <Icono nombre={dibujoIcono[garantia.icono]} tamano={26} color="#609839" />
+            <span>{garantia.texto}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="confianza__texto">
+      <Icono nombre="destello" tamano={48} color="#89E462" className="confianza__destello" />
+      <Titular titular={confianza.titular} className="h2 confianza__titulo" />
+      <p>{confianza.texto}</p>
+
+      <!-- Garantías en lista (las lee el lector de pantalla; en escritorio se ven como globos) -->
+      <ul class="confianza__lista">
+        {confianza.garantias.map((garantia) => (
+          <li class="confianza__tarjeta">
+            <span class="confianza__tarjeta-icono"><Icono nombre={dibujoIcono[garantia.icono]} tamano={26} color="#609839" /></span>
+            <span>{garantia.texto}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="confianza__cifras">
+        {confianza.cifras.map((cifra) => (
+          <div>
+            <div class="confianza__valor">{cifra.valor}</div>
+            <div class="confianza__etiqueta">{cifra.etiqueta}</div>
+          </div>
+        ))}
+      </div>
+      <Boton enlace={confianza.enlace} variante="lima" class="confianza__boton" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .confianza {
+    background: var(--blanco);
+    color: var(--gris-texto);
+    padding: 110px 0;
+    overflow: hidden;
+  }
+
+  .confianza__fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .confianza__escenario-caja {
+    flex: 1 1 540px;
+    min-width: 0;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Escenario animado ---------- */
+  .confianza__escenario {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+
+  .confianza__aro2 {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: confianza-gira 40s linear infinite reverse;
+  }
+
+  .confianza__aro {
+    position: absolute;
+    left: 6%;
+    top: 6%;
+    width: 88%;
+    height: 88%;
+    animation: confianza-gira 14s linear infinite;
+  }
+
+  .confianza__escenario :global(.confianza__mas) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 62%;
+    height: 62%;
+    opacity: 0.1;
+    translate: -50% -50%;
+    animation: confianza-gira 40s linear infinite;
+  }
+
+  .confianza__maquina {
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    height: 76%;
+    width: auto;
+    max-width: none;
+    transform-origin: 50% 60%;
+    transform: translateX(-50%);
+    animation: confianza-flota 4.5s ease-in-out infinite;
+    filter: drop-shadow(0 18px 22px rgba(0, 49, 63, 0.28));
+  }
+
+  .confianza__sombra {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    width: 46%;
+    height: 5%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(0, 49, 63, 0.3), rgba(0, 49, 63, 0));
+    transform: translateX(-50%);
+    animation: confianza-sombra 4.5s ease-in-out infinite;
+  }
+
+  .confianza__globo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 190px;
+    padding: 12px 16px;
+    border-radius: 18px;
+    background: var(--fondo-suave);
+    border: 1px solid var(--gris-linea);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+    color: var(--azul-petroleo);
+    font-size: 14px;
+    line-height: 1.25;
+    animation: confianza-vaiven 5s ease-in-out infinite;
+  }
+
+  .confianza__globo :global(svg) {
+    flex: none;
+  }
+
+  .confianza__globo--1 { left: -2%; top: 24%; }
+  .confianza__globo--2 { left: 8%; top: 4%; animation-delay: -1.2s; }
+  .confianza__globo--3 { left: -4%; top: 56%; animation-delay: -2.4s; }
+  .confianza__globo--4 { left: 6%; bottom: 4%; animation-delay: -3.6s; }
+
+  @keyframes confianza-gira {
+    to { rotate: 360deg; }
+  }
+  @keyframes confianza-flota {
+    0%, 100% { transform: translateX(-50%) translateY(0) rotate(-0.6deg); }
+    50% { transform: translateX(-50%) translateY(-24px) rotate(0.6deg); }
+  }
+  @keyframes confianza-sombra {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    50% { transform: translateX(-50%) scale(0.78); opacity: 0.55; }
+  }
+  @keyframes confianza-vaiven {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -8px; }
+  }
+
+  /* ---------- Texto ---------- */
+  .confianza__texto {
+    flex: 1 1 460px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .confianza :global(.confianza__titulo) {
+    font-size: clamp(44px, 5.4vw, 80px);
+    line-height: 0.94;
+  }
+
+  .confianza__texto p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+
+  /* En escritorio la lista se ve como globos: queda solo para lectores de pantalla */
+  .confianza__lista {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    list-style: none;
+  }
+
+  .confianza__cifras {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 28px;
+  }
+
+  .confianza__valor {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: 52px;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    color: var(--azul-petroleo);
+  }
+
+  .confianza__etiqueta {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  .confianza__texto :global(.confianza__boton) {
+    align-self: flex-start;
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .confianza {
+      padding: 64px 0;
+    }
+
+    .confianza__fila {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 22px;
+    }
+
+    /* El escenario va después del párrafo */
+    .confianza__escenario-caja {
+      order: 2;
+      flex: none;
+      width: calc(100% + 8px);
+      max-width: none;
+      margin: -14px -4px 0;
+    }
+
+    .confianza__escenario {
+      max-width: 330px;
+      margin: 0 auto;
+    }
+
+    .confianza__aro {
+      animation-duration: 60s;
+    }
+
+    .confianza__aro2 {
+      animation-duration: 90s;
+    }
+
+    .confianza__globo {
+      display: none;
+    }
+
+    .confianza__texto {
+      display: contents;
+    }
+
+    .confianza__texto > :global(*) {
+      order: 1;
+    }
+
+    .confianza__texto :global(.confianza__destello) {
+      width: 40px;
+      height: 40px;
+    }
+
+    .confianza :global(.confianza__titulo) {
+      font-size: 44px;
+    }
+
+    .confianza__texto p {
+      font-size: 16px;
+    }
+
+    /* Lista visible de garantías */
+    .confianza .confianza__lista,
+    .confianza .confianza__cifras,
+    .confianza__texto :global(.confianza__boton) {
+      order: 3;
+    }
+
+    .confianza .confianza__lista {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .confianza__tarjeta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(245, 247, 246, 0.72);
+      border: 1.5px solid var(--verde-lima);
+      color: var(--verde-texto-pequeno);
+      font-weight: var(--peso-bold);
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+    .confianza__tarjeta-icono {
+      flex: none;
+      display: flex;
+      animation: confianza-vaiven 5s ease-in-out infinite;
+    }
+
+    .confianza__tarjeta:nth-child(2) .confianza__tarjeta-icono { animation-delay: -1.2s; }
+    .confianza__tarjeta:nth-child(3) .confianza__tarjeta-icono { animation-delay: -2.4s; }
+    .confianza__tarjeta:nth-child(4) .confianza__tarjeta-icono { animation-delay: -3.6s; }
+
+    @supports (animation-timeline: view()) {
+      .confianza__tarjeta {
+        animation: confianza-entra ease-in-out both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 30%;
+      }
+    }
+
+    .confianza__cifras {
+      gap: 24px 16px;
+    }
+
+    .confianza__valor {
+      font-size: 40px;
+    }
+
+    .confianza__etiqueta {
+      font-size: 13px;
+    }
+  }
+
+  @keyframes confianza-entra {
+    from { opacity: 0; transform: translateY(56px) scale(0.96); }
+    to { opacity: 1; transform: none; }
+  }
+
+</style>

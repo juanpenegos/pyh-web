@@ -1,0 +1,269 @@
+/* Estilos de la isla AsistenteInicio (tarjeta de preguntas sobre fondo oscuro). */
+
+.asistente {
+  flex: 1 1 520px;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--azul-profundo);
+  border-radius: var(--radio-lg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  color: var(--blanco);
+}
+
+.asistente__barras {
+  display: flex;
+  gap: 8px;
+}
+
+.asistente__barra {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--azul-profundo);
+}
+
+.asistente__barra--hecha {
+  background: var(--verde-lima);
+}
+
+.asistente__paso {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-semibold);
+  font-size: var(--eyebrow-tamano);
+  letter-spacing: var(--eyebrow-espaciado);
+  text-transform: uppercase;
+  color: var(--azul-claro-texto);
+}
+
+.asistente__pregunta {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.asistente__pregunta:focus,
+.asistente__equipo:focus {
+  outline: none;
+}
+
+.asistente__opciones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.asistente__opcion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 44px;
+  padding: 18px;
+  border-radius: var(--radio-lg);
+  border: 1px solid var(--azul-profundo);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: border-color var(--dur-rapida), background var(--dur-rapida);
+}
+
+.asistente__opcion:hover {
+  border-color: var(--azul-medio);
+}
+
+.asistente__opcion--elegida,
+.asistente__opcion--elegida:hover {
+  background: var(--azul-profundo);
+  border: 2px solid var(--verde-lima);
+}
+
+.asistente__opcion-titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: 19px;
+  line-height: 1.2;
+  color: var(--blanco);
+}
+
+.asistente__opcion-texto {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--azul-claro-texto);
+}
+
+.asistente__pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.asistente__saltar {
+  color: var(--azul-claro-texto);
+  font-size: 14px;
+}
+
+.asistente__saltar:hover {
+  color: var(--blanco);
+}
+
+/* "Atrás" es un botón lima pequeño en escritorio */
+.asistente__atras {
+  padding: 12px 18px;
+  background: var(--verde-lima);
+  color: var(--azul-petroleo);
+}
+
+.asistente__atras:hover {
+  background: var(--verde-lima-hover);
+}
+
+.asistente__atras:disabled {
+  cursor: default;
+  transform: none;
+}
+
+/* Resultado */
+.asistente__resultado {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.asistente__foto img {
+  height: 220px;
+  width: auto;
+  max-width: none;
+}
+
+.asistente__detalle {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.asistente__eyebrow {
+  color: var(--verde-lima);
+}
+
+.asistente__equipo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-extrabold);
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.asistente__motivo {
+  color: var(--azul-claro-texto);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.asistente__acciones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 767px) {
+  .asistente {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .asistente__barras {
+    gap: 6px;
+  }
+
+  .asistente__pregunta {
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .asistente__opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .asistente__opcion-titulo {
+    font-size: 17px;
+  }
+
+  /* En móvil "Atrás" es un botón de línea blanca */
+  .asistente__atras {
+    padding: 10px 16px;
+    min-height: 44px;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.5);
+    color: var(--blanco);
+  }
+
+  .asistente__atras:hover {
+    background: var(--blanco);
+    color: var(--azul-petroleo);
+  }
+
+  .asistente__resultado {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .asistente__foto {
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .asistente__foto img {
+    height: 190px;
+    animation: flota var(--dur-flota) ease-in-out infinite;
+  }
+
+  .asistente__detalle {
+    flex: none;
+    gap: 16px;
+  }
+
+  .asistente__equipo {
+    font-size: 30px;
+  }
+
+  .asistente__acciones {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .asistente__cotizar {
+    justify-content: center;
+  }
+
+  /* En móvil "Volver a empezar" es un enlace subrayado */
+  .asistente__reiniciar,
+  .asistente__reiniciar:hover {
+    align-self: center;
+    min-height: 0;
+    padding: 8px;
+    border: 0;
+    background: none;
+    color: var(--azul-claro-texto);
+    font-family: var(--fuente-texto);
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: underline;
+    transform: none;
+  }
+}

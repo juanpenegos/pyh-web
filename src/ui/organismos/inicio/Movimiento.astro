@@ -1,0 +1,207 @@
+---
+// "ASÍ SE MUEVEN." — un video corto por familia.
+// Escritorio: fila de videos; el que tiene el cursor (o el foco) se ensancha y muestra su leyenda.
+// Móvil: carrusel deslizable con la leyenda debajo de cada video.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import VideoAuto from '@ui/atomos/VideoAuto.astro';
+import Deslizador from './Deslizador.astro';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  movimiento: ContenidoInicio['movimiento'];
+  desliza: string;
+}
+
+const { movimiento, desliza } = Astro.props;
+// En escritorio la leyenda es una sola frase: "Tijera: sube recto…"
+const enMinuscula = (texto: string) => texto.charAt(0).toLowerCase() + texto.slice(1);
+---
+
+<section class="movimiento">
+  <div class="contenedor">
+    <Titular titular={movimiento.titular} className="h2 movimiento__titulo" />
+  </div>
+  <div class="contenedor movimiento__contenedor">
+    <Deslizador texto={desliza} class="movimiento__fila">
+      {movimiento.clips.map((clip) => (
+        <figure class="clip" tabindex="0">
+          <VideoAuto video={clip.video} class="clip__video" />
+          <figcaption class="clip__leyenda">
+            <span class="clip__play" aria-hidden="true"><Icono nombre="play" tamano={18} color="#00475D" /></span>
+            <span class="clip__frase">{`${clip.etiqueta}: ${enMinuscula(clip.texto)}`}</span>
+            <span class="clip__etiqueta">{clip.etiqueta}</span>
+            <span class="clip__texto">{clip.texto}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </Deslizador>
+  </div>
+</section>
+
+<style>
+  .movimiento :global(.movimiento__titulo) {
+    margin-bottom: 48px;
+  }
+
+  /* ---------- Escritorio: fila que se expande ---------- */
+  .movimiento .movimiento__contenedor :global(.movimiento__fila) {
+    display: flex;
+    gap: 14px;
+    height: 460px;
+  }
+
+  .clip {
+    flex: 1 1 0;
+    min-width: 0;
+    position: relative;
+    border-radius: var(--radio-lg);
+    clip-path: var(--corte);
+    overflow: hidden;
+    background: var(--azul-noche);
+    cursor: pointer;
+    transition: flex-grow 0.55s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .clip:hover,
+  .clip:focus-visible {
+    flex-grow: 3;
+  }
+
+  /* El recorte de la esquina taparía el borde de foco: se dibuja por dentro */
+  .clip:focus-visible {
+    outline-offset: -4px;
+  }
+
+  .clip :global(.clip__video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .clip__leyenda {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 340px;
+    max-width: 100%;
+    padding: 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-end;
+    background: linear-gradient(180deg, rgba(6, 42, 51, 0), rgba(6, 42, 51, 0.95));
+    opacity: 0;
+    transition: opacity 0.35s 0.1s;
+  }
+
+  .clip:hover .clip__leyenda,
+  .clip:focus-visible .clip__leyenda {
+    opacity: 1;
+  }
+
+  .clip__play {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--verde-lima);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+  }
+
+  .clip:hover .clip__play {
+    transform: scale(1.12);
+  }
+
+  .clip__frase {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 19px;
+    line-height: 1.15;
+    color: var(--blanco);
+  }
+
+  .clip__etiqueta,
+  .clip__texto {
+    display: none;
+  }
+
+  /* ---------- Móvil: carrusel con leyenda debajo ---------- */
+  @media (max-width: 767px) {
+    .movimiento {
+      padding: 64px 0;
+    }
+
+    .movimiento :global(.movimiento__titulo) {
+      margin-bottom: 24px;
+    }
+
+    .movimiento__contenedor {
+      padding-inline: 0;
+    }
+
+    .movimiento .movimiento__contenedor :global(.movimiento__fila) {
+      height: auto;
+      gap: 12px;
+    }
+
+    .clip,
+    .clip:hover,
+    .clip:focus-visible {
+      flex: 0 0 300px;
+      display: flex;
+      flex-direction: column;
+      clip-path: var(--corte-sm);
+      cursor: default;
+    }
+
+    .clip :global(.clip__video) {
+      position: static;
+      display: block;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      background: var(--azul-hielo);
+    }
+
+    .clip__leyenda,
+    .clip:hover .clip__leyenda {
+      position: static;
+      width: auto;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 16px 18px 20px;
+      background: none;
+      opacity: 1;
+    }
+
+    .clip__play,
+    .clip__frase {
+      display: none;
+    }
+
+    .clip__etiqueta {
+      display: block;
+      font-family: var(--fuente-titulos);
+      font-weight: var(--peso-bold);
+      font-size: var(--eyebrow-tamano);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--verde-lima);
+    }
+
+    .clip__texto {
+      display: block;
+      font-family: var(--fuente-titulos);
+      font-weight: var(--peso-bold);
+      font-size: 18px;
+      line-height: 1.2;
+      color: var(--blanco);
+    }
+  }
+
+</style>

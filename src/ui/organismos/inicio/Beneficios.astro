@@ -1,0 +1,151 @@
+---
+// "LO QUE VIENE CON EL +" — cuatro beneficios sobre azul petróleo.
+// Escritorio: cuatro columnas con ícono. Móvil: lista con número, sin íconos.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import { dibujoIcono } from './iconos';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  beneficios: ContenidoInicio['beneficios'];
+}
+
+const { beneficios } = Astro.props;
+
+---
+
+<section class="beneficios">
+  <div class="contenedor">
+    <Titular titular={beneficios.titular} colorResaltado="lima" className="h2 beneficios__titulo" />
+    <ul class="beneficios__lista">
+      {beneficios.lista.map((beneficio) => (
+        <li class="beneficio">
+          <span class="beneficio__icono"><Icono nombre={dibujoIcono[beneficio.icono]} tamano={40} color="#89E462" /></span>
+          <span class="beneficio__numero">{beneficio.numero}</span>
+          <span class="beneficio__textos">
+            <span class="beneficio__titulo">{beneficio.titulo}</span>
+            <span class="beneficio__texto">{beneficio.texto}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .beneficios {
+    background: var(--azul-petroleo);
+    color: var(--blanco);
+    padding: 110px 0;
+  }
+
+  .beneficios :global(.beneficios__titulo) {
+    color: var(--blanco);
+    margin-bottom: 48px;
+  }
+
+  .beneficios__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    border-top: 1px solid var(--azul-profundo);
+  }
+
+  .beneficio {
+    padding: 32px 28px;
+    border-right: 1px solid var(--azul-profundo);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .beneficio:first-child {
+    padding-left: 0;
+  }
+
+  .beneficio:last-child {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .beneficio__icono {
+    display: flex;
+  }
+
+  .beneficio__numero {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 13px;
+    color: var(--azul-claro-texto);
+  }
+
+  .beneficio__textos {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .beneficio__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .beneficio__texto {
+    color: var(--azul-claro-texto);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .beneficios {
+      padding: 56px 0;
+    }
+
+    .beneficios :global(.beneficios__titulo) {
+      margin-bottom: 24px;
+    }
+
+    .beneficios__lista {
+      display: block;
+      border-top: 0;
+    }
+
+    .beneficio,
+    .beneficio:first-child,
+    .beneficio:last-child {
+      flex-direction: row;
+      gap: 16px;
+      padding: 18px 0;
+      border-right: 0;
+      border-top: 1px solid var(--azul-profundo);
+    }
+
+    .beneficio__icono {
+      display: none;
+    }
+
+    .beneficio__numero {
+      font-weight: var(--peso-extrabold);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--verde-lima);
+    }
+
+    .beneficio__textos {
+      gap: 4px;
+    }
+
+    .beneficio__titulo {
+      font-size: 20px;
+    }
+
+    .beneficio__texto {
+      font-size: 14px;
+    }
+  }
+</style>

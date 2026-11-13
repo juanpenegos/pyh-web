@@ -1,0 +1,149 @@
+---
+// PREGUNTAS FRECUENTES en acordeón. Se abre una a la vez (la primera empieza abierta).
+// Usa <details name="..."> del navegador: funciona sin JavaScript y con teclado.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+import { atributosEnlace } from '@ui/utilidades/enlaces';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  preguntas: ContenidoInicio['preguntas'];
+}
+
+const { preguntas } = Astro.props;
+---
+
+<section class="preguntas" aria-label={preguntas.etiqueta}>
+  <div class="contenedor preguntas__rejilla">
+    <div class="preguntas__intro">
+      <Eyebrow texto={preguntas.eyebrow} className="preguntas__eyebrow" />
+      <Titular titular={preguntas.titular} className="h2 preguntas__titulo" />
+      <p>
+        {preguntas.textoAntes}<a href={preguntas.enlace.url} {...atributosEnlace(preguntas.enlace.url)}>{preguntas.enlace.texto}</a>{preguntas.textoDespues}
+      </p>
+    </div>
+    <div class="preguntas__lista">
+      {preguntas.lista.map((item, i) => (
+        <details class="pregunta" name="preguntas-inicio" open={i === 0}>
+          <summary>
+            {item.pregunta}
+            <span class="pregunta__icono"><Icono nombre="mas" tamano={18} color="#609839" /></span>
+          </summary>
+          <p>{item.respuesta}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .preguntas {
+    padding: 96px 0 0;
+  }
+
+  .preguntas__rejilla {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 64px;
+    align-items: start;
+  }
+
+  .preguntas__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .preguntas__eyebrow {
+    color: var(--verde-texto-pequeno);
+  }
+
+  .preguntas :global(.preguntas__titulo) {
+    font-size: 48px;
+  }
+
+  .preguntas__intro p {
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  .preguntas__intro a {
+    color: var(--azul-petroleo);
+    text-decoration: underline;
+  }
+
+  .pregunta {
+    border-bottom: 1px solid var(--gris-linea);
+  }
+
+  .pregunta:first-child {
+    border-top: 1px solid var(--gris-linea);
+  }
+
+  .pregunta summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 0;
+    list-style: none;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 19px;
+    line-height: 1.3;
+    color: var(--azul-petroleo);
+    cursor: pointer;
+  }
+
+  .pregunta summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .pregunta__icono {
+    flex: none;
+    display: flex;
+    transition: transform var(--dur-media);
+  }
+
+  .pregunta[open] .pregunta__icono {
+    transform: rotate(45deg);
+  }
+
+  .pregunta p {
+    margin: 0 0 22px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 600px;
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .preguntas {
+      padding: 56px 0 0;
+    }
+
+    .preguntas__rejilla {
+      display: block;
+    }
+
+    .preguntas__intro {
+      gap: 0;
+    }
+
+    .preguntas :global(.preguntas__titulo) {
+      font-size: var(--h2-tamano);
+      margin: 8px 0 16px;
+    }
+
+    .preguntas__intro p {
+      margin-bottom: 12px;
+      max-width: none;
+    }
+
+    .pregunta:first-child {
+      border-top: 0;
+    }
+  }
+</style>

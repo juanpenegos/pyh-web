@@ -1,0 +1,151 @@
+---
+// "APRENDE ANTES DE SUBIR." — tres artículos del blog.
+// Escritorio: tres columnas. Móvil: carrusel deslizable.
+import Titular from '@ui/atomos/Titular';
+import Boton from '@ui/atomos/Boton.astro';
+import Deslizador from './Deslizador.astro';
+import type { ContenidoInicio } from '@dominio/paginas/inicio';
+
+interface Props {
+  blog: ContenidoInicio['blog'];
+  desliza: string;
+}
+
+const { blog, desliza } = Astro.props;
+---
+
+<section class="blog">
+  <div class="contenedor blog__cabecera">
+    <Titular titular={blog.titular} className="h2" />
+    <Boton enlace={blog.enlace} variante="linea" class="blog__boton" />
+  </div>
+  <div class="contenedor blog__contenedor">
+    <Deslizador texto={desliza} class="blog__fila">
+      {blog.articulos.map((articulo) => (
+        <a class="articulo" href={articulo.url}>
+          <span class="articulo__foto">
+            <img
+              src={articulo.imagen.src}
+              alt={articulo.imagen.alt}
+              style={articulo.imagen.posicion ? `object-position: ${articulo.imagen.posicion}` : undefined}
+              loading="lazy"
+              decoding="async"
+            />
+          </span>
+          <span class="articulo__categoria">{articulo.categoria}</span>
+          <h3 class="articulo__titulo">{articulo.titulo}</h3>
+        </a>
+      ))}
+    </Deslizador>
+  </div>
+</section>
+
+<style>
+  .blog {
+    background: var(--fondo-suave);
+    padding: 110px 0;
+  }
+
+  .blog__cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .blog .blog__contenedor :global(.blog__fila) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 28px;
+  }
+
+  .articulo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .articulo__foto {
+    position: relative;
+    display: block;
+    height: 240px;
+    border-radius: var(--radio-lg);
+    overflow: hidden;
+  }
+
+  .articulo__foto img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .articulo__categoria {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: var(--eyebrow-tamano);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    color: var(--verde-texto-pequeno);
+  }
+
+  .articulo__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 24px;
+    line-height: 1.15;
+    color: var(--azul-petroleo);
+    transition: color var(--dur-rapida);
+  }
+
+  .articulo:hover .articulo__titulo {
+    color: var(--azul-medio);
+  }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    .blog {
+      padding: 56px 0;
+    }
+
+    .blog__cabecera {
+      flex-wrap: nowrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .blog__cabecera :global(.blog__boton) {
+      flex: none;
+      padding: 10px 16px;
+      min-height: 44px;
+      font-size: 14px;
+    }
+
+    .blog__contenedor {
+      padding-inline: 0;
+    }
+
+    .blog .blog__contenedor :global(.blog__fila) {
+      display: flex;
+      gap: 12px;
+    }
+
+    .articulo {
+      flex: 0 0 260px;
+    }
+
+    .articulo__foto {
+      height: 180px;
+    }
+
+    .articulo__titulo {
+      font-size: 20px;
+    }
+  }
+</style>
