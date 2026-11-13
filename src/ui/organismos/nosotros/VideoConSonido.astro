@@ -1,0 +1,100 @@
+---
+// VIDEO QUE SE VE Y SE ESCUCHA a pedido (D-Nosotros / M-Nosotros).
+// - Con mouse: al pasar por encima arranca desde el inicio con sonido; al salir se pausa y se silencia.
+// - En celular o con teclado: tocar / Enter / Espacio lo reproduce o lo pausa.
+// - Si el navegador no deja sonar audio todavía (la persona no ha hecho clic en la página),
+//   arranca sin sonido; es una regla de los navegadores, no se puede saltar.
+import type { Video } from '@dominio/comunes';
+
+interface Props {
+  video: Video;
+  etiqueta: string;  // Rótulo de arriba ("Así trabajamos…")
+  ayuda: string;     // "Pasa el mouse para ver y escuchar" (solo con mouse)
+  class?: string;
+}
+
+const { video, etiqueta, ayuda, class: clase } = Astro.props;
+---
+
+<div class:list={['video-sonido', 'corte', clase]} role="button" tabindex="0" aria-label={video.alt} aria-pressed="false" data-video-sonido>
+  <video src={video.src} poster={video.poster} muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <span class="etiqueta-foto">{etiqueta}</span>
+  <span class="video-sonido__ayuda">{ayuda}</span>
+</div>
+
+<style>
+  .video-sonido {
+    position: relative;
+    overflow: hidden;
+    background: var(--azul-noche);
+    cursor: pointer;
+  }
+
+  .video-sonido video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .video-sonido__ayuda {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    padding: 8px 14px;
+    border-radius: var(--radio-pildora);
+    background: rgba(6, 42, 51, 0.7);
+    color: var(--blanco);
+    font-size: 13px;
+    pointer-events: none;
+  }
+
+  /* Sin mouse (celulares) no aparece "Pasa el mouse…", como en M-Nosotros */
+  @media (hover: none) {
+    .video-sonido__ayuda {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const MOMENTO_INICIAL = 0.5; // segundos: el cuadro que se ve mientras está quieto
+
+  function reproducir(video: HTMLVideoElement) {
+    video.currentTime = 0;
+    video.muted = false;
+    video.play().catch(() => {
+      video.muted = true; // El navegador no dejó sonar: se ve sin sonido
+      video.play().catch(() => {});
+    });
+  }
+
+  function detener(video: HTMLVideoElement) {
+    video.pause();
+    video.currentTime = MOMENTO_INICIAL;
+    video.muted = true;
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-video-sonido]').forEach((caja) => {
+    const video = caja.querySelector('video');
+    if (!video) return;
+
+    const marcar = () => caja.setAttribute('aria-pressed', String(!video.paused));
+    video.addEventListener('play', marcar);
+    video.addEventListener('pause', marcar);
+
+    const conMouse = window.matchMedia('(hover: hover) and (pointer: fine)');
+    caja.addEventListener('mouseenter', () => conMouse.matches && reproducir(video));
+    caja.addEventListener('mouseleave', () => conMouse.matches && detener(video));
+
+    const alternar = () => (video.paused ? reproducir(video) : detener(video));
+    caja.addEventListener('click', () => !conMouse.matches && alternar());
+    caja.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        alternar();
+      }
+    });
+  });
+</script>

@@ -1,0 +1,196 @@
+---
+// CERTIFICADOS — "Certificados, no promesas." Texto a la izquierda y tarjetas amarillas
+// con esquina cortada a la derecha; cada tarjeta lleva a su documento.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import { atributosEnlace } from '@ui/utilidades/enlaces';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
+
+interface Props {
+  certificados: ContenidoNosotros['certificados'];
+}
+
+const { certificados } = Astro.props;
+// Siglas y títulos largos usan una letra un poco más chica para caber en la tarjeta
+const esLargo = (texto: string, limite: number) => texto.length > limite;
+---
+
+<section id="certificados" class="certificados">
+  <div class="contenedor certificados__fila">
+    <div class="certificados__texto">
+      <Titular titular={certificados.titular} etiqueta="h2" className="h2 certificados__titular" />
+      <p>{certificados.texto}</p>
+    </div>
+
+    <div class="certificados__rejilla">
+      {
+        certificados.lista.map((cert) => (
+          <a
+            class="certificado"
+            href={cert.documento.url}
+            aria-label={`${cert.sigla}: ${cert.titulo}. ${cert.documento.texto}`}
+            {...atributosEnlace(cert.documento.url)}
+          >
+            <Icono nombre="escudo" tamano={22} color="#00475D" className="certificado__icono" />
+            <span class:list={['certificado__sigla', { 'certificado__sigla--larga': esLargo(cert.sigla, 5) }]}>{cert.sigla}</span>
+            <span class:list={['certificado__titulo', { 'certificado__titulo--largo': esLargo(cert.titulo, 22) }]}>
+              {cert.titulo}
+            </span>
+            <span class="certificado__ver">
+              {cert.documento.texto}
+              <Icono nombre="flecha" tamano={11} grosor={3} />
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .certificados {
+    background: var(--fondo-suave);
+    padding: var(--seccion-y) 0;
+  }
+
+  .certificados__fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .certificados__texto {
+    flex: 1 1 360px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .certificados :global(.certificados__titular) {
+    margin: 0;
+  }
+
+  .certificados__texto p {
+    margin: 0;
+    max-width: 620px;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .certificados__rejilla {
+    flex: 1 1 420px;
+    min-width: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  /* ---------- Tarjeta amarilla ---------- */
+  .certificado {
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    min-height: 176px;
+    padding: 20px 20px 16px;
+    border-radius: var(--radio-lg);
+    clip-path: var(--corte);
+    background: var(--amarillo);
+    color: var(--azul-petroleo);
+    text-decoration: none;
+    transition: transform var(--dur-rapida) ease;
+  }
+  .certificado:hover {
+    transform: translateY(-4px);
+    color: var(--azul-petroleo);
+  }
+  .certificado:focus-visible {
+    outline: 3px solid var(--azul-petroleo);
+    outline-offset: -7px;
+  }
+
+  /* El escudo da un saltito al pasar el mouse */
+  @media (hover: hover) and (pointer: fine) {
+    .certificado:hover :global(.certificado__icono) {
+      animation: salto-certificado 0.45s ease-out 1;
+    }
+  }
+  @keyframes salto-certificado {
+    0% { transform: translateY(0); }
+    35% { transform: translateY(-9px); }
+    65% { transform: translateY(0); }
+    82% { transform: translateY(-3px); }
+    100% { transform: translateY(0); }
+  }
+
+  .certificado__sigla {
+    margin-top: auto;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: min(32px, 22cqw);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .certificado__sigla--larga {
+    font-size: min(32px, 14.5cqw);
+  }
+
+  .certificado__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-semibold);
+    font-size: min(12px, 9cqw);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .certificado__titulo--largo {
+    font-size: min(12px, 7cqw);
+  }
+
+  .certificado__ver {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid var(--azul-petroleo);
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: min(11px, 8cqw);
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .certificado__ver :global(svg) {
+    transition: transform var(--dur-rapida) ease;
+  }
+  .certificado:hover .certificado__ver :global(svg) {
+    transform: translateX(3px);
+  }
+
+  @media (max-width: 767px) {
+    .certificados__fila {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 28px;
+    }
+
+    .certificados__texto {
+      flex: none;
+      gap: 18px;
+    }
+
+    .certificados__rejilla {
+      flex: none;
+      gap: 12px;
+    }
+
+    .certificado {
+      min-height: 160px;
+      padding: 16px 12px 14px;
+    }
+  }
+</style>

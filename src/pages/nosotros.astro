@@ -1,0 +1,27 @@
+---
+// PÁGINA NOSOTROS (dirección "/nosotros").
+// Solo pide el contenido al repositorio y arma la página con los componentes de src/ui/organismos/nosotros.
+// Las secciones van en el mismo orden que en el diseño (D-Nosotros / M-Nosotros).
+import Layout from '@ui/plantillas/Layout.astro';
+import EncabezadoNosotros from '@ui/organismos/nosotros/EncabezadoNosotros.astro';
+import MisionVision from '@ui/organismos/nosotros/MisionVision.astro';
+import HistoriaNosotros from '@ui/organismos/nosotros/HistoriaNosotros.astro';
+import Valores from '@ui/organismos/nosotros/Valores.astro';
+import CertificadosNosotros from '@ui/organismos/nosotros/CertificadosNosotros.astro';
+import EquipoNosotros from '@ui/organismos/nosotros/EquipoNosotros.astro';
+import Politicas from '@ui/organismos/nosotros/Politicas.astro';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const nosotros = await repositorio.obtenerNosotros();
+---
+
+<Layout comun={comun} seo={nosotros.seo}>
+  <EncabezadoNosotros encabezado={nosotros.encabezado} migas={nosotros.migas} etiquetaMigas={nosotros.etiquetaMigas} />
+  <MisionVision mision={nosotros.mision} vision={nosotros.vision} />
+  <HistoriaNosotros historia={nosotros.historia} />
+  <Valores valores={nosotros.valores} />
+  <CertificadosNosotros certificados={nosotros.certificados} />
+  <EquipoNosotros equipo={nosotros.equipo} />
+  <Politicas politicas={nosotros.politicas} />
+</Layout>

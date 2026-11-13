@@ -1,0 +1,132 @@
+---
+// POLÍTICAS — acordeón con resumen y botón "Descargar PDF".
+// Usa <details name="..."> del navegador (como las preguntas de Inicio): funciona sin JavaScript,
+// con teclado, y abre una sola a la vez. La primera empieza abierta, como en el diseño.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
+import BotonBase from '@ui/atomos/Boton.tsx';
+
+interface Props {
+  politicas: ContenidoNosotros['politicas'];
+}
+
+const { politicas } = Astro.props;
+---
+
+<section id={politicas.id} class="politicas">
+  <div class="contenedor politicas__fila">
+    <div class="politicas__intro">
+      <Titular titular={politicas.titular} etiqueta="h2" className="h2 politicas__titular" />
+      <p>{politicas.texto}</p>
+    </div>
+
+    <div class="politicas__lista">
+      {
+        politicas.lista.map((politica, i) => (
+          <details class="politica" name="politicas" open={i === 0}>
+            <summary>
+              {politica.titulo}
+              <Icono nombre="mas" tamano={18} color="#609839" className="politica__mas" />
+            </summary>
+            <div class="politica__cuerpo">
+              <p>{politica.resumen}</p>
+              <BotonBase href={politica.pdf} variante="linea" className="politica__descargar">
+                <Icono nombre="archivo" tamano={18} />
+                {politicas.descargar}
+              </BotonBase>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .politicas {
+    background: var(--fondo-suave);
+    padding: var(--seccion-y) 0;
+  }
+
+  .politicas__fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px;
+  }
+
+  .politicas__intro {
+    flex: 1 1 340px;
+  }
+
+  .politicas :global(.politicas__titular) {
+    margin: 0;
+  }
+
+  .politicas__intro p {
+    margin: 16px 0 0;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .politicas__lista {
+    flex: 1 1 600px;
+    min-width: 0;
+  }
+
+  .politica {
+    border-bottom: 1px solid var(--gris-linea);
+  }
+
+  .politica summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 0;
+    list-style: none;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 19px;
+    color: var(--azul-petroleo);
+    cursor: pointer;
+  }
+  .politica summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* El "+" gira y queda como "×" cuando está abierta */
+  .politica :global(.politica__mas) {
+    flex: none;
+    transition: transform var(--dur-media);
+  }
+  .politica[open] :global(.politica__mas) {
+    transform: rotate(45deg);
+  }
+
+  .politica__cuerpo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 0 0 22px;
+  }
+
+  .politica__cuerpo p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .politicas .politica__descargar {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 767px) {
+    .politicas__fila {
+      gap: 28px;
+    }
+  }
+</style>

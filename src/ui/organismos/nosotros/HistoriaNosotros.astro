@@ -1,0 +1,155 @@
+---
+// HISTORIA — "De dos plataformas a 43 metros." Línea de tiempo con hitos, y debajo
+// el video del equipo (con sonido a pedido) y la foto del equipo.
+import Titular from '@ui/atomos/Titular';
+import VideoConSonido from './VideoConSonido.astro';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
+
+interface Props {
+  historia: ContenidoNosotros['historia'];
+}
+
+const { historia } = Astro.props;
+---
+
+<section id="historia" class="historia">
+  <div class="contenedor historia__columna">
+    <Titular titular={historia.titular} etiqueta="h2" className="h2 historia__titular" colorResaltado="lima" />
+
+    <ol class="historia__hitos">
+      {
+        historia.hitos.map((hito) => (
+          <li class:list={['hito', { 'hito--actual': hito.actual }]}>
+            <span class="hito__anio">{hito.anio}</span>
+            <span class="hito__titulo">{hito.titulo}</span>
+            <span class="hito__texto">{hito.texto}</span>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="historia__medios">
+      <VideoConSonido
+        video={historia.video.video}
+        etiqueta={historia.video.etiqueta}
+        ayuda={historia.video.ayuda}
+        class="historia__video"
+      />
+      <div class="historia__foto corte">
+        <img
+          src={historia.foto.imagen.src}
+          alt={historia.foto.imagen.alt}
+          style={historia.foto.imagen.posicion ? `object-position: ${historia.foto.imagen.posicion}` : undefined}
+          loading="lazy"
+        />
+        <span class="etiqueta-foto">{historia.foto.etiqueta}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .historia {
+    background: var(--azul-noche);
+    padding: var(--seccion-y) 0;
+  }
+
+  .historia__columna {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .historia :global(.historia__titular) {
+    margin: 0;
+    color: var(--blanco);
+  }
+
+  /* ---------- Línea de tiempo ---------- */
+  .historia__hitos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hito {
+    position: relative;
+    flex: 1 1 200px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 22px;
+    border-top: 3px solid var(--azul-petroleo);
+  }
+
+  /* Punto sobre la línea */
+  .hito::before {
+    content: '';
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--azul-medio);
+  }
+
+  .hito--actual {
+    border-top-color: var(--verde-lima);
+  }
+  .hito--actual::before {
+    background: var(--verde-lima);
+  }
+
+  .hito__anio {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: 34px;
+    letter-spacing: -0.03em;
+    color: var(--verde-lima);
+  }
+
+  .hito__titulo {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 20px;
+    color: var(--blanco);
+  }
+
+  .hito__texto {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--azul-claro-texto);
+  }
+
+  /* ---------- Video y foto ---------- */
+  .historia__medios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .historia :global(.historia__video) {
+    flex: 2 1 520px;
+    min-height: 360px;
+  }
+
+  .historia__foto {
+    position: relative;
+    flex: 1 1 280px;
+    min-height: 360px;
+    overflow: hidden;
+  }
+
+  .historia__foto img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

@@ -1,0 +1,140 @@
+---
+// ENCABEZADO DE NOSOTROS — "Somos el + de tu obra." (D-Nosotros / M-Nosotros).
+// Migas, eyebrow, titular de 96 px (52 px en móvil), texto, dos botones y el operario flotando sobre un "+".
+import Titular from '@ui/atomos/Titular';
+import Migas from '@ui/moleculas/Migas';
+import Boton from '@ui/atomos/Boton.astro';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
+import type { Enlace } from '@dominio/comunes';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  encabezado: ContenidoNosotros['encabezado'];
+  migas: Enlace[];
+  etiquetaMigas: string;
+}
+
+const { encabezado, migas, etiquetaMigas } = Astro.props;
+---
+
+<section class="enc-nosotros">
+  <div class="contenedor enc-nosotros__fila">
+    <div class="enc-nosotros__texto">
+      <Migas migas={migas} etiqueta={etiquetaMigas} />
+      <div>
+        <Eyebrow texto={encabezado.eyebrow} className="enc-nosotros__eyebrow" />
+        <Titular titular={encabezado.titular} etiqueta="h1" className="enc-nosotros__titular" />
+      </div>
+      <p>{encabezado.texto}</p>
+      <div class="enc-nosotros__botones">
+        <Boton enlace={encabezado.botones.principal} variante="azul" />
+        <Boton enlace={encabezado.botones.secundario} variante="linea" />
+      </div>
+    </div>
+
+    <div class="enc-nosotros__figura">
+      <Icono nombre="mas" tamano={24} color="#89E462" className="enc-nosotros__mas" />
+      <img
+        class="enc-nosotros__foto"
+        src={encabezado.foto.src}
+        alt={encabezado.foto.alt}
+        width="687"
+        height="1024"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .enc-nosotros {
+    background: var(--lima-hielo);
+    overflow: hidden;
+  }
+
+  .enc-nosotros__fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  .enc-nosotros__texto {
+    flex: 1 1 520px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 96px 0;
+  }
+
+  .enc-nosotros__eyebrow {
+    display: flex;
+    margin-bottom: 14px;
+    color: var(--verde-texto-pequeno);
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+  }
+
+  .enc-nosotros :global(.enc-nosotros__titular) {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: var(--display-tamano);
+    line-height: var(--display-linea);
+    letter-spacing: var(--display-espaciado);
+    color: var(--azul-petroleo);
+  }
+
+  .enc-nosotros__texto p {
+    margin: 0;
+    max-width: 540px;
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  .enc-nosotros__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .enc-nosotros__figura {
+    position: relative;
+    flex: 1 1 420px;
+    height: 640px;
+  }
+
+  .enc-nosotros__figura :global(.enc-nosotros__mas) {
+    position: absolute;
+    right: 0;
+    bottom: 30px;
+    width: 86%;
+    height: auto;
+  }
+
+  .enc-nosotros__foto {
+    position: absolute;
+    right: 12%;
+    bottom: 0;
+    height: 96%;
+    width: auto;
+    animation: flota var(--dur-flota) ease-in-out infinite;
+  }
+
+  @media (max-width: 767px) {
+    .enc-nosotros__texto {
+      padding: 40px 0 0;
+    }
+
+    .enc-nosotros :global(.enc-nosotros__titular) {
+      font-size: 52px;
+    }
+
+    .enc-nosotros__figura {
+      height: 340px;
+    }
+  }
+</style>

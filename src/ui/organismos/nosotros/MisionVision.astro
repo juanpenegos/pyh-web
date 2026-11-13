@@ -1,0 +1,103 @@
+---
+// MISIÓN Y VISIÓN — dos tarjetas: la misión rellena de azul y la visión con borde azul.
+import type { BloquePrincipio } from '@dominio/paginas/nosotros';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  mision: BloquePrincipio;
+  vision: BloquePrincipio;
+}
+
+const { mision, vision } = Astro.props;
+const bloques = [
+  { ...mision, variante: 'relleno' },
+  { ...vision, variante: 'borde' },
+];
+---
+
+<section class="mision-vision">
+  <div class="contenedor mision-vision__fila">
+    {
+      bloques.map((bloque) => (
+        <article class:list={['principio', `principio--${bloque.variante}`]}>
+          <Eyebrow texto={bloque.titulo} etiqueta="h2" className="principio__titulo" />
+          <p class="principio__texto">{bloque.texto}</p>
+          <span class="principio__nota">{bloque.nota}</span>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .mision-vision {
+    padding: var(--seccion-y) 0;
+  }
+
+  .mision-vision__fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 64px;
+  }
+
+  .principio {
+    flex: 1 1 460px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 40px;
+    border-radius: var(--radio-lg);
+  }
+
+  .principio__titulo {
+    margin: 0;
+  }
+
+  .principio__texto {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 26px;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  .principio__nota {
+    font-size: 13px;
+  }
+
+  .principio--relleno {
+    background: var(--azul-petroleo);
+    color: var(--blanco);
+  }
+  .principio--relleno .principio__titulo {
+    color: var(--verde-lima);
+  }
+  .principio--relleno .principio__nota {
+    color: var(--azul-claro-texto);
+  }
+
+  .principio--borde {
+    border: 2px solid var(--azul-petroleo);
+  }
+  .principio--borde .principio__titulo {
+    color: var(--verde-texto-pequeno);
+  }
+  .principio--borde .principio__texto {
+    color: var(--azul-petroleo);
+  }
+  .principio--borde .principio__nota {
+    color: var(--gris-texto-pequeno);
+  }
+
+  @media (max-width: 767px) {
+    .mision-vision__fila {
+      gap: 28px;
+    }
+
+    .principio__texto {
+      font-size: 19px;
+    }
+  }
+</style>

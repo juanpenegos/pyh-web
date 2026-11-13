@@ -1,0 +1,124 @@
+---
+// VALORES — "Lo que no negociamos." Cuatro tarjetas; cada una con su color, en orden:
+// lima, azul petróleo, azul hielo y azul noche (como en el diseño). Si hay más valores, los colores se repiten.
+import Titular from '@ui/atomos/Titular';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
+
+interface Props {
+  valores: ContenidoNosotros['valores'];
+}
+
+const { valores } = Astro.props;
+const COLORES = ['lima', 'petroleo', 'hielo', 'noche'];
+---
+
+<section class="valores">
+  <div class="contenedor valores__columna">
+    <Titular titular={valores.titular} etiqueta="h2" className="h2 valores__titular" />
+    <ul class="valores__lista">
+      {
+        valores.lista.map((valor, i) => (
+          <li class={`valor valor--${COLORES[i % COLORES.length]}`}>
+            <span class="valor__numero">{valor.numero}</span>
+            <span class="valor__titulo">{valor.titulo}</span>
+            <span class="valor__texto">{valor.texto}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .valores {
+    padding: var(--seccion-y) 0;
+  }
+
+  .valores__columna {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .valores :global(.valores__titular) {
+    margin: 0;
+  }
+
+  .valores__lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .valor {
+    flex: 1 1 240px;
+    min-width: 0;
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    border-radius: var(--radio-lg);
+  }
+
+  .valor__numero {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-black);
+    font-size: 15px;
+  }
+
+  .valor__titulo {
+    margin-top: auto;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+
+  .valor__texto {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* Colores de cada tarjeta */
+  .valor--lima {
+    background: var(--verde-lima);
+    color: var(--azul-petroleo);
+  }
+
+  .valor--petroleo {
+    background: var(--azul-petroleo);
+    color: var(--azul-claro-texto);
+  }
+  .valor--petroleo .valor__numero {
+    color: var(--verde-lima);
+  }
+  .valor--petroleo .valor__titulo {
+    color: var(--blanco);
+  }
+
+  .valor--hielo {
+    background: var(--azul-hielo);
+    color: var(--gris-texto);
+  }
+  .valor--hielo .valor__numero {
+    color: var(--verde-texto-pequeno);
+  }
+  .valor--hielo .valor__titulo {
+    color: var(--azul-petroleo);
+  }
+
+  .valor--noche {
+    background: var(--azul-noche);
+    color: var(--azul-claro-texto);
+  }
+  .valor--noche .valor__numero {
+    color: var(--amarillo);
+  }
+  .valor--noche .valor__titulo {
+    color: var(--blanco);
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+// EQUIPO — "Las personas del +." Cuatro tarjetas con foto (o un espacio con ícono mientras
+// no haya fotos), nombre y cargo. Los fondos alternan azul hielo y lima hielo.
+import Titular from '@ui/atomos/Titular';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
+
+interface Props {
+  equipo: ContenidoNosotros['equipo'];
+}
+
+const { equipo } = Astro.props;
+---
+
+<section class="equipo">
+  <div class="contenedor equipo__columna">
+    <div class="equipo__cabecera">
+      <Titular titular={equipo.titular} etiqueta="h2" className="h2 equipo__titular" />
+      <p class="equipo__nota">{equipo.nota}</p>
+    </div>
+
+    <ul class="equipo__lista">
+      {
+        equipo.personas.map((persona, i) => (
+          <li class="persona">
+            <div class:list={['persona__foto', i % 2 ? 'persona__foto--lima' : 'persona__foto--hielo']}>
+              {persona.foto ? (
+                <img src={persona.foto.src} alt={persona.foto.alt} loading="lazy" />
+              ) : (
+                <>
+                  <Icono nombre="persona" tamano={64} color="#3F809C" grosor={1.5} />
+                  <span class="etiqueta-foto persona__etiqueta">{equipo.etiquetaFoto}</span>
+                </>
+              )}
+            </div>
+            <span class="persona__nombre">{persona.nombre}</span>
+            <span class="persona__cargo">{persona.cargo}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .equipo {
+    padding: var(--seccion-y) 0;
+  }
+
+  .equipo__columna {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .equipo__cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+  }
+
+  .equipo :global(.equipo__titular) {
+    margin: 0;
+  }
+
+  /* La nota solo aparece en móvil (así está en M-Nosotros) */
+  .equipo__nota {
+    display: none;
+    margin: 0;
+    max-width: 380px;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .equipo__lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .persona {
+    flex: 1 1 200px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .persona__foto {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radio-lg);
+  }
+  .persona__foto--hielo {
+    background: var(--azul-hielo);
+  }
+  .persona__foto--lima {
+    background: var(--lima-hielo);
+  }
+
+  .persona__foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .persona__etiqueta {
+    background: rgba(0, 71, 93, 0.7);
+  }
+
+  .persona__nombre {
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-bold);
+    font-size: 18px;
+    color: var(--azul-petroleo);
+  }
+
+  .persona__cargo {
+    font-size: 14px;
+  }
+
+  @media (max-width: 767px) {
+    .equipo__nota {
+      display: block;
+    }
+  }
+</style>
