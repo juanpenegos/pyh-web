@@ -50,3 +50,4 @@ Notas:
 | `video-tijera-electrica-extendida-bodega-operario-trabajando-altura-873a54.mp4` | video | Tijera eléctrica PyH+ extendida en una bodega con un operario trabajando en altura | M-Inicio, Main | `873a54be` |
 | `video-tijera-elevadora-subiendo-plataforma-10688c.mp4` | video | Tijera elevadora PyH+ subiendo su plataforma | M-Inicio | `10688c2d` |
 | `video-tijera-elevadora-subiendo-plataforma-14ef3d.mp4` | video | Tijera elevadora PyH+ subiendo su plataforma | M-Inicio | `14ef3d04` |
+| `mapa-sede-bogota-fontibon-google-maps-7e3d3a.webp` / `.avif` | imagen | Captura de Google Maps con la sede de PyH+ en San José Fontibón (se cambia por el mapa real al tocarla) | D-Contacto, M-Contacto | `7e3d3a5a` |
