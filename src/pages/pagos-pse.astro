@@ -1,0 +1,52 @@
+---
+// PÁGINA PAGOS PSE (dirección "/pagos-pse").
+// Encabezado azul + tarjeta de pago con su columna lateral. Orden igual en escritorio
+// y móvil (D-PSE / M-PSE). "¿Subimos?" y footer los pone el Layout.
+// - Hoy (PUBLIC_PAYMENTS_MODE=redirect): PagoExterno, HTML puro sin JavaScript, con el botón a Mi Pago Amigo.
+// - Con el backend (mock o http): el asistente de 3 pasos, que sí necesita JavaScript (isla).
+import Layout from '@ui/plantillas/Layout.astro';
+import EncabezadoPse from '@ui/organismos/pagos/EncabezadoPse.astro';
+import PagoExterno from '@ui/organismos/pagos/PagoExterno';
+import AsistentePagoIsla from '@islas/AsistentePagoIsla';
+import { repositorio } from '@infraestructura/repositorio';
+import { servicios } from '@infraestructura/servicios';
+import { enlaceWhatsapp } from '@aplicacion/contacto/enlacesContacto';
+import { rellenar } from '@aplicacion/comun/textos';
+
+const comun = await repositorio.obtenerComun();
+const pse = await repositorio.obtenerPagosPse();
+const pago = servicios.pago;
+const textos = { asistente: pse.asistente, comoFunciona: pse.comoFunciona, ayuda: pse.ayuda };
+---
+
+<Layout comun={comun} seo={pse.seo}>
+  <EncabezadoPse contenido={pse} />
+  <section class="pago-pse">
+    <div class="contenedor">
+      {pago.tipo === 'externo' ? (
+        <PagoExterno
+          textos={pse.externo}
+          url={pago.url}
+          etiquetaProgreso={rellenar(pse.asistente.progreso, { n: '1' })}
+          comoFunciona={pse.comoFunciona}
+          ayuda={pse.ayuda}
+          enlaceWhatsapp={(mensaje: string) => enlaceWhatsapp(comun.empresa.celular, mensaje)}
+        />
+      ) : (
+        <AsistentePagoIsla
+          client:load
+          textos={textos}
+          rutaRetorno={comun.urls.pagosPseResultado}
+          whatsapp={comun.empresa.celular}
+        />
+      )}
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Analítica del botón a Mi Pago Amigo (sin datos personales)
+  import { emitirEvento } from '@ui/utilidades/analitica';
+
+  document.querySelector('[data-pago-externo]')?.addEventListener('click', () => emitirEvento({ event: 'pse_payment_start' }));
+</script>

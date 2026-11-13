@@ -1,0 +1,101 @@
+---
+// ENCABEZADO DE PAGOS PSE — fondo azul noche, migas, "Paga en 2 minutos." y sellos (D-PSE / M-PSE).
+// Deja 160 px abajo (120 en móvil) porque la tarjeta del asistente se monta encima.
+import Titular from '@ui/atomos/Titular';
+import Migas from '@ui/moleculas/Migas';
+import Icono from '@ui/atomos/Icono';
+import type { ContenidoPagosPse } from '@dominio/paginas/pagosPse';
+import Eyebrow from '@ui/atomos/Eyebrow';
+
+interface Props {
+  contenido: Pick<ContenidoPagosPse, 'encabezado' | 'migas' | 'etiquetaMigas'>;
+}
+
+const { encabezado, migas, etiquetaMigas } = Astro.props.contenido;
+---
+
+<section class="enc-pse">
+  <div class="contenedor enc-pse__columna">
+    <Migas migas={migas} etiqueta={etiquetaMigas} fondo="oscuro" />
+    <h1 class="enc-pse__titular">
+      <Eyebrow texto={encabezado.eyebrow} className="enc-pse__eyebrow" />
+      <Titular titular={encabezado.titular} etiqueta="span" colorResaltado="lima" />
+    </h1>
+    <p class="enc-pse__texto">{encabezado.texto}</p>
+    <ul class="enc-pse__sellos">
+      {encabezado.sellos.map((sello) => (
+        <li>
+          <Icono nombre={sello.icono} tamano={18} color="#89E462" />
+          {sello.texto}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Primero móvil (M-PSE); desde 768 px, escritorio (D-PSE) */
+  .enc-pse {
+    padding: 36px 0 120px;
+    background: var(--azul-noche);
+    color: var(--blanco);
+  }
+
+  .enc-pse__columna {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .enc-pse__titular {
+    margin: 0;
+    font-family: var(--fuente-titulos);
+    font-weight: var(--peso-extrabold);
+    font-size: 52px;
+    line-height: var(--display-linea);
+    letter-spacing: var(--display-espaciado);
+    color: var(--blanco);
+  }
+
+  .enc-pse__eyebrow {
+    display: flex;
+    margin-bottom: 14px;
+    color: var(--verde-lima);
+    font-size: 13px;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+  }
+
+  .enc-pse__texto {
+    max-width: 520px;
+    color: var(--azul-claro-texto);
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .enc-pse__sellos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--azul-claro-texto);
+    font-size: 14px;
+  }
+  .enc-pse__sellos li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  @media (min-width: 768px) {
+    .enc-pse {
+      padding: 56px 0 160px;
+    }
+
+    .enc-pse__titular {
+      font-size: 96px;
+    }
+  }
+</style>

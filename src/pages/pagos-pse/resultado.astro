@@ -1,0 +1,21 @@
+---
+// PÁGINA DE RESULTADO DEL PAGO (dirección "/pagos-pse/resultado?paymentId=…").
+// Aquí vuelve la persona desde la página de su banco. No se muestra en Google (noindex).
+import Layout from '@ui/plantillas/Layout.astro';
+import EncabezadoPse from '@ui/organismos/pagos/EncabezadoPse.astro';
+import ResultadoPagoIsla from '@islas/ResultadoPagoIsla';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const pse = await repositorio.obtenerPagosPse();
+const textos = { resultado: pse.resultado, asistente: pse.asistente, comoFunciona: pse.comoFunciona, ayuda: pse.ayuda };
+---
+
+<Layout comun={comun} seo={pse.seoResultado} noIndexar>
+  <EncabezadoPse contenido={pse} />
+  <section class="pago-pse">
+    <div class="contenedor">
+      <ResultadoPagoIsla client:load textos={textos} urlPagar={comun.urls.pagosPse} whatsapp={comun.empresa.celular} />
+    </div>
+  </section>
+</Layout>
