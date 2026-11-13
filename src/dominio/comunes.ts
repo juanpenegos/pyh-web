@@ -12,21 +12,31 @@ export interface Enlace {
 export interface Imagen {
   src: string;
   alt: string;
+  /** Punto de la foto que queda visible al recortarla, p. ej. "50% 30%" (opcional). */
+  posicion?: string;
 }
 
-/** Un video corto sin sonido. `poster` es la imagen que se ve mientras carga. */
+/** Un video corto sin sonido. `poster` es la imagen que se ve mientras carga (opcional). */
 export interface Video {
   src: string;
-  poster: string;
+  poster?: string;
   alt: string;
+  /** Punto del video que queda visible al recortarlo, p. ej. "52% 50%" (opcional). */
+  posicion?: string;
 }
+
+/** Colores con los que se puede resaltar una parte de un titular. */
+export type ColorResaltado = 'verde' | 'azul' | 'lima';
 
 /**
  * Un titular partido en partes, para pintar de otro color una palabra
  * (p. ej. "Elige tu" + "altura" en verde) y el punto final.
+ * - resaltado: true usa el color de resalte del componente; también se puede
+ *   poner el color directamente: 'verde', 'azul' o 'lima'.
+ * - Un "\n" dentro del texto es un cambio de línea.
  */
 export interface Titular {
-  partes: { texto: string; resaltado?: boolean }[];
+  partes: { texto: string; resaltado?: boolean | ColorResaltado }[];
 }
 
 /** Una cifra destacada, p. ej. "43 m" / "Nuestro equipo más alto". */

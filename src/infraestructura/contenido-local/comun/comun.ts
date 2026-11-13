@@ -3,16 +3,18 @@
 
 import type { ContenidoComun } from '@dominio/paginas/comun';
 import { urls } from './urls';
+import { empresa } from './empresa';
+import { urlConBusqueda, urlConFiltro } from '@aplicacion/catalogo/direccion';
+import { ID_GRUPO_FAMILIA } from '../catalogo/catalogo';
+
+/** Enlace al catálogo ya filtrado por un tipo de equipo. */
+const familia = (nombre: string) => urlConFiltro(urls.catalogo, ID_GRUPO_FAMILIA, nombre);
 
 export const comun: ContenidoComun = {
   urls,
 
   // Datos de la empresa
-  empresa: {
-    nombreCorto: 'PyH+',
-    razonSocial: 'Plataformas y Herramientas S.A.S.',
-    nit: '[000.000.000-0]',   // Pendiente del cliente
-  },
+  empresa,
 
   // Accesibilidad
   saltarAlContenido: 'Saltar al contenido',
@@ -26,8 +28,8 @@ export const comun: ContenidoComun = {
   // Franja superior del header (solo escritorio)
   barraSuperior: {
     texto: 'Miembro IPAF · Equipos certificados ONAC · Bogotá y todo el país',
-    telefono: { texto: '304 364 9060', url: urls.telefono },
-    pagos: { texto: 'Pagos PSE', url: urls.proximamente },
+    telefono: { texto: empresa.celular.texto, url: urls.telefono },
+    pagos: { texto: 'Pagos PSE', url: urls.pagosPse },
   },
 
   // Header
@@ -36,10 +38,16 @@ export const comun: ContenidoComun = {
       { texto: 'Inicio', url: urls.inicio },
       { texto: 'Catálogo', url: urls.catalogo },
       { texto: 'Nosotros PyH+', url: urls.nosotros },
-      { texto: 'Blog', url: urls.proximamente },
-      { texto: 'Contacto', url: urls.whatsapp },
     ],
+    mas: {
+      texto: 'Más',
+      enlaces: [
+        { texto: 'Blog', url: urls.proximamente },
+        { texto: 'Contacto', url: urls.contacto },
+      ],
+    },
     etiquetaMenu: 'Principal',
+    botonClientes: { texto: 'Clientes', url: urls.clientes },
     botonCotizar: { texto: 'Cotizar', url: urls.whatsapp },
   },
 
@@ -62,11 +70,12 @@ export const comun: ContenidoComun = {
       { texto: 'Catálogo', url: urls.catalogo },
       { texto: 'Nosotros PyH+', url: urls.nosotros },
       { texto: 'Blog', url: urls.proximamente },
-      { texto: 'Contacto', url: urls.whatsapp },
+      { texto: 'Contacto', url: urls.contacto },
     ],
+    botonClientes: { texto: 'Clientes', url: urls.clientes },
     botonCotizar: { texto: 'Cotizar un equipo', url: urls.whatsapp },
-    botonPagos: { texto: 'Pagos PSE', url: urls.proximamente },
-    telefono: { texto: '304 364 9060', url: urls.telefono },
+    botonPagos: { texto: 'Pagos PSE', url: urls.pagosPse },
+    telefono: { texto: empresa.celular.texto, url: urls.telefono },
     whatsapp: { texto: 'Escríbenos por WhatsApp', url: urls.whatsapp },
     sellos: ['Miembro IPAF', 'Certificados ONAC'],
   },
@@ -90,28 +99,28 @@ export const comun: ContenidoComun = {
         { texto: 'Catálogo', url: urls.catalogo },
         { texto: 'Nosotros PyH+', url: urls.nosotros },
         { texto: 'Blog', url: urls.proximamente },
-        { texto: 'Contacto', url: urls.whatsapp },
-        { texto: 'Pagos PSE', url: urls.proximamente },
+        { texto: 'Contacto', url: urls.contacto },
+        { texto: 'Pagos PSE', url: urls.pagosPse },
       ],
     },
     catalogo: {
       titulo: 'Catálogo',
       enlaces: [
-        { texto: 'Alquiler de tijera eléctrica', url: urls.catalogo },
-        { texto: 'Alquiler de tijera diésel y oruga', url: urls.catalogo },
-        { texto: 'Brazos articulados', url: urls.catalogo },
-        { texto: 'Brazos telescópicos', url: urls.catalogo },
-        { texto: 'Brazo sobre camión', url: urls.catalogo },
-        { texto: 'Unipersonales y spider', url: urls.catalogo },
-        { texto: 'Venta de plataformas', url: urls.catalogo },
+        { texto: 'Alquiler de tijera eléctrica', url: familia('Tijera eléctrica') },
+        { texto: 'Alquiler de tijera diésel y oruga', url: familia('Tijera diésel') },
+        { texto: 'Brazos articulados', url: familia('Brazo articulado') },
+        { texto: 'Brazos telescópicos', url: familia('Brazo telescópico') },
+        { texto: 'Brazo sobre camión', url: urlConBusqueda(urls.catalogo, 'camión') },
+        { texto: 'Unipersonales y spider', url: familia('Unipersonal') },
+        { texto: 'Venta de plataformas', url: urlConFiltro(urls.catalogo, 'modalidad', 'Venta') },
       ],
     },
     contacto: {
       titulo: 'Hablemos',
-      telefono: { texto: '304 364 9060', url: urls.telefono },
-      correo: { texto: 'info@alquilerdeplataformasyherramientas.com', url: urls.correo },
-      horario: 'Lun a vie 7:00 a.m. a 4:30 p.m. · Sáb, dom y festivos cerrado',
-      direccion: 'Calle 24 B # 101 – 02, barrio San José Fontibón, Bogotá',
+      telefono: { texto: empresa.celular.texto, url: urls.telefono },
+      correo: { texto: empresa.correo, url: urls.correo },
+      horario: empresa.horario.largo,
+      direccion: empresa.direccion.corta,
     },
     cobertura: {
       titulo: 'Alquiler de plataformas elevadoras en:',
@@ -121,12 +130,12 @@ export const comun: ContenidoComun = {
       titulo: 'Marcas:',
       texto: 'JLG, Genie, Haulotte, ALO LIFT, Oil & Steel y PyH LIFT.',
     },
-    sellos: ['Miembro IPAF', 'Equipos certificados ONAC', 'Res. 4272 de 2021', 'Res. 1409 de 2012'],
-    derechos: '© 2026 Plataformas y Herramientas S.A.S. · NIT [000.000.000-0]',
+    sellos: empresa.sellos,
+    derechos: `© 2026 ${empresa.razonSocial} · NIT ${empresa.nit}`,
     legales: [
-      { texto: 'Política de datos', url: urls.nosotros },
-      { texto: 'Términos y condiciones', url: urls.nosotros },
-      { texto: 'Políticas corporativas', url: urls.nosotros },
+      { texto: 'Política de datos', url: urls.politicas },
+      { texto: 'Términos y condiciones', url: urls.politicas },
+      { texto: 'Políticas corporativas', url: urls.politicas },
     ],
     fraseFinal: {
       partes: [

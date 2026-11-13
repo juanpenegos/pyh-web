@@ -1,6 +1,7 @@
 // DOMINIO — forma del contenido común a todas las páginas (header, menú, footer, contacto).
 
 import type { Enlace, Titular } from '../comunes';
+import type { DatosEmpresa } from '../empresa';
 
 export interface ContenidoComun {
   // Direcciones que se repiten en todo el sitio
@@ -8,17 +9,19 @@ export interface ContenidoComun {
     inicio: string;
     catalogo: string;
     nosotros: string;
+    politicas: string;
+    contacto: string;
+    pagosPse: string;
+    pagosPseResultado: string;
     proximamente: string;
+    clientes: string;
     whatsapp: string;
     telefono: string;
     correo: string;
   };
 
-  empresa: {
-    nombreCorto: string;
-    razonSocial: string;
-    nit: string;
-  };
+  // Datos de la empresa (teléfonos, dirección, horario, redes…)
+  empresa: DatosEmpresa;
 
   saltarAlContenido: string;
 
@@ -35,8 +38,10 @@ export interface ContenidoComun {
   };
 
   header: {
-    menu: Enlace[];
+    menu: Enlace[];       // Enlaces que se ven siempre
+    mas: { texto: string; enlaces: Enlace[] };  // Desplegable "Más"
     etiquetaMenu: string;
+    botonClientes: Enlace;
     botonCotizar: Enlace;
   };
 
@@ -53,6 +58,7 @@ export interface ContenidoComun {
     abrir: string;
     cerrar: string;
     enlaces: Enlace[];
+    botonClientes: Enlace;
     botonCotizar: Enlace;
     botonPagos: Enlace;
     telefono: Enlace;
