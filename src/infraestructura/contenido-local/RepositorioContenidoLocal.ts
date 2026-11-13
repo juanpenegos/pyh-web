@@ -7,7 +7,8 @@ import { inicio } from './inicio/inicio';
 import { catalogo } from './catalogo/catalogo';
 import { nosotros } from './nosotros/nosotros';
 import { proximamente } from './proximamente/proximamente';
-import { muestra } from './muestra/muestra';
+import { contacto } from './contacto/contacto';
+import { pagosPse } from './pagos-pse/pagosPse';
 
 export class RepositorioContenidoLocal implements RepositorioContenido {
   async obtenerComun() {
@@ -30,7 +31,11 @@ export class RepositorioContenidoLocal implements RepositorioContenido {
     return proximamente;
   }
 
-  async obtenerMuestra() {
-    return muestra;
+  async obtenerContacto() {
+    return contacto;
+  }
+
+  async obtenerPagosPse() {
+    return pagosPse;
   }
 }

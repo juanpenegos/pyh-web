@@ -13,7 +13,8 @@ import type { ContenidoInicio } from '@dominio/paginas/inicio';
 import type { ContenidoCatalogo } from '@dominio/paginas/catalogo';
 import type { ContenidoNosotros } from '@dominio/paginas/nosotros';
 import type { ContenidoProximamente } from '@dominio/paginas/proximamente';
-import type { ContenidoMuestra } from '@dominio/paginas/muestra';
+import type { ContenidoContacto } from '@dominio/paginas/contacto';
+import type { ContenidoPagosPse } from '@dominio/paginas/pagosPse';
 
 export interface RepositorioContenido {
   obtenerComun(): Promise<ContenidoComun>;
@@ -21,6 +22,6 @@ export interface RepositorioContenido {
   obtenerCatalogo(): Promise<ContenidoCatalogo>;
   obtenerNosotros(): Promise<ContenidoNosotros>;
   obtenerProximamente(): Promise<ContenidoProximamente>;
-  /** TEMPORAL: solo para la página /muestra. Se borra antes de publicar. */
-  obtenerMuestra(): Promise<ContenidoMuestra>;
+  obtenerContacto(): Promise<ContenidoContacto>;
+  obtenerPagosPse(): Promise<ContenidoPagosPse>;
 }
