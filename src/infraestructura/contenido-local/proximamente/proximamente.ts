@@ -6,11 +6,11 @@ import { urls } from '../comun/urls';
 
 export const proximamente: ContenidoProximamente = {
   seo: {
-    titulo: 'Próximamente | PyH+',
+    titulo: 'En construcción | PyH+',
     descripcion: '',
   },
   titular: {
-    partes: [{ texto: 'Muy pronto' }, { texto: '.', resaltado: true }],
+    partes: [{ texto: 'En construcción' }, { texto: '.', resaltado: true }],
   },
   texto: 'Estamos preparando esta sección. Mientras tanto, escríbenos y te ayudamos.',
   boton: { texto: 'Escríbenos por WhatsApp', url: urls.whatsapp },

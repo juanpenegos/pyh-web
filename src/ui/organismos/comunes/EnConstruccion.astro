@@ -1,0 +1,55 @@
+---
+// BLOQUE "EN CONSTRUCCIÓN" — lo usan /proximamente y la página que sale cuando una dirección no existe (404).
+// Recibe todo por props (contenido en contenido-local/proximamente/proximamente.ts).
+import Titular from '@ui/atomos/Titular';
+import Boton from '@ui/atomos/Boton.astro';
+import type { ContenidoProximamente } from '@dominio/paginas/proximamente';
+
+interface Props {
+  contenido: Omit<ContenidoProximamente, 'seo'>;
+}
+
+const { contenido } = Astro.props;
+---
+
+<section class="en-construccion">
+  <div class="contenedor en-construccion__contenido">
+    <Titular titular={contenido.titular} etiqueta="h1" className="h1" />
+    <p>{contenido.texto}</p>
+    <div class="en-construccion__botones">
+      <Boton enlace={contenido.boton} variante="lima" />
+      <Boton enlace={contenido.volver} variante="linea" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .en-construccion {
+    background: var(--fondo-suave);
+    padding: var(--seccion-y) 0;
+  }
+
+  .en-construccion__contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--esp-6);
+  }
+
+  /* "construcción" es una palabra larga: en celular se achica para que quepa */
+  @media (max-width: 767px) {
+    .en-construccion__contenido :global(.h1) {
+      font-size: clamp(40px, 12vw, 66px);
+    }
+  }
+
+  .en-construccion__contenido p {
+    max-width: 560px;
+  }
+
+  .en-construccion__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-3);
+  }
+</style>

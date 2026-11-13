@@ -1,0 +1,15 @@
+---
+// PÁGINA DE RESPALDO: sale en cualquier dirección que no exista (p. ej. /blog).
+// Muestra el mismo "En construcción" que /proximamente, sin códigos ni textos técnicos.
+// Astro la publica como 404.html y Vercel/Netlify la usan solos.
+import Layout from '@ui/plantillas/Layout.astro';
+import EnConstruccion from '@ui/organismos/comunes/EnConstruccion.astro';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const { seo, ...contenido } = await repositorio.obtenerProximamente();
+---
+
+<Layout comun={comun} seo={seo} noIndexar>
+  <EnConstruccion contenido={contenido} />
+</Layout>
