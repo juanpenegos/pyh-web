@@ -1,0 +1,142 @@
+/* PANEL DE FILTROS DE ESCRITORIO y FILTROS APLICADOS — medidas de D-Catalogo */
+
+.panel-filtros {
+  flex: 0 0 280px;
+  position: sticky;
+  top: calc(var(--alto-header) + 16px);
+  /* Si el panel es más alto que la pantalla, se desplaza por dentro */
+  max-height: calc(100vh - var(--alto-header) - 32px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  padding: 24px 24px 8px;
+  border-radius: var(--radio-lg);
+  background: var(--blanco);
+}
+
+.panel-filtros__titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-extrabold);
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--azul-petroleo);
+}
+
+.panel-filtros__cantidad {
+  margin: 4px 0 16px;
+  font-size: 14px;
+}
+
+.panel-filtros__grupo {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  border-top: 1px solid var(--gris-linea);
+}
+
+.panel-filtros__grupo-titulo {
+  margin-bottom: 6px;
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: 16px;
+  color: var(--azul-petroleo);
+}
+
+/* Cada opción: casilla + nombre a la izquierda, cantidad a la derecha */
+.panel-filtros__opcion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  min-height: 40px;
+  padding: 9px 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  color: var(--gris-texto);
+  text-align: left;
+  cursor: pointer;
+}
+.panel-filtros__opcion:hover {
+  color: var(--azul-petroleo);
+}
+
+.panel-filtros__opcion-nombre {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panel-filtros__casilla {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--gris-medio);
+  background: var(--blanco);
+}
+
+.panel-filtros__opcion-cantidad {
+  font-size: 13px;
+  color: var(--gris-texto-pequeno);
+}
+
+.panel-filtros__opcion--marcada .panel-filtros__casilla {
+  border-color: var(--azul-petroleo);
+  background: var(--azul-petroleo);
+}
+.panel-filtros__opcion--marcada .panel-filtros__opcion-etiqueta {
+  color: var(--azul-petroleo);
+  font-weight: 700;
+}
+/* Opción que hoy no daría resultados */
+.panel-filtros__opcion--vacia .panel-filtros__opcion-etiqueta {
+  color: var(--gris-medio);
+}
+
+/* ---------- Filtros aplicados ---------- */
+.filtros-aplicados__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.filtros-aplicados__limpiar {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--azul-enlace);
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.filtros-aplicados__limpiar:hover {
+  color: var(--azul-medio);
+}
+
+/* En el panel: píldoras arriba y "Limpiar filtros" debajo */
+.filtros-aplicados--panel .filtros-aplicados__lista {
+  margin-bottom: 12px;
+}
+.filtros-aplicados--panel .filtros-aplicados__limpiar {
+  padding-bottom: 16px;
+}
+
+/* En móvil: todo en una sola fila que se acomoda */
+.filtros-aplicados--movil {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.filtros-aplicados--movil .filtros-aplicados__lista {
+  display: contents;
+}
+.filtros-aplicados--movil .filtros-aplicados__limpiar {
+  font-size: 13px;
+}

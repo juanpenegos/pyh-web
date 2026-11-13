@@ -1,0 +1,138 @@
+/* ENCABEZADO DEL CATÁLOGO — medidas de D-Catalogo (escritorio), M-Catalogo y M-SinResultados (móvil) */
+
+.encabezado-catalogo {
+  background: var(--azul-noche);
+  color: var(--blanco);
+  overflow: hidden;
+}
+
+.encabezado-catalogo__contenido {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+
+/* Titular de 72 px con su eyebrow encima */
+.encabezado-catalogo__titulo h1 {
+  margin: 0;
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-extrabold);
+  font-size: var(--h1-tamano);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  color: var(--blanco);
+}
+.encabezado-catalogo__eyebrow {
+  display: flex;
+  margin-bottom: 14px;
+  color: var(--verde-lima);
+  font-size: 13px;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+}
+
+.encabezado-catalogo__texto {
+  margin: 0;
+  max-width: 520px;
+  color: var(--azul-claro-texto);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+/* ---------- Buscador ---------- */
+.buscador-catalogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 620px;
+  padding: 6px 6px 6px 22px;
+  border-radius: var(--radio-pildora);
+  background: var(--blanco);
+}
+.buscador-catalogo:focus-within {
+  outline: 3px solid var(--verde-lima);
+  outline-offset: 3px;
+}
+.buscador-catalogo__icono {
+  flex: none;
+}
+.buscador-catalogo__campo {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  color: var(--azul-petroleo);
+}
+.buscador-catalogo__campo::placeholder {
+  color: var(--gris-texto-pequeno);
+}
+/* La "X" del propio navegador sobra: hay botón para borrar */
+.buscador-catalogo__campo::-webkit-search-cancel-button {
+  display: none;
+}
+.buscador-catalogo .buscador-catalogo__boton {
+  padding: 12px 22px;
+}
+.buscador-catalogo__borrar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* ---------- Móvil ---------- */
+@media (max-width: 767px) {
+  .encabezado-catalogo__contenido {
+    gap: 14px;
+    padding: 20px 16px 24px;
+  }
+
+  .encabezado-catalogo__titulo h1 {
+    font-size: 40px;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .encabezado-catalogo__texto {
+    font-size: 15px;
+  }
+
+  .buscador-catalogo {
+    padding: 4px 4px 4px 16px;
+  }
+  .buscador-catalogo__icono {
+    width: 18px;
+    height: 18px;
+  }
+  .buscador-catalogo__campo {
+    height: 44px;
+  }
+  .buscador-catalogo .buscador-catalogo__boton {
+    padding: 10px 16px;
+    min-height: 44px;
+  }
+
+  /* Sin resultados de búsqueda: solo queda el buscador, con la "X" en lugar de "Buscar" */
+  .encabezado-catalogo--compacto .encabezado-catalogo__contenido {
+    padding: 16px;
+    gap: 12px;
+  }
+  .encabezado-catalogo--compacto .encabezado-catalogo__migas,
+  .encabezado-catalogo--compacto .encabezado-catalogo__titulo,
+  .encabezado-catalogo--compacto .encabezado-catalogo__texto,
+  .buscador-catalogo .buscador-catalogo__boton--opcional {
+    display: none;
+  }
+}

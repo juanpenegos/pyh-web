@@ -1,0 +1,16 @@
+---
+// PÁGINA DEL CATÁLOGO (dirección "/catalogo").
+// Pide el contenido al repositorio y lo entrega a la isla del catálogo.
+// La isla se activa al cargar (client:load) porque los filtros se usan de inmediato;
+// antes de activarse ya se ve completa, porque Astro la arma como HTML en el servidor.
+import Layout from '@ui/plantillas/Layout.astro';
+import Catalogo from '@ui/organismos/catalogo/Catalogo';
+import { repositorio } from '@infraestructura/repositorio';
+
+const comun = await repositorio.obtenerComun();
+const { seo, ...catalogo } = await repositorio.obtenerCatalogo();
+---
+
+<Layout comun={comun} seo={seo}>
+  <Catalogo client:load catalogo={catalogo} />
+</Layout>

@@ -1,0 +1,147 @@
+/* PIEZAS MÓVILES DEL CATÁLOGO — barra fija (M-Catalogo) y hoja de filtros (M-Filtros) */
+
+/* Cantidad "(n)" dentro de una píldora */
+.chip__cantidad {
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+/* ---------- Barra fija bajo el header ---------- */
+.barra-movil {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .barra-movil {
+    display: block;
+    position: sticky;
+    top: var(--alto-header);
+    z-index: 15;
+    padding: 10px 0;
+    background: var(--blanco);
+    border-bottom: 1px solid var(--gris-linea);
+  }
+
+  .barra-movil__fila {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .barra-movil__fila::-webkit-scrollbar {
+    display: none;
+  }
+  .barra-movil__fila .chip {
+    flex: none;
+  }
+}
+
+/* ---------- Hoja de filtros ---------- */
+.hoja-filtros {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  height: min(760px, calc(100dvh - 40px));
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 28px 28px 0 0;
+  background: var(--blanco);
+  color: var(--gris-texto);
+}
+.hoja-filtros[open] {
+  animation: sube 0.5s var(--curva-sube) both;
+}
+.hoja-filtros::backdrop {
+  background: rgba(6, 42, 51, 0.6);
+}
+
+.hoja-filtros__contenido {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hoja-filtros__agarre {
+  align-self: center;
+  flex: none;
+  width: 44px;
+  height: 5px;
+  margin-top: 10px;
+  border-radius: 3px;
+  background: var(--gris-linea);
+}
+
+.hoja-filtros__cabecera {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 20px 4px;
+}
+
+.hoja-filtros__titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-extrabold);
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--azul-petroleo);
+}
+
+.hoja-filtros__cerrar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--fondo-suave);
+  cursor: pointer;
+}
+
+.hoja-filtros__cuerpo {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 20px;
+}
+
+.hoja-filtros__grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gris-linea);
+}
+.hoja-filtros__grupo--orden {
+  padding-top: 12px;
+}
+
+.hoja-filtros__grupo-titulo {
+  font-family: var(--fuente-titulos);
+  font-weight: var(--peso-bold);
+  font-size: 16px;
+  color: var(--azul-petroleo);
+}
+
+.hoja-filtros__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hoja-filtros__pie {
+  display: flex;
+  gap: 10px;
+  padding: 14px 20px 24px;
+  border-top: 1px solid var(--gris-linea);
+}
+.hoja-filtros__limpiar {
+  flex: 0 0 auto;
+}
+.hoja-filtros__ver {
+  flex: 1;
+  justify-content: center;
+}
