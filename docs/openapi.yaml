@@ -1,0 +1,201 @@
+openapi: 3.1.0
+info:
+  title: PyH+ — API de Contacto y Pagos PSE
+  version: 1.0.0
+  description: >
+    Contrato que necesita el sitio web de PyH+. Explicación en lenguaje claro en docs/api-contrato.md.
+    Montos en pesos colombianos (entero). Fechas ISO 8601. Errores siempre con la forma ErrorRespuesta.
+servers:
+  - url: https://api.alquilerpyh.com
+    description: Ejemplo (configurable con PUBLIC_API_BASE_URL)
+
+paths:
+  /contact-messages:
+    post:
+      summary: Enviar un mensaje del formulario de Contacto
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MensajeContacto' }
+      responses:
+        '201':
+          description: Mensaje recibido
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [id, receivedAt]
+                properties:
+                  id: { type: string }
+                  receivedAt: { type: string, format: date-time }
+        '422': { $ref: '#/components/responses/Error' }
+        '429': { $ref: '#/components/responses/Error' }
+        '503': { $ref: '#/components/responses/Error' }
+
+  /invoices/lookup:
+    get:
+      summary: Buscar una factura para pagarla
+      parameters:
+        - { name: documentType, in: query, required: true, schema: { type: string, enum: [NIT, CC, CE] } }
+        - { name: documentNumber, in: query, required: true, schema: { type: string, pattern: '^\d{5,10}$' } }
+        - { name: invoiceNumber, in: query, required: true, schema: { type: string, pattern: '^FE-\d{1,10}$' } }
+      responses:
+        '200':
+          description: Factura encontrada
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Factura' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+        '422': { $ref: '#/components/responses/Error' }
+        '429': { $ref: '#/components/responses/Error' }
+
+  /payments/pse/banks:
+    get:
+      summary: Lista de bancos PSE (la entrega la pasarela)
+      responses:
+        '200':
+          description: Bancos, los más usados primero
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [code, name]
+                  properties:
+                    code: { type: string }
+                    name: { type: string }
+        '503': { $ref: '#/components/responses/Error' }
+
+  /payments/pse:
+    post:
+      summary: Iniciar un pago PSE
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [invoiceNumber, bankCode, personType, documentType, documentNumber, returnUrl]
+              properties:
+                invoiceNumber: { type: string, pattern: '^FE-\d{1,10}$' }
+                bankCode: { type: string }
+                personType: { type: string, enum: [natural, juridica] }
+                documentType: { type: string, enum: [NIT, CC, CE] }
+                documentNumber: { type: string, pattern: '^\d{5,10}$' }
+                email: { type: string, format: email }
+                returnUrl: { type: string, format: uri }
+      responses:
+        '201':
+          description: Pago creado; ir a redirectUrl (página del banco)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [paymentId, redirectUrl]
+                properties:
+                  paymentId: { type: string }
+                  redirectUrl: { type: string, format: uri }
+        '402': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+        '422': { $ref: '#/components/responses/Error' }
+        '503': { $ref: '#/components/responses/Error' }
+
+  /payments/{paymentId}:
+    get:
+      summary: Estado de un pago (al volver del banco)
+      parameters:
+        - { name: paymentId, in: path, required: true, schema: { type: string } }
+      responses:
+        '200':
+          description: Estado del pago
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ResultadoPago' }
+        '404': { $ref: '#/components/responses/Error' }
+
+components:
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: UUID por envío. Si se repite, se responde lo mismo sin duplicar.
+      schema: { type: string, format: uuid }
+
+  responses:
+    Error:
+      description: Error con la forma única
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorRespuesta' }
+
+  schemas:
+    ErrorRespuesta:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum: [VALIDATION_ERROR, NOT_FOUND, ALREADY_PAID, RATE_LIMITED, PAYMENT_REJECTED, PAYMENT_PENDING, SERVICE_UNAVAILABLE]
+            message: { type: string, description: Texto para la persona, en español }
+            fields:
+              type: object
+              additionalProperties: { type: string }
+
+    MensajeContacto:
+      type: object
+      required: [topic, name, phone, email, message, acceptsDataPolicy, source]
+      properties:
+        topic: { type: string, enum: [cotizacion, soporte, compra, facturacion, otro] }
+        name: { type: string, minLength: 2, maxLength: 80 }
+        company: { type: string, maxLength: 120 }
+        phone: { type: string, pattern: '^3\d{9}$' }
+        email: { type: string, format: email }
+        message: { type: string, minLength: 10, maxLength: 1000 }
+        acceptsDataPolicy: { type: boolean, const: true }
+        source: { type: string, const: web-contacto }
+        utm:
+          type: object
+          properties:
+            utm_source: { type: string }
+            utm_medium: { type: string }
+            utm_campaign: { type: string }
+            utm_term: { type: string }
+            utm_content: { type: string }
+            gclid: { type: string }
+
+    Factura:
+      type: object
+      required: [invoiceNumber, customerName, concept, dueDate, amount, currency, status]
+      properties:
+        invoiceNumber: { type: string }
+        customerName: { type: string }
+        concept: { type: string }
+        dueDate: { type: string, format: date }
+        amount: { type: integer, description: Pesos colombianos }
+        currency: { type: string, const: COP }
+        status: { type: string, enum: [pending, paid, overdue] }
+
+    ResultadoPago:
+      type: object
+      required: [status, invoiceNumber, bankName, amount]
+      properties:
+        status: { type: string, enum: [approved, rejected, pending] }
+        invoiceNumber: { type: string }
+        bankName: { type: string }
+        pseReference: { type: string }
+        amount: { type: integer }
+        paidAt: { type: string, format: date-time }
+        receiptUrl: { type: string, format: uri }
+        rejectionReason: { type: [string, 'null'] }
